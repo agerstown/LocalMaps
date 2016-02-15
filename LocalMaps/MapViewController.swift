@@ -8,24 +8,53 @@
 
 import UIKit
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
 
     @IBOutlet weak var mapSearchBar: UISearchBar!
     @IBOutlet weak var mapView: GMSMapView!
-    @IBOutlet weak var detailsView: UIView!
-    @IBOutlet weak var buttonDetails: UIButton!
     
-    //let locationManager = CLLocationManager()
+    var user: User?
+    var detailsView: UIView?
+    
+    enum mode {
+        case view
+        case edit
+    }
+    
+    var currentMode = mode.view
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //locationManager.delegate = self
-        //locationManager.requestWhenInUseAuthorization()
+        if let name = user?.name {
+            if name != "user1" {
+                let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addSpot")
+                
+                self.navigationItem.rightBarButtonItem = addButton
+            }
+        }
+        mapView.delegate = self
+    }
+    
+    func addSpot() {
+        currentMode = mode.edit
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    var currentMarker: GMSMarker?
+    
+    func mapView(mapView: GMSMapView!, didTapAtCoordinate coordinate: CLLocationCoordinate2D) {
+        if currentMode == mode.edit {
+            currentMarker = GMSMarker(position: coordinate)
+            performSegueWithIdentifier("mapViewToAddSpotSegue", sender: nil)
+            currentMarker?.map = mapView
+            currentMode = mode.view
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let controller = segue.destinationViewController as? AddSpotViewController {
+            controller.marker = currentMarker
+        }
     }
 
+    
 }

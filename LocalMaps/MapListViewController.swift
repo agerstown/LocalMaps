@@ -14,7 +14,7 @@ class MapListViewController: UIViewController {
     
     @IBOutlet weak var searchBarMap: UISearchBar!
     
-    var user: User?// = User(id: "1", name: "user1", password: "blabla")
+    var user: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +30,8 @@ class MapListViewController: UIViewController {
         if let controller = segue.destinationViewController as? MapItemViewController {
             if let map = sender as? Map {
                 controller.title = map.name
-                //controller.descr = map.descr
-                //controller.image = map.image
                 controller.map = map
+                controller.user = user
             }
         }
     }
@@ -43,14 +42,13 @@ class MapListViewController: UIViewController {
 extension MapListViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return user!.mapList.count //10 //array count
+        return user!.mapList.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableViewMaps.dequeueReusableCellWithIdentifier("MapItemCell") as! MapItemCell
-        //var item = array[indexPath.row]
         let map = user!.mapList[indexPath.row]
-        cell.labelMapName.text = map.name //"\(indexPath.row*10) rub"
+        cell.labelMapName.text = map.name
         return cell
     }
 }

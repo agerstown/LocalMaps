@@ -23,7 +23,6 @@ class ProfileViewController: UIViewController {
         mapsTableView.delegate = self
         mapsTableView.dataSource = self
         mapsTableView.tableFooterView = UIView() // убрать разделители пустых ячеек
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,14 +34,6 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDataSource {
     
-//    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return sections[section]
-//    }
-//    
-//    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        return sections.count
-//    }
-//    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return user.mapList.count
     }
