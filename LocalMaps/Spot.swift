@@ -10,15 +10,13 @@ import UIKit
 
 class Spot: NSObject {
 
-    var id: String
     var name: String
     var descr: String
     var pictureList: [UIImage] = []
     var coordinates: [Double]
-    var eventList: [Event] = []
+    //var eventList: [Event] = []
     
-    init(id: String, name: String, descr: String, coordinates: [Double]) {
-        self.id = id
+    init(name: String, descr: String, coordinates: [Double]) {
         self.name = name
         self.descr = descr
         self.coordinates = coordinates

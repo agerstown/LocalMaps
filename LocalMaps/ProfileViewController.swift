@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    let user: User = User(id: "1", name: "user1", password: "blabla")
+    let user: User = User(name: "user1", password: "blabla")
     
     @IBOutlet weak var mapsTableView: UITableView!
     @IBOutlet weak var mapSearchBar: UISearchBar!

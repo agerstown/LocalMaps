@@ -14,7 +14,7 @@ class AddSpotViewController: UIViewController {
     @IBOutlet weak var descriptionTextBix: UITextField!
     @IBOutlet weak var addSpotButton: UIButton!
     
-    //var mapViewController: UIViewController?
+    var mapView: GMSMapView?
     var marker: GMSMarker?
     
     override func viewDidLoad() {
@@ -23,6 +23,7 @@ class AddSpotViewController: UIViewController {
 
     @IBAction func addSpotButtonClick(sender: AnyObject) {
         marker?.title = nameTextBox.text
+        marker?.map = mapView
         navigationController?.popViewControllerAnimated(true)
     }
     

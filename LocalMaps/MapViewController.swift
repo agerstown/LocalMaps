@@ -16,43 +16,31 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var user: User?
     var detailsView: UIView?
     
-    enum mode {
-        case view
-        case edit
-    }
-    
-    var currentMode = mode.view
+    var canEdit = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if let name = user?.name {
             if name != "user1" {
-                let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addSpot")
-                
-                self.navigationItem.rightBarButtonItem = addButton
+                canEdit = true
             }
         }
         mapView.delegate = self
     }
-    
-    func addSpot() {
-        currentMode = mode.edit
-    }
 
     var currentMarker: GMSMarker?
     
-    func mapView(mapView: GMSMapView!, didTapAtCoordinate coordinate: CLLocationCoordinate2D) {
-        if currentMode == mode.edit {
+    func mapView(mapView: GMSMapView!, didLongPressAtCoordinate coordinate: CLLocationCoordinate2D) {
+        if canEdit == true {
             currentMarker = GMSMarker(position: coordinate)
             performSegueWithIdentifier("mapViewToAddSpotSegue", sender: nil)
-            currentMarker?.map = mapView
-            currentMode = mode.view
         }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let controller = segue.destinationViewController as? AddSpotViewController {
             controller.marker = currentMarker
+            controller.mapView = mapView
         }
     }
 

@@ -20,7 +20,7 @@ class MapItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         labelMapDescription.text = map!.descr //descr
-        imageViewMap.image = map!.image // image
+        //imageViewMap.image = map!.image // image
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

@@ -15,18 +15,15 @@ enum mapType {
 
 class Map: NSObject {
 
-    var id: String
     var name: String
     var descr: String
     var type: mapType
     var spotList: [Spot] = []
     var period: String
     var coordinates: [Double]
-    var map: MKMapView = MKMapView()
-    var image: UIImage = UIImage()
+    var images: [UIImage] = [UIImage]()
     
-    init(id: String, name: String, descr: String, type: mapType, period: String, coordinates: [Double]) {
-        self.id = id
+    init(name: String, descr: String, type: mapType, period: String, coordinates: [Double]) {
         self.name = name
         self.descr = descr
         self.type = type
