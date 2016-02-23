@@ -13,6 +13,7 @@ enum mapType {
     case permanent, temporary
 }
 
+@objc(Map)
 class Map: NSObject {
 
     var name: String

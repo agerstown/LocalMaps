@@ -357,7 +357,7 @@
         <!--Add spot-->
         <scene sceneID="gRw-XK-B0J">
             <objects>
-                <viewController id="nOb-Jg-8XY" customClass="AddSpotViewController" customModule="LocalMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nOb-Jg-8XY" customClass="SpotViewController" customModule="LocalMaps" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vyK-ns-PBk"/>
                         <viewControllerLayoutGuide type="bottom" id="cmS-Uc-bC6"/>
@@ -399,7 +399,7 @@
                     <navigationItem key="navigationItem" title="Add spot" id="OOn-2y-Rsp"/>
                     <connections>
                         <outlet property="addSpotButton" destination="APu-re-LOa" id="dMf-o5-bAq"/>
-                        <outlet property="descriptionTextBix" destination="NlQ-hE-nci" id="zKn-vT-cKt"/>
+                        <outlet property="descriptionTextBox" destination="NlQ-hE-nci" id="DWb-Pi-dSr"/>
                         <outlet property="nameTextBox" destination="np3-fd-g66" id="hdY-Oj-XLa"/>
                     </connections>
                 </viewController>

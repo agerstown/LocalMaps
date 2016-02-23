@@ -10,11 +10,13 @@
 		16659247F2DC433389CACEA1 /* Pods_LocalMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 873AD545EB8CF79541CFE9E3 /* Pods_LocalMaps.framework */; };
 		61053EB01C67CEFD0047892B /* MapItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61053EAF1C67CEFD0047892B /* MapItemViewController.swift */; };
 		61053EB21C6BDF740047892B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61053EB11C6BDF740047892B /* MapViewController.swift */; };
-		61053EB41C6BE0B60047892B /* SpotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61053EB31C6BE0B60047892B /* SpotViewController.swift */; };
 		61053EB61C6D085E0047892B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61053EB51C6D085E0047892B /* ProfileViewController.swift */; };
+		610616491C7CE84200895235 /* SpotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610616481C7CE84200895235 /* SpotViewController.swift */; };
 		61BBD7FB1C6D1F7900CBAF02 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BBD7FA1C6D1F7900CBAF02 /* LoginViewController.swift */; };
+		61BDFAC01C78776600E98843 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BDFABF1C78776600E98843 /* Place.swift */; };
 		61CC381A1C67B665001EBA96 /* MapItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC38191C67B665001EBA96 /* MapItemCell.swift */; };
-		61D9EC1C1C709BCF009C311A /* AddSpotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D9EC1B1C709BCF009C311A /* AddSpotViewController.swift */; };
+		61D9EC1F1C7476E4009C311A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61D9EC1D1C7476E4009C311A /* Model.xcdatamodeld */; };
+		61D9EC211C747F1C009C311A /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D9EC201C747F1C009C311A /* CoreDataHelper.swift */; };
 		61F36E501C65171D00E7FA71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F36E4F1C65171D00E7FA71 /* AppDelegate.swift */; };
 		61F36E521C65171D00E7FA71 /* MapListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F36E511C65171D00E7FA71 /* MapListViewController.swift */; };
 		61F36E551C65171D00E7FA71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61F36E531C65171D00E7FA71 /* Main.storyboard */; };
@@ -55,12 +57,14 @@
 		5E0DD7FE34D7066333BAB045 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61053EAF1C67CEFD0047892B /* MapItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapItemViewController.swift; sourceTree = "<group>"; };
 		61053EB11C6BDF740047892B /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		61053EB31C6BE0B60047892B /* SpotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotViewController.swift; sourceTree = "<group>"; };
 		61053EB51C6D085E0047892B /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		610616481C7CE84200895235 /* SpotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotViewController.swift; sourceTree = "<group>"; };
 		61BBD7FA1C6D1F7900CBAF02 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		61BDFABF1C78776600E98843 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		61CC38191C67B665001EBA96 /* MapItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapItemCell.swift; sourceTree = "<group>"; };
 		61D28EBA1C6E760F0088F2F0 /* LocalMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LocalMaps-Bridging-Header.h"; sourceTree = "<group>"; };
-		61D9EC1B1C709BCF009C311A /* AddSpotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSpotViewController.swift; sourceTree = "<group>"; };
+		61D9EC1E1C7476E4009C311A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		61D9EC201C747F1C009C311A /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		61F36E4C1C65171D00E7FA71 /* LocalMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61F36E4F1C65171D00E7FA71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61F36E511C65171D00E7FA71 /* MapListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapListViewController.swift; sourceTree = "<group>"; };
@@ -128,10 +132,9 @@
 				61F36E861C67970900E7FA71 /* WelcomeViewController.swift */,
 				61053EAF1C67CEFD0047892B /* MapItemViewController.swift */,
 				61053EB11C6BDF740047892B /* MapViewController.swift */,
-				61053EB31C6BE0B60047892B /* SpotViewController.swift */,
 				61053EB51C6D085E0047892B /* ProfileViewController.swift */,
 				61BBD7FA1C6D1F7900CBAF02 /* LoginViewController.swift */,
-				61D9EC1B1C709BCF009C311A /* AddSpotViewController.swift */,
+				610616481C7CE84200895235 /* SpotViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -171,6 +174,8 @@
 				61F36E581C65171D00E7FA71 /* LaunchScreen.storyboard */,
 				61F36E5B1C65171D00E7FA71 /* Info.plist */,
 				61D28EBA1C6E760F0088F2F0 /* LocalMaps-Bridging-Header.h */,
+				61D9EC1D1C7476E4009C311A /* Model.xcdatamodeld */,
+				61D9EC201C747F1C009C311A /* CoreDataHelper.swift */,
 			);
 			path = LocalMaps;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 				61F36E801C6547C800E7FA71 /* Map.swift */,
 				61F36E821C6547D200E7FA71 /* Spot.swift */,
 				61F36E841C6547DF00E7FA71 /* Event.swift */,
+				61BDFABF1C78776600E98843 /* Place.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -396,15 +402,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61053EB41C6BE0B60047892B /* SpotViewController.swift in Sources */,
+				61BDFAC01C78776600E98843 /* Place.swift in Sources */,
 				61FDFA251C6E841C006C91FB /* GoogleDataProvider.swift in Sources */,
 				61FDFA261C6E841C006C91FB /* GooglePlace.swift in Sources */,
 				61F36E521C65171D00E7FA71 /* MapListViewController.swift in Sources */,
-				61D9EC1C1C709BCF009C311A /* AddSpotViewController.swift in Sources */,
 				61F36E501C65171D00E7FA71 /* AppDelegate.swift in Sources */,
+				61D9EC211C747F1C009C311A /* CoreDataHelper.swift in Sources */,
 				61F36E831C6547D200E7FA71 /* Spot.swift in Sources */,
 				61053EB21C6BDF740047892B /* MapViewController.swift in Sources */,
+				61D9EC1F1C7476E4009C311A /* Model.xcdatamodeld in Sources */,
 				61F36E811C6547C800E7FA71 /* Map.swift in Sources */,
+				610616491C7CE84200895235 /* SpotViewController.swift in Sources */,
 				61053EB61C6D085E0047892B /* ProfileViewController.swift in Sources */,
 				61F36E851C6547DF00E7FA71 /* Event.swift in Sources */,
 				61F36E7F1C6547BA00E7FA71 /* User.swift in Sources */,
@@ -672,6 +680,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		61D9EC1D1C7476E4009C311A /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				61D9EC1E1C7476E4009C311A /* Model.xcdatamodel */,
+			);
+			currentVersion = 61D9EC1E1C7476E4009C311A /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 61F36E441C65171D00E7FA71 /* Project object */;
 }

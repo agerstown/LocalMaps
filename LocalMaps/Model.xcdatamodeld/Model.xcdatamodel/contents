@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
+    <entity name="Map" syncable="YES">
+        <attribute name="descr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="creator" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="mapList" inverseEntity="User" syncable="YES"/>
+        <relationship name="spots" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Spot" inverseName="map" inverseEntity="Spot" syncable="YES"/>
+    </entity>
+    <entity name="Spot" syncable="YES">
+        <attribute name="descr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="map" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Map" inverseName="spots" inverseEntity="Map" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="mapList" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Map" inverseName="creator" inverseEntity="Map" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="User" positionX="-218" positionY="-54" width="128" height="88"/>
+        <element name="Map" positionX="-54" positionY="9" width="128" height="105"/>
+        <element name="Spot" positionX="-29" positionY="189" width="128" height="90"/>
+    </elements>
+</model>

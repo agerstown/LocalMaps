@@ -8,17 +8,18 @@
 
 import UIKit
 
+@objc(Spot)
 class Spot: NSObject {
 
     var name: String
     var descr: String
     var pictureList: [UIImage] = []
-    var coordinates: [Double]
+    var coordinate: CLLocationCoordinate2D
     //var eventList: [Event] = []
     
-    init(name: String, descr: String, coordinates: [Double]) {
+    init(name: String, descr: String, coordinate: CLLocationCoordinate2D) {
         self.name = name
         self.descr = descr
-        self.coordinates = coordinates
+        self.coordinate = coordinate
     }
 }

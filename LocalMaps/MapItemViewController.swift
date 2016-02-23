@@ -15,7 +15,6 @@ class MapItemViewController: UIViewController {
     @IBOutlet weak var buttonMap: UIBarButtonItem!
     
     var map: Map?
-    var user: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +26,7 @@ class MapItemViewController: UIViewController {
         //куда мы направляемся
         if let controller = segue.destinationViewController as? MapViewController {
             controller.title = map!.name
-            controller.user = user
+            controller.map = map
         }
     }
 

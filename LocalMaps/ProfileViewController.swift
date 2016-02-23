@@ -40,9 +40,8 @@ extension ProfileViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = mapsTableView.dequeueReusableCellWithIdentifier("MapItemCell") as! MapItemCell
-        //var item = array[indexPath.row]
         let map = user.mapList[indexPath.row]
-        cell.labelMapName.text = map.name //"\(indexPath.row*10) rub"
+        cell.labelMapName.text = map.name 
         return cell
     }
 }

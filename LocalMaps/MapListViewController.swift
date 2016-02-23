@@ -14,7 +14,7 @@ class MapListViewController: UIViewController {
     
     @IBOutlet weak var searchBarMap: UISearchBar!
     
-    var user: User?
+    //var user: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,24 +31,38 @@ class MapListViewController: UIViewController {
             if let map = sender as? Map {
                 controller.title = map.name
                 controller.map = map
-                controller.user = user
+                //controller.user = user
             }
         }
     }
 
 }
 
+let sections = ["Permanent", "Temporary"]
 
 extension MapListViewController: UITableViewDataSource {
     
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section]
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return user!.mapList.count
+        if section == 0 {
+            return User.currentUser!.permanentMapsList.count //user!.permanentMapsList.count
+        } else {
+            return User.currentUser!.temporaryMapsList.count //user!.temporaryMapsList.count
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableViewMaps.dequeueReusableCellWithIdentifier("MapItemCell") as! MapItemCell
-        let map = user!.mapList[indexPath.row]
-        cell.labelMapName.text = map.name
+        let maps = User.currentUser!.permanentMapsList + User.currentUser!.temporaryMapsList //user!.permanentMapsList + user!.temporaryMapsList
+        //let map = user!.mapList[indexPath.row]
+        cell.labelMapName.text = maps[indexPath.row].name //map.name
         return cell
     }
 }
@@ -58,7 +72,7 @@ extension MapListViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let map = user!.mapList[indexPath.row]
+        let map = User.currentUser!.mapList[indexPath.row] //user!.mapList[indexPath.row]
         
         //переход на другой экран по segue
         self.performSegueWithIdentifier("mapListToMapItem", sender: map) //nil)
