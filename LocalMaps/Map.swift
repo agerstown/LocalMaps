@@ -20,15 +20,13 @@ class Map: NSObject {
     var descr: String
     var type: mapType
     var spotList: [Spot] = []
-    var period: String
-    var coordinates: [Double]
+    var period: String?
+    var coordinate: CLLocationCoordinate2D?
     var images: [UIImage] = [UIImage]()
     
-    init(name: String, descr: String, type: mapType, period: String, coordinates: [Double]) {
+    init(name: String, descr: String, type: mapType) {
         self.name = name
         self.descr = descr
         self.type = type
-        self.period = period
-        self.coordinates = coordinates
     }
 }

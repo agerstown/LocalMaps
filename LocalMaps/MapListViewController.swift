@@ -11,16 +11,27 @@ import UIKit
 class MapListViewController: UIViewController {
 
     @IBOutlet var tableViewMaps: UITableView!
-    
     @IBOutlet weak var searchBarMap: UISearchBar!
     
-    //var user: User?
+    var shouldAddAddButton: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableViewMaps.delegate = self
         tableViewMaps.dataSource = self
         tableViewMaps.tableFooterView = UIView() // убрать разделители пустых ячеек
+        
+        if shouldAddAddButton == true {
+            let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addMapButtonClicked:")
+            self.navigationItem.rightBarButtonItem = addButton
+        }
+        
+        //self.tableViewMaps.reloadData()
+    }
+    
+    func addMapButtonClicked(sender: UIBarButtonItem) {
+        self.performSegueWithIdentifier("mapsListToAddMapSegue", sender: sender)
     }
     
     //MARK: Data send
@@ -31,7 +42,6 @@ class MapListViewController: UIViewController {
             if let map = sender as? Map {
                 controller.title = map.name
                 controller.map = map
-                //controller.user = user
             }
         }
     }
@@ -59,10 +69,14 @@ extension MapListViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = tableViewMaps.dequeueReusableCellWithIdentifier("MapItemCell") as! MapItemCell
-        let maps = User.currentUser!.permanentMapsList + User.currentUser!.temporaryMapsList //user!.permanentMapsList + user!.temporaryMapsList
-        //let map = user!.mapList[indexPath.row]
-        cell.labelMapName.text = maps[indexPath.row].name //map.name
+        
+        if indexPath.section == 0 {
+            cell.labelMapName.text = User.currentUser?.permanentMapsList[indexPath.row].name //map.name
+        } else {
+            cell.labelMapName.text = User.currentUser?.temporaryMapsList[indexPath.row].name
+        }
         return cell
     }
 }
@@ -72,7 +86,12 @@ extension MapListViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let map = User.currentUser!.mapList[indexPath.row] //user!.mapList[indexPath.row]
+        var map: Map?
+        if indexPath.section == 0 {
+            map = User.currentUser?.permanentMapsList[indexPath.row]
+        } else {
+            map = User.currentUser?.temporaryMapsList[indexPath.row]
+        }
         
         //переход на другой экран по segue
         self.performSegueWithIdentifier("mapListToMapItem", sender: map) //nil)

@@ -18,6 +18,8 @@ class MapItemViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = map!.name
+        print(map!.name)
         labelMapDescription.text = map!.descr //descr
         //imageViewMap.image = map!.image // image
     }
