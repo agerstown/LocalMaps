@@ -67,6 +67,9 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
                 marker?.draggable = true
             }
             
+            // map?.coordinate = mapView?.camera.target //marker?.position
+            // map?.zoom = mapView?.camera.zoom
+            
             marker?.title = nameTextBox.text
             marker?.snippet = descriptionTextBox.text
             

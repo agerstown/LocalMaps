@@ -26,8 +26,6 @@ class MapListViewController: UIViewController {
             let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addMapButtonClicked:")
             self.navigationItem.rightBarButtonItem = addButton
         }
-        
-        //self.tableViewMaps.reloadData()
     }
     
     func addMapButtonClicked(sender: UIBarButtonItem) {
@@ -62,9 +60,9 @@ extension MapListViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return User.currentUser!.permanentMapsList.count //user!.permanentMapsList.count
+            return User.currentUser!.permanentMapsList.count
         } else {
-            return User.currentUser!.temporaryMapsList.count //user!.temporaryMapsList.count
+            return User.currentUser!.temporaryMapsList.count
         }
     }
     

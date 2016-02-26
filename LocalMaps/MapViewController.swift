@@ -60,8 +60,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             }
         }
         
-        mapView.delegate = self
         addMarkers()
+        locateMap()
+        
+        mapView.delegate = self
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         
@@ -74,6 +76,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
 
     func createMapButtonClicked(sender: UIBarButtonItem) {
         // сохранить все
+        map?.coordinate = mapView?.camera.target //marker?.position
+        map?.zoom = mapView?.camera.zoom
+        
         User.currentUser?.mapList.append(map!)
         if map?.type == mapType.permanent {
             User.currentUser?.permanentMapsList.append(map!)
@@ -92,6 +97,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                 marker?.map = mapView
                 marker?.draggable = true
                 markerToSpotDictionary[marker] = spot
+            }
+        }
+    }
+    
+    func locateMap() {
+        if let coordinate = map?.coordinate {
+            if let zoom = map?.zoom {
+                let position = GMSCameraPosition(target: coordinate, zoom: zoom, bearing: mapView.camera.bearing, viewingAngle: mapView.camera.viewingAngle)
+                mapView.camera = position
             }
         }
     }

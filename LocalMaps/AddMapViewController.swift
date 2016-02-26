@@ -35,10 +35,6 @@ class AddMapViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view.endEditing(true)
-    }
     
     @IBAction func placeTextFieldEditingDidBegin(sender: AnyObject) {
         
@@ -58,13 +54,6 @@ class AddMapViewController: UIViewController {
             let name = nameTextBox.text!
             let descr = descriptionTextBox.text!
             mapToPass = Map(name: name, descr: descr, type: type)
-            
-//            User.currentUser?.mapList.append(map)
-//            if type == mapType.permanent {
-//                User.currentUser?.permanentMapsList.append(map)
-//            } else {
-//                User.currentUser?.temporaryMapsList.append(map)
-//            }
         }
     }
     

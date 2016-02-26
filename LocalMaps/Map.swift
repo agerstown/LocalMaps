@@ -22,6 +22,7 @@ class Map: NSObject {
     var spotList: [Spot] = []
     var period: String?
     var coordinate: CLLocationCoordinate2D?
+    var zoom: Float?
     var images: [UIImage] = [UIImage]()
     
     init(name: String, descr: String, type: mapType) {
