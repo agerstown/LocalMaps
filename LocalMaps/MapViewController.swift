@@ -55,7 +55,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             currentMode = userMode.create
         } else if let name = User.currentUser?.name {
             if name != "user1" {
-                //canEdit = true
                 currentMode = userMode.edit
             }
         }
@@ -69,15 +68,20 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         
         if shouldAddCreateButton == true {
             let createButton = UIBarButtonItem(title: "Create", style: UIBarButtonItemStyle.Plain, target: self, action: "createMapButtonClicked:")
-            //(barButtonSystemItem: UIBarButtonSystemItem, target: self, action: "createMapButtonClicked:")
             self.navigationItem.rightBarButtonItem = createButton
         }
     }
-
+    
     func createMapButtonClicked(sender: UIBarButtonItem) {
-        // сохранить все
-        map?.coordinate = mapView?.camera.target //marker?.position
+        map?.coordinate = mapView?.camera.target
         map?.zoom = mapView?.camera.zoom
+//        let x1 = Double(mapView.bounds.origin.x)
+//        let y1 = Double(mapView.bounds.origin.y)
+//        let x2 = x1 + Double(mapView.bounds.width)
+//        let y2 = y1 + Double(mapView.bounds.height)
+//        
+//        map?.northEastCoordinate = CLLocationCoordinate2D(latitude: x1, longitude: y1)
+//        map?.southWestCoordinate = CLLocationCoordinate2D(latitude: x2, longitude: y2)
         
         User.currentUser?.mapList.append(map!)
         if map?.type == mapType.permanent {
@@ -103,17 +107,20 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     func locateMap() {
         if let coordinate = map?.coordinate {
+            var position: GMSCameraPosition?
             if let zoom = map?.zoom {
-                let position = GMSCameraPosition(target: coordinate, zoom: zoom, bearing: mapView.camera.bearing, viewingAngle: mapView.camera.viewingAngle)
-                mapView.camera = position
+                position = GMSCameraPosition(target: coordinate, zoom: zoom, bearing: mapView.camera.bearing, viewingAngle: mapView.camera.viewingAngle)
+            } else {
+                position = GMSCameraPosition(target: coordinate, zoom: 15, bearing: mapView.camera.bearing, viewingAngle: mapView.camera.viewingAngle)
             }
+            mapView.camera = position
+//                let xCoord = CGFloat(northEast.longitude)
+//                let yCoord = CGFloat(northEast.latitude)
+//                let width = CGFloat(southWest.longitude) - xCoord
+//                let height = CGFloat(southWest.latitude) - yCoord
+//                mapView.bounds = CGRectMake(xCoord, yCoord, width, height)
+            //}
         }
-    }
-    
-    func goToMapsList(sender: UIBarButtonItem) {
-        //performSegueWithIdentifier("mapToMapsListSegue", sender: sender)
-        navigationController?.popViewControllerAnimated(false)
-        navigationController?.popViewControllerAnimated(false)
     }
     
     func mapView(mapView: GMSMapView!, didLongPressAtCoordinate coordinate: CLLocationCoordinate2D) {

@@ -134,13 +134,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="OCd-Dd-7Sg">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MapItemCell" rowHeight="72" id="oG1-g0-dbf" customClass="MapItemCell" customModule="LocalMaps" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="600" height="72"/>
+                                <rect key="frame" x="0.0" y="136" width="600" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oG1-g0-dbf" id="bGx-4d-1Y4">
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="71"/>
@@ -162,6 +162,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Maps" id="M7h-r9-AKS"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableViewMaps" destination="mty-k1-ifa" id="1rs-Xk-c32"/>
@@ -185,43 +186,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wyk-6h-2oB">
-                                <rect key="frame" x="44" y="60" width="512" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pgr-EG-ztl">
-                                <rect key="frame" x="0.0" y="0.0" width="25" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dBE-td-ocK">
-                                <rect key="frame" x="44" y="98" width="512" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Place" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Go7-95-wan">
-                                <rect key="frame" x="44" y="136" width="512" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="placeTextFieldEditingDidBegin:" destination="Q3g-kj-p0J" eventType="editingDidBegin" id="Znn-j7-VKe"/>
-                                </connections>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d8f-YG-dya">
-                                <rect key="frame" x="265" y="270" width="70" height="30"/>
+                                <rect key="frame" x="265" y="306" width="70" height="30"/>
                                 <state key="normal" title="Add spots"/>
                                 <connections>
                                     <action selector="addSpotsButtonClicked:" destination="Q3g-kj-p0J" eventType="touchUpInside" id="59d-dU-sOz"/>
                                     <segue destination="jDf-Ys-xXP" kind="show" identifier="" id="I5A-mo-lBt"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dBE-td-ocK">
+                                <rect key="frame" x="44" y="126" width="512" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Place" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nMT-ga-SrF">
+                                <rect key="frame" x="44" y="164" width="512" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="placeTextFieldEditingDidBegin:" destination="Q3g-kj-p0J" eventType="editingDidBegin" id="6yU-fm-zxR"/>
+                                </connections>
+                            </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OGe-g3-WZX">
-                                <rect key="frame" x="44" y="174" width="512" height="80"/>
+                                <rect key="frame" x="44" y="210" width="512" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="iL2-fB-bIb"/>
                                 </constraints>
                             </pickerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Os-u5-Pab" userLabel="Search Bar holder">
+                                <rect key="frame" x="0.0" y="64" width="600" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="tde-Ax-cj0"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wyk-6h-2oB">
+                                <rect key="frame" x="44" y="88" width="512" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -229,19 +232,28 @@
                             <constraint firstItem="dBE-td-ocK" firstAttribute="leading" secondItem="xxp-Me-9f0" secondAttribute="leadingMargin" constant="24" id="1eu-Zi-aIs"/>
                             <constraint firstItem="Wyk-6h-2oB" firstAttribute="centerX" secondItem="xxp-Me-9f0" secondAttribute="centerX" id="4yF-PR-DR2"/>
                             <constraint firstItem="d8f-YG-dya" firstAttribute="top" secondItem="OGe-g3-WZX" secondAttribute="bottom" constant="16" id="6l3-5r-Cwp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nMT-ga-SrF" secondAttribute="trailing" constant="24" id="7L1-Wh-9RP"/>
+                            <constraint firstItem="dBE-td-ocK" firstAttribute="top" secondItem="Wyk-6h-2oB" secondAttribute="bottom" constant="8" id="Bj4-PV-yPv"/>
+                            <constraint firstItem="OGe-g3-WZX" firstAttribute="top" secondItem="nMT-ga-SrF" secondAttribute="bottom" constant="16" id="EYp-OK-cEt"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dBE-td-ocK" secondAttribute="trailing" constant="24" id="EaQ-pu-Nem"/>
+                            <constraint firstItem="nMT-ga-SrF" firstAttribute="leading" secondItem="xxp-Me-9f0" secondAttribute="leadingMargin" constant="24" id="FP7-7m-YfR"/>
                             <constraint firstItem="OGe-g3-WZX" firstAttribute="leading" secondItem="xxp-Me-9f0" secondAttribute="leadingMargin" constant="24" id="NAF-PZ-03S"/>
-                            <constraint firstItem="dBE-td-ocK" firstAttribute="top" secondItem="Wyk-6h-2oB" secondAttribute="bottom" constant="8" id="NIs-om-j8T"/>
                             <constraint firstItem="Wyk-6h-2oB" firstAttribute="leading" secondItem="xxp-Me-9f0" secondAttribute="leadingMargin" constant="24" id="SoO-8e-w0M"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Go7-95-wan" secondAttribute="trailing" constant="24" id="XBh-du-MSa"/>
-                            <constraint firstItem="Go7-95-wan" firstAttribute="leading" secondItem="xxp-Me-9f0" secondAttribute="leadingMargin" constant="24" id="ZhH-2h-Nt5"/>
-                            <constraint firstItem="OGe-g3-WZX" firstAttribute="top" secondItem="Go7-95-wan" secondAttribute="bottom" constant="8" id="a4a-km-Zbh"/>
+                            <constraint firstItem="Wyk-6h-2oB" firstAttribute="top" secondItem="9Os-u5-Pab" secondAttribute="bottom" constant="24" id="Z6m-SF-JxD"/>
                             <constraint firstItem="d8f-YG-dya" firstAttribute="centerX" secondItem="xxp-Me-9f0" secondAttribute="centerX" id="chM-xd-W9q"/>
+                            <constraint firstItem="9Os-u5-Pab" firstAttribute="leading" secondItem="xxp-Me-9f0" secondAttribute="leading" id="fWf-aT-MCY"/>
+                            <constraint firstItem="nMT-ga-SrF" firstAttribute="top" secondItem="dBE-td-ocK" secondAttribute="bottom" constant="8" id="fop-ZN-8R0"/>
+                            <constraint firstAttribute="trailing" secondItem="9Os-u5-Pab" secondAttribute="trailing" id="hX9-WO-uFo"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Wyk-6h-2oB" secondAttribute="trailing" constant="24" id="kHm-Xt-Eoj"/>
-                            <constraint firstItem="Go7-95-wan" firstAttribute="top" secondItem="dBE-td-ocK" secondAttribute="bottom" constant="8" id="lRW-g2-eWs"/>
+                            <constraint firstItem="Wyk-6h-2oB" firstAttribute="top" secondItem="TWZ-Gg-riB" secondAttribute="bottom" constant="24" id="m8p-XO-0se"/>
                             <constraint firstAttribute="trailingMargin" secondItem="OGe-g3-WZX" secondAttribute="trailing" constant="24" id="rzk-XO-mhS"/>
-                            <constraint firstItem="Wyk-6h-2oB" firstAttribute="top" secondItem="TWZ-Gg-riB" secondAttribute="bottom" constant="40" id="zhI-J7-GFV"/>
+                            <constraint firstItem="9Os-u5-Pab" firstAttribute="top" secondItem="TWZ-Gg-riB" secondAttribute="bottom" id="xUs-fn-VmB"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="m8p-XO-0se"/>
+                            </mask>
+                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="c1Q-Eg-YQn" appends="YES" id="nMt-am-CvW"/>
                         </connections>
@@ -252,12 +264,24 @@
                         <outlet property="descriptionTextBox" destination="dBE-td-ocK" id="MtY-79-huV"/>
                         <outlet property="mapTypePicker" destination="OGe-g3-WZX" id="YV5-Ga-qtB"/>
                         <outlet property="nameTextBox" destination="Wyk-6h-2oB" id="B7c-0u-jKU"/>
-                        <outlet property="placeTextField" destination="Go7-95-wan" id="f44-v3-uhg"/>
+                        <outlet property="placeTextField" destination="nMT-ga-SrF" id="vnX-km-8wN"/>
+                        <outlet property="searchBarConstraint" destination="tde-Ax-cj0" id="ufy-t5-Ohi"/>
+                        <outlet property="searchBarHolderView" destination="9Os-u5-Pab" id="GET-rf-J88"/>
+                        <outlet property="searchDisplayController" destination="rqw-HN-dMk" id="muM-8h-BXM"/>
                         <outlet property="tapGestureRecogniser" destination="c1Q-Eg-YQn" id="5Lf-is-hx4"/>
+                        <segue destination="e1m-8K-DM1" kind="show" identifier="addMapToPlacePickerViewControllerSegue" id="iYy-5D-J0D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NVW-yn-ltf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="c1Q-Eg-YQn"/>
+                <searchDisplayController id="rqw-HN-dMk">
+                    <connections>
+                        <outlet property="delegate" destination="Q3g-kj-p0J" id="fOR-Wu-Wf9"/>
+                        <outlet property="searchContentsController" destination="Q3g-kj-p0J" id="IrH-Cz-SxH"/>
+                        <outlet property="searchResultsDataSource" destination="Q3g-kj-p0J" id="etD-kO-PCw"/>
+                        <outlet property="searchResultsDelegate" destination="Q3g-kj-p0J" id="MA6-jr-Ifs"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="2181" y="1078"/>
         </scene>
@@ -318,14 +342,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W85-7y-TjK">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W85-7y-TjK">
                                 <rect key="frame" x="24" y="88" width="552" height="300"/>
                                 <color key="backgroundColor" red="0.52145369764397898" green="0.52145369764397898" blue="0.52145369764397898" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="3Us-nT-4Ed"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EX-S4-2Ib">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EX-S4-2Ib">
                                 <rect key="frame" x="279" y="420" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -358,7 +382,7 @@
             </objects>
             <point key="canvasLocation" x="2181" y="321"/>
         </scene>
-        <!--Map-->
+        <!--Title-->
         <scene sceneID="gBz-fb-1DL">
             <objects>
                 <viewController id="jDf-Ys-xXP" customClass="MapViewController" customModule="LocalMaps" customModuleProvider="target" sceneMemberID="viewController">
@@ -370,11 +394,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eHk-Ua-dPn">
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="eHk-Ua-dPn">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YKk-IF-uL1" customClass="GMSMapView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YKk-IF-uL1" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -391,7 +415,9 @@
                             <constraint firstItem="YKk-IF-uL1" firstAttribute="leading" secondItem="qq9-gX-BCC" secondAttribute="leading" id="r5O-7y-zZy"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Map" id="TxY-6d-LzY"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="WMT-2v-y6z"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapSearchBar" destination="eHk-Ua-dPn" id="YZM-yE-kye"/>
                         <outlet property="mapView" destination="YKk-IF-uL1" id="KlW-gO-tPO"/>
@@ -402,6 +428,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Zm-oT-xG7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2896" y="321"/>
+        </scene>
+        <!--Place-->
+        <scene sceneID="kNr-So-siI">
+            <objects>
+                <viewController id="e1m-8K-DM1" customClass="PlacePickerViewController" customModule="LocalMaps" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="69v-K9-QQf"/>
+                        <viewControllerLayoutGuide type="bottom" id="txY-25-G0g"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pDa-OD-3yk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Place" id="9vF-Gg-m2p"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="aXj-c7-9Vp" id="pXW-Vs-BTg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EeX-d2-esq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="aXj-c7-9Vp">
+                    <connections>
+                        <outlet property="delegate" destination="e1m-8K-DM1" id="afU-EI-fgr"/>
+                        <outlet property="searchContentsController" destination="e1m-8K-DM1" id="cwh-BB-beP"/>
+                        <outlet property="searchResultsDataSource" destination="e1m-8K-DM1" id="JyS-OI-SfT"/>
+                        <outlet property="searchResultsDelegate" destination="e1m-8K-DM1" id="tP7-Bb-yoC"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="2985" y="1078"/>
         </scene>
         <!--Add spot-->
         <scene sceneID="gRw-XK-B0J">
@@ -415,17 +471,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NlQ-hE-nci">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NlQ-hE-nci">
                                 <rect key="frame" x="44" y="150" width="512" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="np3-fd-g66">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="np3-fd-g66">
                                 <rect key="frame" x="44" y="104" width="512" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APu-re-LOa">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APu-re-LOa">
                                 <rect key="frame" x="285" y="212" width="30" height="30"/>
                                 <state key="normal" title="Add"/>
                                 <connections>
