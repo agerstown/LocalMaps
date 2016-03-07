@@ -83,7 +83,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
 //        map?.northEastCoordinate = CLLocationCoordinate2D(latitude: x1, longitude: y1)
 //        map?.southWestCoordinate = CLLocationCoordinate2D(latitude: x2, longitude: y2)
         
-        User.currentUser?.mapList.append(map!)
+        //User.currentUser?.mapList.append(map!)
         if map?.type == mapType.permanent {
             User.currentUser?.permanentMapsList.append(map!)
         } else {

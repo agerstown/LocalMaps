@@ -17,7 +17,7 @@ class User: NSManagedObject { //NSObject {
     @NSManaged var password: String
     var permanentMapsList: [Map] = []
     var temporaryMapsList: [Map] = []
-    var mapList: [Map] = []
+    //var mapList: [Map] = []
     
     static var currentUser: User?
     
@@ -32,9 +32,9 @@ class User: NSManagedObject { //NSObject {
         let map1 = Map(name: "map1_" + name, descr: "first map", type: mapType.permanent)
         let map2 = Map(name: "map2_" + name, descr: "second map", type: mapType.temporary)
         //map1.coordinate = CLLocationCoordinate2D(latitude: 55.7283648, longitude: 37.6012908)
-        mapList.append(map1)
+        //mapList.append(map1)
         permanentMapsList.append(map1)
-        mapList.append(map2)
+        //mapList.append(map2)
         temporaryMapsList.append(map2)
     }
     
