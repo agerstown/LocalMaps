@@ -20,5 +20,6 @@ class Event: NSObject {
         self.id = id
         self.name = name
         self.descr = descr
+        super.init()
     }
 }

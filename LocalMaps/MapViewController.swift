@@ -32,23 +32,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     var shouldAddCreateButton: Bool?
     
-//    let dataProvider = GoogleDataProvider()
-//    let searchRadius: Double = 10000
-//    
-//    func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D) {
-//        // 1
-//        mapView.clear()
-//        //
-//        dataProvider.fetchPlacesNearCoordinate(coordinate, radius: searchRadius, types: searchedTypes) { places in
-//            for place: GooglePlace in places {
-//                // 3
-//                let marker = PlaceMarker(place: place)
-//                // 4
-//                marker.map = self.mapView
-//            }
-//        }
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if mode == "create" {
@@ -73,22 +56,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func createMapButtonClicked(sender: UIBarButtonItem) {
-        map?.coordinate = mapView?.camera.target
-        map?.zoom = mapView?.camera.zoom
-//        let x1 = Double(mapView.bounds.origin.x)
-//        let y1 = Double(mapView.bounds.origin.y)
-//        let x2 = x1 + Double(mapView.bounds.width)
-//        let y2 = y1 + Double(mapView.bounds.height)
-//        
-//        map?.northEastCoordinate = CLLocationCoordinate2D(latitude: x1, longitude: y1)
-//        map?.southWestCoordinate = CLLocationCoordinate2D(latitude: x2, longitude: y2)
+        map?.coordinate = (mapView?.camera.target)!
+        map?.zoom = (mapView?.camera.zoom)!
         
-        //User.currentUser?.mapList.append(map!)
-        if map?.type == mapType.permanent {
-            User.currentUser?.permanentMapsList.append(map!)
+        if let map = map as? EventMap {
+            User.currentUser?.temporaryMapsList.append(map)
         } else {
-            User.currentUser?.temporaryMapsList.append(map!)
+            User.currentUser?.permanentMapsList.append(map!)
         }
+        
         performSegueWithIdentifier("mapToAllMapsSegue", sender: sender)
     }
     
@@ -114,12 +90,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                 position = GMSCameraPosition(target: coordinate, zoom: 15, bearing: mapView.camera.bearing, viewingAngle: mapView.camera.viewingAngle)
             }
             mapView.camera = position
-//                let xCoord = CGFloat(northEast.longitude)
-//                let yCoord = CGFloat(northEast.latitude)
-//                let width = CGFloat(southWest.longitude) - xCoord
-//                let height = CGFloat(southWest.latitude) - yCoord
-//                mapView.bounds = CGRectMake(xCoord, yCoord, width, height)
-            //}
         }
     }
     
@@ -154,7 +124,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                 controller.descr = marker.snippet
             }
         } else if let controller = segue.destinationViewController as? MapListViewController {
-            //controller.tableViewMaps.reloadData()
             controller.shouldAddAddButton = true
         }
     }
@@ -171,15 +140,5 @@ extension MapViewController: CLLocationManagerDelegate {
             mapView.settings.myLocationButton = true
         }
     }
-    
-//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        if let location = locations.first {
-//            fetchNearbyPlaces(location.coordinate)
-//            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
-//            locationManager.stopUpdatingLocation()
-//        }
-//        
-//    }
-    
     
 }

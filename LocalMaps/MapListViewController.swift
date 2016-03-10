@@ -71,9 +71,9 @@ extension MapListViewController: UITableViewDataSource {
         let cell = tableViewMaps.dequeueReusableCellWithIdentifier("MapItemCell") as! MapItemCell
         
         if indexPath.section == 0 {
-            cell.labelMapName.text = User.currentUser?.permanentMapsList[indexPath.row].name //map.name
+            cell.labelMapName.text = User.currentUser?.permanentMapsList[indexPath.row].valueForKey("name") as? String //.name //map.name
         } else {
-            cell.labelMapName.text = User.currentUser?.temporaryMapsList[indexPath.row].name
+            cell.labelMapName.text = User.currentUser?.temporaryMapsList[indexPath.row].valueForKey("name") as? String //.name
         }
         return cell
     }
@@ -110,7 +110,7 @@ extension MapListViewController: UITableViewDelegate {
         }
         
         //переход на другой экран по segue
-        self.performSegueWithIdentifier("mapListToMapItem", sender: map) //nil)
+        self.performSegueWithIdentifier("mapListToMapItem", sender: map)
         
         //убрать выделение ячейки
         tableViewMaps.deselectRowAtIndexPath(indexPath, animated: true)

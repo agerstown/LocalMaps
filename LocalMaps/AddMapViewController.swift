@@ -53,7 +53,7 @@ class AddMapViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    var type = mapType.permanent
+    var type = "permanent"
     
     
     @IBAction func placeTextFieldEditingDidBegin(sender: AnyObject) {
@@ -85,19 +85,20 @@ class AddMapViewController: UIViewController {
     @IBAction func addSpotsButtonClicked(sender: AnyObject) {
         if nameTextBox.text?.isEmpty == true {
             let emptyNameFieldAlertController = UIAlertController(title: "Empty name field", message: "Please enter a name of the map", preferredStyle: UIAlertControllerStyle.Alert)
-            self.presentViewController(emptyNameFieldAlertController, animated: true, completion: nil)
-            
-            let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in }
+            let OKAction = UIAlertAction(title: "OK", style: .Cancel) { (action) in }
             emptyNameFieldAlertController.addAction(OKAction)
+            self.presentViewController(emptyNameFieldAlertController, animated: true, completion: nil)
             
         } else {
             let name = nameTextBox.text!
             let descr = descriptionTextBox.text!
-            mapToPass = Map(name: name, descr: descr, type: type)
-//            mapToPass?.northEastCoordinate = selectedPlace?.viewport.northEast
-//            mapToPass?.southWestCoordinate = selectedPlace?.viewport.southWest
+            if (type == "permanent") {
+                mapToPass = Map(name: name, descr: descr)
+            } else {
+                mapToPass = EventMap(name: name, descr: descr)
+            }
+
             mapToPass?.coordinate = selectedPlace?.coordinate
-           // mapToPass?.zoom
         }
     }
     
@@ -128,9 +129,9 @@ extension AddMapViewController: UIPickerViewDelegate {
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerData[row] == "Permanent" {
-            type = mapType.permanent
+            type = "permanent"
         } else {
-            type = mapType.temporary
+            type = "temporary"
         }
     }
 }
@@ -164,7 +165,6 @@ extension AddMapViewController: GMSAutocompleteResultsViewControllerDelegate {
     
     func resultsController(resultsController: GMSAutocompleteResultsViewController,
         didFailAutocompleteWithError error: NSError){
-            // TODO: handle the error.
             print("Error: ", error.description)
     }
     

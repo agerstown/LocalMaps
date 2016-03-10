@@ -21,5 +21,7 @@ class Spot: NSObject {
         self.name = name
         self.descr = descr
         self.coordinate = coordinate
+        super.init()
     }
+
 }

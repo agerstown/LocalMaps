@@ -9,29 +9,31 @@
 import UIKit
 import MapKit
 
-enum mapType {
-    case permanent, temporary
-}
-
 @objc(Map)
 class Map: NSObject {
 
     var name: String
     var descr: String
-    var type: mapType
+    
     var spotList: [Spot] = []
-    var period: String?
     
     var coordinate: CLLocationCoordinate2D?
     var zoom: Float?
+    var creator: User?
+    
 //    var northEastCoordinate: CLLocationCoordinate2D?
 //    var southWestCoordinate: CLLocationCoordinate2D?
     
     var images: [UIImage] = [UIImage]()
-    
-    init(name: String, descr: String, type: mapType) {
+   
+    init(name: String, descr: String) {
         self.name = name
         self.descr = descr
-        self.type = type
+        super.init()
     }
+}
+
+@objc(EventMap)
+class EventMap: Map {
+    var period: String?
 }

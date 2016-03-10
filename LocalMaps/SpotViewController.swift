@@ -11,8 +11,8 @@ import UIKit
 class SpotViewController: UIViewController, UIAlertViewDelegate {
     
     @IBOutlet weak var nameTextBox: UITextField!
-    @IBOutlet weak var addSpotButton: UIButton!
     @IBOutlet weak var descriptionTextBox: UITextField!
+    @IBOutlet weak var addSpotButton: UIButton!
     
     var mapView: GMSMapView?
     var marker: GMSMarker?
@@ -66,9 +66,6 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
                 marker?.map = mapView
                 marker?.draggable = true
             }
-            
-            // map?.coordinate = mapView?.camera.target //marker?.position
-            // map?.zoom = mapView?.camera.zoom
             
             marker?.title = nameTextBox.text
             marker?.snippet = descriptionTextBox.text

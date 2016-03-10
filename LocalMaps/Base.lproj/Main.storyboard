@@ -482,7 +482,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APu-re-LOa">
-                                <rect key="frame" x="285" y="212" width="30" height="30"/>
+                                <rect key="frame" x="285" y="196" width="30" height="30"/>
                                 <state key="normal" title="Add"/>
                                 <connections>
                                     <action selector="addSpotButtonClick:" destination="nOb-Jg-8XY" eventType="touchUpInside" id="nLi-Jn-z4B"/>
@@ -493,12 +493,12 @@
                         <constraints>
                             <constraint firstItem="NlQ-hE-nci" firstAttribute="top" secondItem="np3-fd-g66" secondAttribute="bottom" constant="16" id="6Kf-mM-mF6"/>
                             <constraint firstAttribute="trailingMargin" secondItem="np3-fd-g66" secondAttribute="trailing" constant="24" id="B2x-S0-u3b"/>
+                            <constraint firstItem="APu-re-LOa" firstAttribute="top" secondItem="NlQ-hE-nci" secondAttribute="bottom" constant="16" id="IkQ-9C-Hk1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="NlQ-hE-nci" secondAttribute="trailing" constant="24" id="PWT-5c-uW8"/>
-                            <constraint firstItem="APu-re-LOa" firstAttribute="centerX" secondItem="h76-tr-Wpy" secondAttribute="centerX" id="WtH-qy-zdX"/>
                             <constraint firstItem="np3-fd-g66" firstAttribute="leading" secondItem="h76-tr-Wpy" secondAttribute="leadingMargin" constant="24" id="Xos-h8-fkm"/>
                             <constraint firstItem="np3-fd-g66" firstAttribute="top" secondItem="vyK-ns-PBk" secondAttribute="bottom" constant="40" id="c8K-9U-8oF"/>
                             <constraint firstItem="NlQ-hE-nci" firstAttribute="leading" secondItem="h76-tr-Wpy" secondAttribute="leadingMargin" constant="24" id="edP-zl-7EV"/>
-                            <constraint firstItem="APu-re-LOa" firstAttribute="top" secondItem="NlQ-hE-nci" secondAttribute="bottom" constant="32" id="hpD-Vz-FcA"/>
+                            <constraint firstItem="APu-re-LOa" firstAttribute="centerX" secondItem="h76-tr-Wpy" secondAttribute="centerX" id="sex-GA-tBm"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add spot" id="OOn-2y-Rsp"/>
@@ -510,7 +510,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4A7-6G-kQv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3658" y="321"/>
+            <point key="canvasLocation" x="3712" y="321"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

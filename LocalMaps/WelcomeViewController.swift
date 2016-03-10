@@ -19,7 +19,6 @@ class WelcomeViewController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.destinationViewController is MapListViewController {
-            //controller.user =
             User.currentUser = User(name: "user1", password: "blabla")
             //вообще я тут должна получать все карты что у нас есть
         }
