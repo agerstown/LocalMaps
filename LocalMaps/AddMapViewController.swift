@@ -13,11 +13,17 @@ class AddMapViewController: UIViewController {
     @IBOutlet weak var nameTextBox: UITextField!
     @IBOutlet weak var descriptionTextBox: UITextField!
     @IBOutlet weak var placeTextField: UITextField!
-    @IBOutlet weak var mapTypePicker: UIPickerView!
-    @IBOutlet weak var addSpotsButton: UIButton!
-    @IBOutlet var tapGestureRecogniser: UITapGestureRecognizer!
+    @IBOutlet weak var mapTypeSegmentedControl: UISegmentedControl!
+    
     @IBOutlet weak var searchBarHolderView: UIView!
     @IBOutlet weak var searchBarConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var startDateTextField: UITextField!
+    @IBOutlet weak var endDateTextField: UITextField!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    
+    @IBOutlet weak var addSpotsButton: UIButton!
+    @IBOutlet weak var addSpotsButtonConstraint: NSLayoutConstraint!
     
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
@@ -33,12 +39,11 @@ class AddMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapTypePicker.delegate = self
-        mapTypePicker.dataSource = self
-        
         nameTextBox.delegate = self
         descriptionTextBox.delegate = self
         placeTextField.delegate = self
+        startDateTextField.delegate = self
+        endDateTextField.delegate = self
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissItems")
         view.addGestureRecognizer(tap)
@@ -95,10 +100,53 @@ class AddMapViewController: UIViewController {
             if (type == "permanent") {
                 mapToPass = Map(name: name, descr: descr)
             } else {
-                mapToPass = EventMap(name: name, descr: descr)
+                mapToPass = EventMap(name: name, descr: descr, startDate: startDate!, endDate: endDate!)
             }
 
             mapToPass?.coordinate = selectedPlace?.coordinate
+        }
+    }
+    
+    @IBAction func mapTypeValueChanged(sender: AnyObject) {
+        switch mapTypeSegmentedControl.selectedSegmentIndex
+        {
+            case 0:
+                type = "permanent"
+                startDateTextField.hidden = true
+                endDateTextField.hidden = true
+                addSpotsButtonConstraint.constant = 8
+            case 1:
+                type = "temporary"
+                startDateTextField.hidden = false
+                endDateTextField.hidden = false
+                addSpotsButtonConstraint.constant = 88
+            default:
+                break;
+        }
+    }
+    
+    func showSelectedDate(textField: UITextField) {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        textField.text = dateFormatter.stringFromDate(datePicker.date)
+        if (date == "start") {
+            startDate = datePicker.date
+        } else {
+            endDate = datePicker.date
+        }
+    }
+    
+    var date = "start"
+    
+    var startDate: NSDate?
+    var endDate: NSDate?
+    
+    @IBAction func datePickerValueChanged(sender: AnyObject) {
+        if (date == "start") {
+            showSelectedDate(startDateTextField)
+        } else {
+            showSelectedDate(endDateTextField)
         }
     }
     
@@ -106,34 +154,17 @@ class AddMapViewController: UIViewController {
         if let controller = segue.destinationViewController as? MapViewController {
             controller.mode = "create"
             controller.map = mapToPass
+            controller.startDate = startDate
+            controller.endDate = endDate
             controller.title = nameTextBox.text
             controller.shouldAddCreateButton = true
         } 
     }
     
-}
-
-extension AddMapViewController: UIPickerViewDataSource {
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
-    }
-}
-
-extension AddMapViewController: UIPickerViewDelegate {
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerData[row]
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerData[row] == "Permanent" {
-            type = "permanent"
-        } else {
-            type = "temporary"
-        }
-    }
 }
 
 extension AddMapViewController: UITextFieldDelegate {
@@ -142,9 +173,29 @@ extension AddMapViewController: UITextFieldDelegate {
         return true
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.view.endEditing(true)
+    @IBAction func startDateEditingDidBegin(sender: AnyObject) {
+        datePicker.hidden = false
+        addSpotsButtonConstraint.constant = 296
+        date = "start"
+        showSelectedDate(startDateTextField)
+        dismissItems()
     }
+    
+    @IBAction func endDateEditingDidBegin(sender: AnyObject) {
+        datePicker.hidden = false
+        addSpotsButtonConstraint.constant = 296
+        date = "end"
+        showSelectedDate(endDateTextField)
+        dismissItems()
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if (textField == nameTextBox || textField == descriptionTextBox || textField == placeTextField) {
+            datePicker.hidden = true
+            addSpotsButtonConstraint.constant = 88
+        }
+    }
+    
 }
 
 extension AddMapViewController: GMSAutocompleteResultsViewControllerDelegate {

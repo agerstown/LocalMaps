@@ -11,6 +11,7 @@ import UIKit
 class MapItemCell: UITableViewCell {
  
     @IBOutlet weak var labelMapName: UILabel!
+    @IBOutlet weak var labelMapPeriod: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

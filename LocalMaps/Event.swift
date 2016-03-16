@@ -10,16 +10,12 @@ import UIKit
 
 class Event: NSObject {
 
-    var date: [Int]
-    var id: String
     var name: String
-    var descr: String
+    var startTime: NSDate?
+    var endTime: NSDate?
     
-    init(date: [Int], id: String, name: String, descr: String) {
-        self.date = date
-        self.id = id
+    init(name: String) {
         self.name = name
-        self.descr = descr
         super.init()
     }
 }

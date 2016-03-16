@@ -71,9 +71,15 @@ extension MapListViewController: UITableViewDataSource {
         let cell = tableViewMaps.dequeueReusableCellWithIdentifier("MapItemCell") as! MapItemCell
         
         if indexPath.section == 0 {
-            cell.labelMapName.text = User.currentUser?.permanentMapsList[indexPath.row].valueForKey("name") as? String //.name //map.name
+            cell.labelMapName.text = User.currentUser?.permanentMapsList[indexPath.row].name
         } else {
-            cell.labelMapName.text = User.currentUser?.temporaryMapsList[indexPath.row].valueForKey("name") as? String //.name
+            cell.labelMapName.text = User.currentUser?.temporaryMapsList[indexPath.row].name
+            
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+            
+            let startDate = User.currentUser?.temporaryMapsList[indexPath.row].startDate
+            cell.labelMapPeriod.text = dateFormatter.stringFromDate(startDate!)
         }
         return cell
     }

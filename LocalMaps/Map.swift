@@ -35,5 +35,12 @@ class Map: NSObject {
 
 @objc(EventMap)
 class EventMap: Map {
-    var period: String?
+    var startDate: NSDate
+    var endDate: NSDate
+    
+    init(name: String, descr: String, startDate: NSDate, endDate: NSDate) {
+        self.startDate = startDate
+        self.endDate = endDate
+        super.init(name: name, descr: descr)
+    }
 }

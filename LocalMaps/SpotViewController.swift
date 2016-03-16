@@ -13,6 +13,7 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
     @IBOutlet weak var nameTextBox: UITextField!
     @IBOutlet weak var descriptionTextBox: UITextField!
     @IBOutlet weak var addSpotButton: UIButton!
+    @IBOutlet weak var addEventBarButton: UIBarButtonItem!
     
     var mapView: GMSMapView?
     var marker: GMSMarker?
@@ -32,6 +33,12 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadSpotData()
+        
+        nameTextBox.delegate = self
+        descriptionTextBox.delegate = self
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissItems")
+        view.addGestureRecognizer(tap)
     }
     
     func loadSpotData() {
@@ -44,6 +51,10 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
         if let descr = descr {
             descriptionTextBox.text = descr
         }
+    }
+    
+    func dismissItems() {
+        self.view.endEditing(true)
     }
     
     @IBAction func addSpotButtonClick(sender: AnyObject) {
@@ -77,4 +88,15 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
         }
     }
     
+}
+
+extension SpotViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }
