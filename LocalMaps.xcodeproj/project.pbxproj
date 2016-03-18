@@ -16,6 +16,7 @@
 		61BBD7FB1C6D1F7900CBAF02 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BBD7FA1C6D1F7900CBAF02 /* LoginViewController.swift */; };
 		61CC381A1C67B665001EBA96 /* MapItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC38191C67B665001EBA96 /* MapItemCell.swift */; };
 		61DB9B851C96D185008208A0 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB9B841C96D185008208A0 /* EventViewController.swift */; };
+		61DB9B891C9C5A13008208A0 /* CommonMethodsForCotrollers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB9B881C9C5A13008208A0 /* CommonMethodsForCotrollers.swift */; };
 		61F36E501C65171D00E7FA71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F36E4F1C65171D00E7FA71 /* AppDelegate.swift */; };
 		61F36E521C65171D00E7FA71 /* MapListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F36E511C65171D00E7FA71 /* MapListViewController.swift */; };
 		61F36E551C65171D00E7FA71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61F36E531C65171D00E7FA71 /* Main.storyboard */; };
@@ -63,6 +64,7 @@
 		61CC38191C67B665001EBA96 /* MapItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapItemCell.swift; sourceTree = "<group>"; };
 		61D28EBA1C6E760F0088F2F0 /* LocalMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LocalMaps-Bridging-Header.h"; sourceTree = "<group>"; };
 		61DB9B841C96D185008208A0 /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
+		61DB9B881C9C5A13008208A0 /* CommonMethodsForCotrollers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMethodsForCotrollers.swift; sourceTree = "<group>"; };
 		61F36E4C1C65171D00E7FA71 /* LocalMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61F36E4F1C65171D00E7FA71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61F36E511C65171D00E7FA71 /* MapListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapListViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				61FDFA231C6E841C006C91FB /* GoogleDataProvider.swift */,
 				61FDFA241C6E841C006C91FB /* GooglePlace.swift */,
 				6106164C1C7E36E200895235 /* PlaceMarker.swift */,
+				61DB9B881C9C5A13008208A0 /* CommonMethodsForCotrollers.swift */,
 				61CC38181C67B436001EBA96 /* Controllers */,
 				61F36E7D1C65477900E7FA71 /* Model */,
 				61F36E4F1C65171D00E7FA71 /* AppDelegate.swift */,
@@ -415,6 +418,7 @@
 				61F36E871C67970900E7FA71 /* WelcomeViewController.swift in Sources */,
 				61BBD7FB1C6D1F7900CBAF02 /* LoginViewController.swift in Sources */,
 				61053EB01C67CEFD0047892B /* MapItemViewController.swift in Sources */,
+				61DB9B891C9C5A13008208A0 /* CommonMethodsForCotrollers.swift in Sources */,
 				61DB9B851C96D185008208A0 /* EventViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

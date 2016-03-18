@@ -20,6 +20,8 @@ class EventViewController: UIViewController {
     
     var time = "start"
     
+    let commonMethods = CommonMethodsForCotrollers()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,50 +61,78 @@ class EventViewController: UIViewController {
     }
     
     @IBAction func addEventButtonClicked(sender: AnyObject) {
-        if eventNameTextField.text?.isEmpty == true {
-            let emptyNameFieldAlertController = UIAlertController(title: "Empty name field", message: "Please enter a name of the event", preferredStyle: UIAlertControllerStyle.Alert)
-            let OKAction = UIAlertAction(title: "OK", style: .Cancel) { (action) in }
-            emptyNameFieldAlertController.addAction(OKAction)
-            self.presentViewController(emptyNameFieldAlertController, animated: true, completion: nil)
+        
+        if (eventNameTextField.text?.isEmpty == true || startTimeTextField.text?.isEmpty == true || endTimeTextField.text?.isEmpty == true) {
             
+            var emptyFields = [String]()
+            if (eventNameTextField.text?.isEmpty == true) {
+                emptyFields.append("a name of the event")
+            }
+            if (startTimeTextField.text?.isEmpty == true) {
+                emptyFields.append("start time of the event")
+            }
+            if (endTimeTextField.text?.isEmpty == true) {
+                emptyFields.append("end time of the event")
+            }
+            
+            var message = "Please enter "
+            if (emptyFields.count > 1) {
+                for i in 0...(emptyFields.count - 2) {
+                    message += emptyFields[i] + ", "
+                }
+            }
+            
+            message += emptyFields.last!
+            
+            commonMethods.showAlert(self, title: "Empty fields", message: message)
         } else {
-            let name = eventNameTextField.text
+            //let name = eventNameTextField.text
             
         }
-    }
-
-    
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.view.endEditing(true)
     }
 }
 
 extension EventViewController: UITextFieldDelegate {
     
-    @IBAction func eventNameEditingDidBegin(sender: AnyObject) {
-        timePicker.hidden = true
-        addButtonConstraint.constant = 8
-    }
-    
-    @IBAction func startTimeEditingDidBegin(sender: AnyObject) {
-        timePicker.hidden = false
-        addButtonConstraint.constant = 240
-        time = "start"
-        showSelectedTime(startTimeTextField)
-        dismissItems()
-    }
-    
-    @IBAction func endTimeEditingDidBegin(sender: AnyObject) {
-        timePicker.hidden = false
-        addButtonConstraint.constant = 240
-        time = "end"
-        showSelectedTime(endTimeTextField)
-        dismissItems()
-    }
-    
+    //когда нажали return
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    //надо ли начать редактировать
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        if textField == startTimeTextField {
+            timePicker.hidden = false
+            addButtonConstraint.constant = 240
+            time = "start"
+            if startTime == nil {
+                showSelectedTime(startTimeTextField)
+            } else {
+                timePicker.setDate(startTime!, animated: true)
+            }
+            dismissItems()
+            return false
+        } else if textField == endTimeTextField {
+            timePicker.hidden = false
+            addButtonConstraint.constant = 240
+            time = "end"
+            if endTime == nil {
+                showSelectedTime(endTimeTextField)
+            } else {
+                timePicker.setDate(endTime!, animated: true)
+            }
+            dismissItems()
+            return false
+        }
+        return true
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if (textField == eventNameTextField) {
+            timePicker.hidden = true
+            addButtonConstraint.constant = 8
+        }
     }
     
 }

@@ -13,9 +13,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     @IBOutlet weak var mapSearchBar: UISearchBar!
     @IBOutlet weak var mapView: GMSMapView!
     
-    var startDate: NSDate?
-    var endDate: NSDate?
-    
     var detailsView: UIView?
     var map: Map?
     var markerToSpotDictionary = [GMSMarker: Spot]()

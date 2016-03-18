@@ -36,6 +36,8 @@ class AddMapViewController: UIViewController {
     
     var doesReallyEdit = true
     
+    let commonMethods = CommonMethodsForCotrollers()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,14 +88,33 @@ class AddMapViewController: UIViewController {
         }
     }
     
-    
     @IBAction func addSpotsButtonClicked(sender: AnyObject) {
-        if nameTextBox.text?.isEmpty == true {
-            let emptyNameFieldAlertController = UIAlertController(title: "Empty name field", message: "Please enter a name of the map", preferredStyle: UIAlertControllerStyle.Alert)
-            let OKAction = UIAlertAction(title: "OK", style: .Cancel) { (action) in }
-            emptyNameFieldAlertController.addAction(OKAction)
-            self.presentViewController(emptyNameFieldAlertController, animated: true, completion: nil)
+        if (nameTextBox.text?.isEmpty == true || (startDateTextField.text?.isEmpty == true && type == "temporary") || (endDateTextField.text?.isEmpty == true && type == "temporary")) {
             
+            var emptyFields = [String]()
+            if (nameTextBox.text?.isEmpty == true) {
+                emptyFields.append("a name of the map")
+            }
+            
+            if type == "temporary" {
+                if (startDateTextField.text?.isEmpty == true) {
+                    emptyFields.append("start date of the event")
+                }
+                if (endDateTextField.text?.isEmpty == true) {
+                    emptyFields.append("end date of the event")
+                }
+            }
+            var message = "Please enter "
+            if (emptyFields.count > 1) {
+                for i in 0...(emptyFields.count - 2) {
+                    message += emptyFields[i] + ", "
+                }
+            }
+            
+            message += emptyFields.last!
+            
+            commonMethods.showAlert(self, title: "Empty fields", message: message)
+
         } else {
             let name = nameTextBox.text!
             let descr = descriptionTextBox.text!
@@ -114,7 +135,7 @@ class AddMapViewController: UIViewController {
                 type = "permanent"
                 startDateTextField.hidden = true
                 endDateTextField.hidden = true
-                addSpotsButtonConstraint.constant = 8
+                addSpotsButtonConstraint.constant = 16
             case 1:
                 type = "temporary"
                 startDateTextField.hidden = false
@@ -154,45 +175,55 @@ class AddMapViewController: UIViewController {
         if let controller = segue.destinationViewController as? MapViewController {
             controller.mode = "create"
             controller.map = mapToPass
-            controller.startDate = startDate
-            controller.endDate = endDate
             controller.title = nameTextBox.text
             controller.shouldAddCreateButton = true
         } 
     }
-    
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
 }
 
 extension AddMapViewController: UITextFieldDelegate {
+    //когда нажали return
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    @IBAction func startDateEditingDidBegin(sender: AnyObject) {
-        datePicker.hidden = false
-        addSpotsButtonConstraint.constant = 296
-        date = "start"
-        showSelectedDate(startDateTextField)
-        dismissItems()
-    }
-    
-    @IBAction func endDateEditingDidBegin(sender: AnyObject) {
-        datePicker.hidden = false
-        addSpotsButtonConstraint.constant = 296
-        date = "end"
-        showSelectedDate(endDateTextField)
-        dismissItems()
+    //надо ли начать редактировать
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        if textField == startDateTextField {
+            datePicker.hidden = false
+            addSpotsButtonConstraint.constant = 296
+            date = "start"
+            if startDate == nil {
+                showSelectedDate(startDateTextField)
+            } else {
+                datePicker.setDate(startDate!, animated: true)
+            }
+            dismissItems()
+            return false
+        } else if textField == endDateTextField {
+            datePicker.hidden = false
+            addSpotsButtonConstraint.constant = 296
+            date = "end"
+            if endDate == nil {
+                showSelectedDate(endDateTextField)
+            } else {
+                datePicker.setDate(endDate!, animated: true)
+            }
+            dismissItems()
+            return false
+        }
+        return true
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
         if (textField == nameTextBox || textField == descriptionTextBox || textField == placeTextField) {
             datePicker.hidden = true
-            addSpotsButtonConstraint.constant = 88
+            if (type == "permanent") {
+                addSpotsButtonConstraint.constant = 16
+            } else {
+                addSpotsButtonConstraint.constant = 88
+            }
         }
     }
     

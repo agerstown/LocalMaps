@@ -241,17 +241,11 @@
                                 <rect key="frame" x="24" y="238" width="552" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="startDateEditingDidBegin:" destination="Q3g-kj-p0J" eventType="editingDidBegin" id="myK-3l-xby"/>
-                                </connections>
                             </textField>
                             <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="End date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vih-Tn-YTx">
                                 <rect key="frame" x="24" y="276" width="552" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="endDateEditingDidBegin:" destination="Q3g-kj-p0J" eventType="editingDidBegin" id="t97-Zt-Oeb"/>
-                                </connections>
                             </textField>
                             <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="mRu-Je-HL9">
                                 <rect key="frame" x="20" y="314" width="560" height="216"/>
@@ -401,8 +395,14 @@
                                     <constraint firstAttribute="height" constant="300" id="3Us-nT-4Ed"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fxv-5I-ELA">
+                                <rect key="frame" x="279" y="412" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EX-S4-2Ib">
-                                <rect key="frame" x="279" y="420" width="42" height="21"/>
+                                <rect key="frame" x="279" y="448" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -410,11 +410,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7EX-S4-2Ib" firstAttribute="top" secondItem="W85-7y-TjK" secondAttribute="bottom" constant="32" id="8kB-15-xwQ"/>
+                            <constraint firstItem="7EX-S4-2Ib" firstAttribute="top" secondItem="W85-7y-TjK" secondAttribute="bottom" constant="60" id="8kB-15-xwQ"/>
                             <constraint firstItem="7EX-S4-2Ib" firstAttribute="centerX" secondItem="FGb-ZS-tC7" secondAttribute="centerX" id="E1T-Z6-Oiu"/>
                             <constraint firstItem="W85-7y-TjK" firstAttribute="leading" secondItem="FGb-ZS-tC7" secondAttribute="leading" constant="24" id="LXz-d3-sV6"/>
                             <constraint firstAttribute="trailing" secondItem="W85-7y-TjK" secondAttribute="trailing" constant="24" id="W99-rk-5jg"/>
+                            <constraint firstItem="Fxv-5I-ELA" firstAttribute="top" secondItem="W85-7y-TjK" secondAttribute="bottom" constant="24" id="WHY-uw-thn"/>
                             <constraint firstItem="W85-7y-TjK" firstAttribute="top" secondItem="0dk-aQ-xM4" secondAttribute="bottom" constant="24" id="bnS-fH-9oa"/>
+                            <constraint firstItem="Fxv-5I-ELA" firstAttribute="centerX" secondItem="FGb-ZS-tC7" secondAttribute="centerX" id="vqA-vP-5ru"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Map Item" id="dtZ-G8-0nY">
@@ -426,8 +428,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="buttonMap" destination="apn-MJ-Tc1" id="Rf7-mc-1Ow"/>
+                        <outlet property="descriptionConstraint" destination="8kB-15-xwQ" id="Jnk-ID-ewt"/>
                         <outlet property="imageViewMap" destination="W85-7y-TjK" id="id3-Sy-8oB"/>
                         <outlet property="labelMapDescription" destination="7EX-S4-2Ib" id="xZN-2u-PB9"/>
+                        <outlet property="periodLabel" destination="Fxv-5I-ELA" id="GGQ-VT-3WR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jYh-9z-fvQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -558,9 +562,6 @@
                                 <rect key="frame" x="24" y="104" width="552" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="eventNameEditingDidBegin:" destination="BzS-4G-yzF" eventType="editingDidBegin" id="vdu-hR-5BP"/>
-                                </connections>
                             </textField>
                             <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="5c4-4D-cX9">
                                 <rect key="frame" x="20" y="226" width="560" height="216"/>
@@ -575,17 +576,11 @@
                                 <rect key="frame" x="24" y="142" width="552" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="startTimeEditingDidBegin:" destination="BzS-4G-yzF" eventType="editingDidBegin" id="ct0-x7-DrG"/>
-                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="End time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rs9-ii-PSu">
                                 <rect key="frame" x="24" y="180" width="552" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="endTimeEditingDidBegin:" destination="BzS-4G-yzF" eventType="editingDidBegin" id="qy3-KW-IeY"/>
-                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cTc-Ty-1eG">
                                 <rect key="frame" x="285" y="218" width="30" height="30"/>

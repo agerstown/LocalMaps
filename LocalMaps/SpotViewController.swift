@@ -30,6 +30,8 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
     
     var currentMode = mode.save
     
+    let commonMethods = CommonMethodsForCotrollers()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadSpotData()
@@ -59,12 +61,7 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
     
     @IBAction func addSpotButtonClick(sender: AnyObject) {
         if nameTextBox.text?.isEmpty == true {
-            let emptyNameFieldAlertController = UIAlertController(title: "Empty name field", message: "Please enter a name of the spot", preferredStyle: UIAlertControllerStyle.Alert)
-            self.presentViewController(emptyNameFieldAlertController, animated: true, completion: nil)
-            
-            let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in }
-            emptyNameFieldAlertController.addAction(OKAction)
-            
+            commonMethods.showAlert(self, title: "Empty name field", message: "Please enter a name of the spot")
         } else {
             let name = nameTextBox.text!
             let descr = descriptionTextBox.text!
