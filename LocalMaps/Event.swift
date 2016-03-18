@@ -14,8 +14,10 @@ class Event: NSObject {
     var startTime: NSDate?
     var endTime: NSDate?
     
-    init(name: String) {
+    init(name: String, startTime: NSDate, endTime: NSDate) {
         self.name = name
+        self.startTime = startTime
+        self.endTime = endTime
         super.init()
     }
 }

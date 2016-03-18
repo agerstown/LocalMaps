@@ -15,7 +15,7 @@ class Spot: NSObject {
     var descr: String
     var pictureList: [UIImage] = []
     var coordinate: CLLocationCoordinate2D
-    //var eventList: [Event] = []
+    var eventList: [Event] = []
     
     init(name: String, descr: String, coordinate: CLLocationCoordinate2D) {
         self.name = name

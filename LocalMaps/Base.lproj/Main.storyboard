@@ -508,18 +508,63 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APu-re-LOa">
-                                <rect key="frame" x="285" y="196" width="30" height="30"/>
+                                <rect key="frame" x="285" y="546" width="30" height="30"/>
                                 <state key="normal" title="Add"/>
                                 <connections>
                                     <action selector="addSpotButtonClick:" destination="nOb-Jg-8XY" eventType="touchUpInside" id="nLi-Jn-z4B"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iPz-dF-8pn">
+                                <rect key="frame" x="0.0" y="196" width="600" height="334"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventTableViewCell" id="4Fn-aQ-zQS" customClass="EventTableViewCell" customModule="LocalMaps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Fn-aQ-zQS" id="Cjr-WQ-aPb">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NoI-2y-fmg">
+                                                    <rect key="frame" x="16" y="11" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIe-9u-HxE">
+                                                    <rect key="frame" x="480" y="11" width="104" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="104" id="8xi-rP-itl"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="NoI-2y-fmg" firstAttribute="centerY" secondItem="Cjr-WQ-aPb" secondAttribute="centerY" id="LGk-VT-7Kd"/>
+                                                <constraint firstAttribute="trailing" secondItem="RIe-9u-HxE" secondAttribute="trailing" constant="16" id="Mxv-I5-L5i"/>
+                                                <constraint firstItem="RIe-9u-HxE" firstAttribute="centerY" secondItem="Cjr-WQ-aPb" secondAttribute="centerY" id="ezM-sZ-CgE"/>
+                                                <constraint firstItem="NoI-2y-fmg" firstAttribute="leading" secondItem="Cjr-WQ-aPb" secondAttribute="leading" constant="16" id="fea-7J-34g"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="eventNameLabel" destination="NoI-2y-fmg" id="3aD-FL-iIG"/>
+                                            <outlet property="periodLabel" destination="RIe-9u-HxE" id="dS4-TV-H88"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="NlQ-hE-nci" firstAttribute="top" secondItem="np3-fd-g66" secondAttribute="bottom" constant="16" id="6Kf-mM-mF6"/>
-                            <constraint firstItem="APu-re-LOa" firstAttribute="top" secondItem="NlQ-hE-nci" secondAttribute="bottom" constant="16" id="IkQ-9C-Hk1"/>
+                            <constraint firstItem="iPz-dF-8pn" firstAttribute="top" secondItem="NlQ-hE-nci" secondAttribute="bottom" constant="16" id="8hj-UP-ueq"/>
+                            <constraint firstItem="APu-re-LOa" firstAttribute="top" secondItem="iPz-dF-8pn" secondAttribute="bottom" constant="16" id="JI8-Oi-7RR"/>
+                            <constraint firstItem="iPz-dF-8pn" firstAttribute="leading" secondItem="h76-tr-Wpy" secondAttribute="leading" id="Kfe-PX-Z4a"/>
+                            <constraint firstAttribute="trailing" secondItem="iPz-dF-8pn" secondAttribute="trailing" id="M4K-Ah-dNb"/>
+                            <constraint firstItem="cmS-Uc-bC6" firstAttribute="top" secondItem="APu-re-LOa" secondAttribute="bottom" constant="24" id="VAl-qn-czR"/>
                             <constraint firstItem="NlQ-hE-nci" firstAttribute="leading" secondItem="h76-tr-Wpy" secondAttribute="leading" constant="24" id="Yj2-qh-Vnc"/>
                             <constraint firstItem="np3-fd-g66" firstAttribute="leading" secondItem="h76-tr-Wpy" secondAttribute="leading" constant="24" id="ZMz-8a-YoZ"/>
                             <constraint firstItem="np3-fd-g66" firstAttribute="top" secondItem="vyK-ns-PBk" secondAttribute="bottom" constant="40" id="c8K-9U-8oF"/>
@@ -531,7 +576,7 @@
                     <navigationItem key="navigationItem" title="Add spot" id="OOn-2y-Rsp">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="rzM-pT-W0N">
                             <connections>
-                                <segue destination="BzS-4G-yzF" kind="show" id="kWU-0u-8uv"/>
+                                <action selector="addEventClicked:" destination="nOb-Jg-8XY" id="xqd-e1-oli"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -539,7 +584,9 @@
                         <outlet property="addEventBarButton" destination="rzM-pT-W0N" id="1i1-m8-JaF"/>
                         <outlet property="addSpotButton" destination="APu-re-LOa" id="dMf-o5-bAq"/>
                         <outlet property="descriptionTextBox" destination="NlQ-hE-nci" id="DWb-Pi-dSr"/>
+                        <outlet property="eventsTableView" destination="iPz-dF-8pn" id="2Fw-qM-OBS"/>
                         <outlet property="nameTextBox" destination="np3-fd-g66" id="hdY-Oj-XLa"/>
+                        <segue destination="BzS-4G-yzF" kind="show" identifier="spotToAddEventSegue" id="Uxa-Cn-Z3i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4A7-6G-kQv" userLabel="First Responder" sceneMemberID="firstResponder"/>

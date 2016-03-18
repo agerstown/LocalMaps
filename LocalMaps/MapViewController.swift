@@ -115,6 +115,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let controller = segue.destinationViewController as? SpotViewController {
             controller.marker = currentMarker
+            controller.currentSpot = markerToSpotDictionary[currentMarker!]
             controller.mapView = mapView
             controller.map = map
             controller.mapViewController = self

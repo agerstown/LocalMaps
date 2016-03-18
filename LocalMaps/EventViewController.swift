@@ -18,6 +18,9 @@ class EventViewController: UIViewController {
     
     @IBOutlet weak var addButtonConstraint: NSLayoutConstraint!
     
+    var spot: Spot?
+    var currentEvent: Event?
+    
     var time = "start"
     
     let commonMethods = CommonMethodsForCotrollers()
@@ -29,19 +32,36 @@ class EventViewController: UIViewController {
         startTimeTextField.delegate = self
         endTimeTextField.delegate = self
         
+        loadEventData(currentEvent)
+        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissItems")
         view.addGestureRecognizer(tap)
     }
 
+    func loadEventData(selectedEvent: Event?) {
+        if let event = selectedEvent {
+            eventNameTextField.text = event.name
+            formatAndSetDateToTextField(event.startTime!, textField: startTimeTextField)
+            formatAndSetDateToTextField(event.endTime!, textField: endTimeTextField)
+            
+            addEventButton.setTitle("Save", forState: UIControlState.Normal)
+            self.title = "Edit event"
+        }
+    }
+    
     func dismissItems() {
         self.view.endEditing(true)
     }
 
-    func showSelectedTime(textField: UITextField) {
+    func formatAndSetDateToTextField(date: NSDate, textField: UITextField) {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
         dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        textField.text = dateFormatter.stringFromDate(timePicker.date)
+        textField.text = dateFormatter.stringFromDate(date)
+    }
+    
+    func showSelectedTime(textField: UITextField) {
+        formatAndSetDateToTextField(timePicker.date, textField: textField)
         if (time == "start") {
             startTime = timePicker.date
         } else {
@@ -86,9 +106,18 @@ class EventViewController: UIViewController {
             
             commonMethods.showAlert(self, title: "Empty fields", message: message)
         } else {
-            //let name = eventNameTextField.text
+            let name = eventNameTextField.text
+            if currentEvent == nil {
+                currentEvent = Event(name: name!, startTime: startTime!, endTime: endTime!)
+                spot!.eventList.append(currentEvent!)
+            } else {
+                currentEvent!.startTime = startTime!
+                currentEvent!.endTime = endTime!
+            }
             
+            navigationController?.popViewControllerAnimated(true)
         }
+        
     }
 }
 
