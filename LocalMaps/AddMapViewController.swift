@@ -70,7 +70,7 @@ class AddMapViewController: UIViewController {
             if let place = map.place {
                 placeTextField.text = place.name!
             }
-            if let map = map as? EventMap {
+            if map.type == Map.mapType.temporary {
                 mapTypeSegmentedControl.selectedSegmentIndex = 1
                 settingForTemporaryMap()
                 let dateFormatter = NSDateFormatter()
@@ -87,27 +87,12 @@ class AddMapViewController: UIViewController {
         }
     }
     
-    func upcastEventMapToMap(eventMap: EventMap) {
-        let map = Map(name: eventMap.name, descr: eventMap.descr)
-        map.spotList = eventMap?.spotList
-        map.place = eventMap?.place
-        map.coordinate = eventMap?.coordinate
-        map.zoom = eventMap?.zoom
-        map.creator = eventMap?.creator
-        map.images = eventMap?.images
-        return map
-    }
     
     @IBAction func saveButtonClicked(sender: AnyObject) {
-        if (type == "Permanent" && mapToPass is EventMap) {
-            var map = mapToPass as? EventMap
-            mapToPass = upcastEventMapToMap(map!)
-        } else {
-            mapToPass = mapToPass as! EventMap
-        }
-        
         mapToPass?.name = nameTextBox.text!
         mapToPass?.descr = descriptionTextBox.text!
+        mapToPass?.type = type
+        
         if let place = selectedPlace {
             mapToPass?.place = place
             mapToPass?.coordinate = place.coordinate
@@ -115,9 +100,9 @@ class AddMapViewController: UIViewController {
         if let image = image {
             mapToPass?.images.append(image)
         }
-        if let map = mapToPass as? EventMap {
-            map.startDate = startDate!
-            map.endDate = endDate!
+        if mapToPass?.type == Map.mapType.temporary {
+            mapToPass?.startDate = startDate!
+            mapToPass?.endDate = endDate!
         }
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -126,8 +111,7 @@ class AddMapViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    var type = "permanent"
-    
+    var type = Map.mapType.permanent
     
     @IBAction func placeTextFieldEditingDidBegin(sender: AnyObject) {
         if doesReallyEdit == true {
@@ -157,14 +141,14 @@ class AddMapViewController: UIViewController {
     }
     
     @IBAction func addSpotsButtonClicked(sender: AnyObject) {
-        if (nameTextBox.text?.isEmpty == true || (startDateTextField.text?.isEmpty == true && type == "temporary") || (endDateTextField.text?.isEmpty == true && type == "temporary")) {
+        if (nameTextBox.text?.isEmpty == true || (startDateTextField.text?.isEmpty == true && type == Map.mapType.temporary) || (endDateTextField.text?.isEmpty == true && type == Map.mapType.temporary)) {
             
             var emptyFields = [String]()
             if (nameTextBox.text?.isEmpty == true) {
                 emptyFields.append("a name of the map")
             }
             
-            if type == "temporary" {
+            if type == Map.mapType.temporary {
                 if (startDateTextField.text?.isEmpty == true) {
                     emptyFields.append("start date of the event")
                 }
@@ -186,10 +170,12 @@ class AddMapViewController: UIViewController {
         } else {
             let name = nameTextBox.text!
             let descr = descriptionTextBox.text!
-            if (type == "permanent") {
-                mapToPass = Map(name: name, descr: descr)
+            if (type == Map.mapType.permanent) {
+                mapToPass = Map(name: name, descr: descr, type: Map.mapType.permanent)
             } else {
-                mapToPass = EventMap(name: name, descr: descr, startDate: startDate!, endDate: endDate!)
+                mapToPass = Map(name: name, descr: descr, type: Map.mapType.temporary)
+                mapToPass!.startDate = startDate!
+                mapToPass!.endDate = endDate!
             }
 
             mapToPass?.place = selectedPlace
@@ -210,14 +196,14 @@ class AddMapViewController: UIViewController {
         switch mapTypeSegmentedControl.selectedSegmentIndex
         {
             case 0:
-                type = "permanent"
+                type = Map.mapType.permanent
                 startDateTextField.hidden = true
                 endDateTextField.hidden = true
                 datePicker.hidden = true
                 addSpotsButtonConstraint.constant = 16
                 saveButtonConstraint.constant = 16
             case 1:
-                type = "temporary"
+                type = Map.mapType.temporary
                 settingForTemporaryMap()
             default:
                 break;
@@ -315,7 +301,7 @@ extension AddMapViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(textField: UITextField) {
         if (textField == nameTextBox || textField == descriptionTextBox || textField == placeTextField) {
             datePicker.hidden = true
-            if (type == "permanent") {
+            if (type == Map.mapType.permanent) {
                 addSpotsButtonConstraint.constant = 16
                 saveButtonConstraint.constant = 16
             } else {

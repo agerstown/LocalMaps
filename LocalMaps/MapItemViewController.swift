@@ -25,11 +25,11 @@ class MapItemViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         self.title = map!.name
         
-        if let eventMap = map as? EventMap {
+        if map?.type == Map.mapType.temporary { //let eventMap = map as? EventMap {
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
             dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-            let period = dateFormatter.stringFromDate(eventMap.startDate) + " - " + dateFormatter.stringFromDate(eventMap.endDate)
+            let period = dateFormatter.stringFromDate((map?.startDate!)!) + " - " + dateFormatter.stringFromDate((map?.endDate!)!)
             periodLabel.text = period
         } else {
             imageViewConstraint.constant = 64

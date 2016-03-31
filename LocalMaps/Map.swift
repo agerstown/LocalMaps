@@ -12,9 +12,14 @@ import MapKit
 @objc(Map)
 class Map: NSObject {
 
+    enum mapType {
+        case permanent
+        case temporary
+    }
+    
     var name: String
     var descr: String
-    var type: String
+    var type: mapType
     
     var spotList: [Spot] = []
     
@@ -31,7 +36,7 @@ class Map: NSObject {
     
     var images: [UIImage] = [UIImage]()
    
-    init(name: String, descr: String, type: String) {
+    init(name: String, descr: String, type: mapType) {
         self.name = name
         self.descr = descr
         self.type = type

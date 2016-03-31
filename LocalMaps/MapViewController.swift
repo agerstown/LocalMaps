@@ -65,8 +65,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         map?.zoom = (mapView?.camera.zoom)!
         
         var type: String?
-        if let map = map as? EventMap {
-            User.currentUser?.temporaryMapsList.append(map)
+        if map?.type == Map.mapType.temporary {
+            User.currentUser?.temporaryMapsList.append(map!)
             type = "Temporary"
         } else {
             User.currentUser?.permanentMapsList.append(map!)

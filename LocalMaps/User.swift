@@ -15,19 +15,22 @@ class User: NSObject {
     var name: String
     var password: String
     var permanentMapsList = [Map]()
-    var temporaryMapsList = [EventMap]()
+    var temporaryMapsList = [Map]()
     
     static var currentUser: User?
     
     init(name: String, password: String) {
         self.name = name
         self.password = password
-        let map1 = Map(name: "map1_" + name, descr: "first map")
+        let map1 = Map(name: "map1_" + name, descr: "first map", type: Map.mapType.permanent)
         
         let start = NSDate(timeIntervalSinceNow: NSTimeInterval(60))
         let end = NSDate(timeIntervalSinceNow: NSTimeInterval(600))
         
-        let map2 = EventMap(name: "map2_" + name, descr: "second map", startDate: start, endDate: end)
+        let map2 = Map(name: "map2_" + name, descr: "second map", type: Map.mapType.temporary)
+        map2.startDate = start
+        map2.endDate = end
+        
         map2.images.append((UIImage(named: "photo"))!)
 
         permanentMapsList.append(map1)
