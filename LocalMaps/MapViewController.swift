@@ -61,15 +61,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     func createMapButtonClicked(sender: UIBarButtonItem) {
         map?.coordinate = (mapView?.camera.target)!
-        
         map?.zoom = (mapView?.camera.zoom)!
+        User.currentUser?.maps.append(map!)
         
         var type: String?
         if map?.type == Map.mapType.temporary {
-            User.currentUser?.temporaryMapsList.append(map!)
+            //User.currentUser?.temporaryMapsList.append(map!)
             type = "Temporary"
         } else {
-            User.currentUser?.permanentMapsList.append(map!)
+            //User.currentUser?.permanentMapsList.append(map!)
             type = "Permanent"
         }
         

@@ -28,6 +28,10 @@ class MapListViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(animated: Bool) {
+        tableViewMaps.reloadData()
+    }
+    
     func addMapButtonClicked(sender: UIBarButtonItem) {
         self.performSegueWithIdentifier("mapsListToAddMapSegue", sender: sender)
     }
@@ -60,9 +64,9 @@ extension MapListViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return User.currentUser!.permanentMapsList.count
+            return User.currentUser!.permanentMaps.count
         } else {
-            return User.currentUser!.temporaryMapsList.count
+            return User.currentUser!.temporaryMaps.count
         }
     }
     
@@ -71,14 +75,14 @@ extension MapListViewController: UITableViewDataSource {
         let cell = tableViewMaps.dequeueReusableCellWithIdentifier("MapItemCell") as! MapItemCell
         
         if indexPath.section == 0 {
-            cell.labelMapName.text = User.currentUser?.permanentMapsList[indexPath.row].name
+            cell.labelMapName.text = User.currentUser?.permanentMaps[indexPath.row].name
         } else {
-            cell.labelMapName.text = User.currentUser?.temporaryMapsList[indexPath.row].name
+            cell.labelMapName.text = User.currentUser?.temporaryMaps[indexPath.row].name
             
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
             
-            let startDate = User.currentUser?.temporaryMapsList[indexPath.row].startDate
+            let startDate = User.currentUser?.temporaryMaps[indexPath.row].startDate
             cell.labelMapPeriod.text = dateFormatter.stringFromDate(startDate!)
         }
         return cell
@@ -91,12 +95,16 @@ extension MapListViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             //tableView.beginUpdates()
+            var mapToDelete: Map?
             if indexPath.section == 0 {
-                User.currentUser?.permanentMapsList.removeAtIndex(indexPath.row)
+                mapToDelete = User.currentUser?.permanentMaps[indexPath.row]
+                //User.currentUser?.permanentMaps.removeAtIndex(indexPath.row)
             }
             else {
-                User.currentUser?.temporaryMapsList.removeAtIndex(indexPath.row)
+                mapToDelete = User.currentUser?.temporaryMaps[indexPath.row]
+                //User.currentUser?.temporaryMaps.removeAtIndex(indexPath.row)
             }
+            User.currentUser?.maps.removeObject(mapToDelete!)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
             //tableView.endUpdates()
         }
@@ -110,9 +118,9 @@ extension MapListViewController: UITableViewDelegate {
         
         var map: Map?
         if indexPath.section == 0 {
-            map = User.currentUser?.permanentMapsList[indexPath.row]
+            map = User.currentUser?.permanentMaps[indexPath.row]
         } else {
-            map = User.currentUser?.temporaryMapsList[indexPath.row]
+            map = User.currentUser?.temporaryMaps[indexPath.row]
         }
         
         //переход на другой экран по segue

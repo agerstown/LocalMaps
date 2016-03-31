@@ -14,8 +14,33 @@ class User: NSObject {
 
     var name: String
     var password: String
-    var permanentMapsList = [Map]()
-    var temporaryMapsList = [Map]()
+    var maps = [Map]()
+    //var permanentMapsList = [Map]()
+    //var temporaryMapsList = [Map]()
+    
+    var permanentMaps: [Map] {
+        get {
+            var mapsOfType = [Map]()
+            for map in maps {
+                if (map.type == Map.mapType.permanent) {
+                    mapsOfType.append(map)
+                }
+            }
+            return mapsOfType
+        }
+    }
+
+    var temporaryMaps: [Map] {
+        get {
+            var mapsOfType = [Map]()
+            for map in maps {
+                if (map.type == Map.mapType.temporary) {
+                    mapsOfType.append(map)
+                }
+            }
+            return mapsOfType
+        }
+    }
     
     static var currentUser: User?
     
@@ -33,7 +58,19 @@ class User: NSObject {
         
         map2.images.append((UIImage(named: "photo"))!)
 
-        permanentMapsList.append(map1)
-        temporaryMapsList.append(map2)
+        //permanentMapsList.append(map1)
+        //temporaryMapsList.append(map2)
+        maps.append(map1)
+        maps.append(map2)
     }
+    
+//    func getMapsOfType(type: Map.mapType) -> [Map] {
+//        var mapsOfType = [Map]()
+//        for map in maps {
+//            if (map.type == type) {
+//                mapsOfType.append(map)
+//            }
+//        }
+//        return mapsOfType
+//    }
 }
