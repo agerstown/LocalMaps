@@ -9,6 +9,9 @@
 import UIKit
 
 class CommonMethodsForCotrollers: UIViewController {
+    
+    static let sharedInstance = CommonMethodsForCotrollers()
+    
     func showAlert(controller: UIViewController, title: String, message: String) {
         let emptyNameFieldAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         let OKAction = UIAlertAction(title: "OK", style: .Cancel) { (action) in }

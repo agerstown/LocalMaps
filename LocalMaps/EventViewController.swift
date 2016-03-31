@@ -23,8 +23,6 @@ class EventViewController: UIViewController {
     
     var time = "start"
     
-    let commonMethods = CommonMethodsForCotrollers()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -104,15 +102,19 @@ class EventViewController: UIViewController {
             
             message += emptyFields.last!
             
-            commonMethods.showAlert(self, title: "Empty fields", message: message)
+            CommonMethodsForCotrollers.sharedInstance.showAlert(self, title: "Empty fields", message: message)
         } else {
             let name = eventNameTextField.text
             if currentEvent == nil {
                 currentEvent = Event(name: name!, startTime: startTime!, endTime: endTime!)
                 spot!.eventList.append(currentEvent!)
             } else {
-                currentEvent!.startTime = startTime!
-                currentEvent!.endTime = endTime!
+                if let start = startTime {
+                    currentEvent!.startTime = start
+                }
+                if let end = endTime {
+                    currentEvent!.endTime = end
+                }
             }
             
             navigationController?.popViewControllerAnimated(true)

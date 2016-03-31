@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class MapViewController: UIViewController, GMSMapViewDelegate {
 
@@ -34,16 +35,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if mode == "create" {
-            currentMode = userMode.create
-        } else if let name = User.currentUser?.name {
-            if name != "user1" {
-                currentMode = userMode.edit
-            }
-        }
-        
-        addMarkers()
-        locateMap()
         
         mapView.delegate = self
         locationManager.delegate = self
@@ -55,20 +46,79 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         }
     }
     
+    override func viewWillAppear(animated: Bool) {
+        if mode == "create" {
+            currentMode = userMode.create
+        } else if let name = User.currentUser?.name {
+            if name != "user1" {
+                currentMode = userMode.edit
+            }
+        }
+        
+        addMarkers()
+        locateMap()
+    }
+    
     func createMapButtonClicked(sender: UIBarButtonItem) {
         map?.coordinate = (mapView?.camera.target)!
+        
         map?.zoom = (mapView?.camera.zoom)!
         
+        var type: String?
         if let map = map as? EventMap {
             User.currentUser?.temporaryMapsList.append(map)
+            type = "Temporary"
         } else {
             User.currentUser?.permanentMapsList.append(map!)
+            type = "Permanent"
         }
+        
+        let long = map!.coordinate!.longitude
+        let lat = map!.coordinate!.latitude
+        
+        let link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_map&data={\"name\":\"\(map!.name)\",\"description\":\"\(map!.descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\((map!.zoom)!)\",\"type\": \"\(type!)\",\"author\":\"Natasha\"}"
+        
+//        let parameters = [
+//            "name": map!.name,
+//            "description" : map!.descr,
+//            "longitude" : String(map!.coordinate?.longitude),
+//            "latitude" : String(map!.coordinate?.latitude),
+//            "zoom" : String(map!.zoom),
+//            "type" : type!,
+//            "author" : "Natasha"
+//        ]
+        
+        print(link)
+        
+        Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/views/6-get-test.json") //link
+            .responseJSON { response in
+//                
+//                if let json = response.result.value {
+//                    let message = json["test"] as! String
+//                    print(message)
+//                }
+        }
+        
+//        data={ "name": "Тестовая карта",
+//            "description": "Test Map, Test Map, Test Map",
+//            "longitude": "34.12313",
+//            "latitude": "12.14123",
+//            "zoom": "10",
+//            "type": "Permanent",
+//            "author": "Andru" }
+        
+        //Alamofire.request(.POST, "http://maps.sandbox.daturum.ru/maps/views/11-items.html?method=add_map&data=", parameters: parameters).responseJSON { response in
+        //    print("Response JSON: \(response.result.value)")
+        //}
+        // HTTP body: {"foo": [1, 2, 3], "bar": {"baz": "qux"}}
+
         
         performSegueWithIdentifier("mapToAllMapsSegue", sender: sender)
     }
     
     func addMarkers() {
+        print(map)
+        print(map?.spotList.count)
         if (map?.spotList)?.isEmpty == false {
             for spot in (map?.spotList)! {
                 let marker = GMSMarker(position: spot.coordinate)
@@ -119,11 +169,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             controller.mapView = mapView
             controller.map = map
             controller.mapViewController = self
-            
-            if let marker = sender as? GMSMarker {
-                controller.name = marker.title
-                controller.descr = marker.snippet
-            }
+//            
+//            if let marker = sender as? GMSMarker {
+//                controller.name = marker.title
+//                controller.descr = marker.snippet
+//            }
         } else if let controller = segue.destinationViewController as? MapListViewController {
             controller.shouldAddAddButton = true
         }

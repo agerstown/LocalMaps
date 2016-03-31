@@ -12,30 +12,30 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
     
     @IBOutlet weak var nameTextBox: UITextField!
     @IBOutlet weak var descriptionTextBox: UITextField!
-    @IBOutlet weak var addSpotButton: UIButton!
     @IBOutlet weak var addEventBarButton: UIBarButtonItem!
     @IBOutlet weak var eventsTableView: UITableView!
+    @IBOutlet weak var createSpotButton: UIBarButtonItem!
+    @IBOutlet weak var spotImageView: UIImageView!
     
     var mapView: GMSMapView?
     var marker: GMSMarker?
     var map: Map?
     var mapViewController: MapViewController?
     
-    var name: String?
-    var descr: String?
-    
-    let commonMethods = CommonMethodsForCotrollers()
+    //var name: String?
+    //var descr: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadSpotData()
         
         nameTextBox.delegate = self
         descriptionTextBox.delegate = self
         
         eventsTableView.delegate = self
         eventsTableView.dataSource = self
-        eventsTableView.tableFooterView = UIView() 
+        eventsTableView.tableFooterView = UIView()
+        
+        imagePicker.delegate = self
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissItems")
         tap.cancelsTouchesInView = false
@@ -43,18 +43,23 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
+        loadSpotData()
         eventsTableView.reloadData()
         selectedEvent = nil
     }
     
     func loadSpotData() {
-        if let name = name {
+        if let name = currentSpot?.name { //name {
             nameTextBox.text = name
-            addSpotButton.setTitle("Save", forState: UIControlState.Normal)
+            createSpotButton.title = "Save"
             self.title = "Edit spot"
         }
-        if let descr = descr {
+        if let descr = currentSpot?.descr { //descr {
             descriptionTextBox.text = descr
+        }
+        if currentSpot?.pictureList.isEmpty == false {
+            //image = currentSpot?.pictureList[0]
+            spotImageView.image = currentSpot?.pictureList[0]
         }
     }
     
@@ -68,7 +73,7 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
     @IBAction func addEventClicked(sender: AnyObject) {
         if (currentSpot == nil) {
             if (nameTextBox.text?.isEmpty == true) {
-                commonMethods.showAlert(self, title: "Empty name field", message: "Please enter a name of the spot")
+                CommonMethodsForCotrollers.sharedInstance.showAlert(self, title: "Empty name field", message: "Please enter a name of the spot")
             } else {
                 let name = nameTextBox.text!
                 let descr = descriptionTextBox.text!
@@ -79,9 +84,9 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
         performSegueWithIdentifier("spotToAddEventSegue", sender: nil)
     }
     
-    @IBAction func addSpotButtonClick(sender: AnyObject) {
+    @IBAction func createSpotButtonClicked(sender: AnyObject) {
         if nameTextBox.text?.isEmpty == true {
-            commonMethods.showAlert(self, title: "Empty name field", message: "Please enter a name of the spot")
+            CommonMethodsForCotrollers.sharedInstance.showAlert(self, title: "Empty name field", message: "Please enter a name of the spot")
         } else {
             let name = nameTextBox.text!
             let descr = descriptionTextBox.text!
@@ -90,10 +95,26 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
                 let coordinate = marker?.position
                 currentSpot = Spot(name: name, descr: descr, coordinate: coordinate!)
             }
-            map?.spotList.append(currentSpot!)
+            
+            currentSpot?.name = name
+            currentSpot?.descr = descr
+            
+            if (map?.spotList.contains(currentSpot!) == false) {
+                map?.spotList.append(currentSpot!)
+            }
+            
             mapViewController?.markerToSpotDictionary[marker!] = currentSpot
+            
             marker?.map = mapView
             marker?.draggable = true
+            
+            if let image = image {
+                if (currentSpot?.pictureList.isEmpty == true) {
+                    currentSpot?.pictureList.append(image)
+                } else {
+                    currentSpot?.pictureList[0] = image
+                }
+            }
             
             marker?.title = nameTextBox.text
             marker?.snippet = descriptionTextBox.text
@@ -102,6 +123,15 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
             
             navigationController?.popViewControllerAnimated(true)
         }
+    }
+    
+    let imagePicker = UIImagePickerController()
+    var image: UIImage?
+    
+    @IBAction func addPictureButtonClicked(sender: AnyObject) {
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .PhotoLibrary
+        presentViewController(imagePicker, animated: true, completion: nil)
     }
     
     var selectedEvent: Event?
@@ -118,10 +148,6 @@ extension SpotViewController: UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-    
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.view.endEditing(true)
     }
 }
 
@@ -170,5 +196,25 @@ extension SpotViewController: UITableViewDelegate {
         selectedEvent = currentSpot?.eventList[indexPath.row]
         self.performSegueWithIdentifier("spotToAddEventSegue", sender: nil)
         eventsTableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+}
+
+extension SpotViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            image = pickedImage
+            spotImageView.image = image
+            if (currentSpot?.pictureList.isEmpty == true) {
+                currentSpot?.pictureList.append(image!)
+            } else {
+                currentSpot?.pictureList[0] = image!
+            }
+        }
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }

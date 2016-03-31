@@ -14,33 +14,27 @@ class Map: NSObject {
 
     var name: String
     var descr: String
+    var type: String
     
     var spotList: [Spot] = []
     
+    var place: GMSPlace?
     var coordinate: CLLocationCoordinate2D?
     var zoom: Float?
     var creator: User?
+    
+    var startDate: NSDate?
+    var endDate: NSDate?
     
 //    var northEastCoordinate: CLLocationCoordinate2D?
 //    var southWestCoordinate: CLLocationCoordinate2D?
     
     var images: [UIImage] = [UIImage]()
    
-    init(name: String, descr: String) {
+    init(name: String, descr: String, type: String) {
         self.name = name
         self.descr = descr
+        self.type = type
         super.init()
-    }
-}
-
-@objc(EventMap)
-class EventMap: Map {
-    var startDate: NSDate
-    var endDate: NSDate
-    
-    init(name: String, descr: String, startDate: NSDate, endDate: NSDate) {
-        self.startDate = startDate
-        self.endDate = endDate
-        super.init(name: name, descr: descr)
     }
 }

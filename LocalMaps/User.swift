@@ -28,6 +28,7 @@ class User: NSObject {
         let end = NSDate(timeIntervalSinceNow: NSTimeInterval(600))
         
         let map2 = EventMap(name: "map2_" + name, descr: "second map", startDate: start, endDate: end)
+        map2.images.append((UIImage(named: "photo"))!)
 
         permanentMapsList.append(map1)
         temporaryMapsList.append(map2)
