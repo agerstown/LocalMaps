@@ -100,9 +100,13 @@ class AddMapViewController: UIViewController {
         if let image = image {
             mapToPass?.images.append(image)
         }
+        
         if mapToPass?.type == Map.mapType.temporary {
             mapToPass?.startDate = startDate!
             mapToPass?.endDate = endDate!
+        } else {
+            mapToPass?.startDate = nil
+            mapToPass?.endDate = nil
         }
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -179,7 +183,7 @@ class AddMapViewController: UIViewController {
             }
 
             mapToPass?.place = selectedPlace
-            //mapToPass?.coordinate = selectedPlace?.coordinate
+            mapToPass?.coordinate = selectedPlace?.coordinate
             performSegueWithIdentifier("addMapToMapSegue", sender: nil)
         }
     }

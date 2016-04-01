@@ -117,8 +117,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func addMarkers() {
-        print(map)
-        print(map?.spotList.count)
         if (map?.spotList)?.isEmpty == false {
             for spot in (map?.spotList)! {
                 let marker = GMSMarker(position: spot.coordinate)

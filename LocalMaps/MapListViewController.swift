@@ -76,6 +76,7 @@ extension MapListViewController: UITableViewDataSource {
         
         if indexPath.section == 0 {
             cell.labelMapName.text = User.currentUser?.permanentMaps[indexPath.row].name
+            cell.labelMapPeriod.text = nil
         } else {
             cell.labelMapName.text = User.currentUser?.temporaryMaps[indexPath.row].name
             
