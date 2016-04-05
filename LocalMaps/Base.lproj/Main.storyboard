@@ -178,10 +178,11 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <toolbarItems/>
+                    <toolbarItems>
+                        <barButtonItem title="Item" id="0dy-4l-9nv"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Maps" id="M7h-r9-AKS"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableViewMaps" destination="mty-k1-ifa" id="1rs-Xk-c32"/>
                         <segue destination="fNb-9H-hFb" kind="show" identifier="mapListToMapItem" id="zKu-R3-414"/>
@@ -375,7 +376,7 @@
                                 <rect key="frame" x="269" y="234" width="62" height="30"/>
                                 <state key="normal" title="maps list"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="jOV-zq-uaJ"/>
+                                    <action selector="mapsListButtonClicked:" destination="sdv-oi-rpF" eventType="touchUpInside" id="0Ac-W1-dkp"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -391,11 +392,12 @@
                     <connections>
                         <outlet property="bottonLogin" destination="M4y-gA-TDt" id="ZQy-Pu-xCH"/>
                         <outlet property="buttonMapList" destination="Iqs-vr-knI" id="bbN-2r-bnq"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="welcomeToMapsListSegue" id="LGE-2k-PQK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y44-EU-gcb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-695" y="646"/>
+            <point key="canvasLocation" x="-675" y="645"/>
         </scene>
         <!--Map Item-->
         <scene sceneID="IkQ-OR-M2i">
@@ -451,6 +453,7 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="buttonMap" destination="apn-MJ-Tc1" id="Rf7-mc-1Ow"/>
                         <outlet property="imageViewConstraint" destination="wVl-Gm-wHm" id="klX-eW-TDA"/>
@@ -715,8 +718,8 @@
         <image name="no-photo" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kHE-6c-AZW"/>
-        <segue reference="X7p-ib-fCH"/>
-        <segue reference="lOp-1K-N98"/>
+        <segue reference="lbS-Vv-uhv"/>
+        <segue reference="LGE-2k-PQK"/>
+        <segue reference="Mvn-zf-tF7"/>
     </inferredMetricsTieBreakers>
 </document>

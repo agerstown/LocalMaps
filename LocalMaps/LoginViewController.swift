@@ -18,47 +18,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
-    func fetch() {
-        let url = NSURL(string: "http://maps-staging.sandbox.daturum.ru/maps/views/6-get-test.json")!
-        
-        let task = userSession.dataTaskWithURL(url) {
-            data, response, error in
-            
-            let json = (try! NSJSONSerialization.JSONObjectWithData(data!, options: [])) as! [String: AnyObject]
-            
-            NSOperationQueue.mainQueue().addOperationWithBlock({
-                let message = json["test"] as! String
-                print(message)
-            })
-            
-        }
-        task.resume()
-    }
     
     @IBAction func loginButtonClicked(sender: AnyObject) {
-        //fetch()
-//        Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/views/6-get-test.json")
-//            .responseJSON { response in
-//                
-//            if let json = response.result.value {
-//                let message = json["test"] as! String
-//                print(message)
-//            }
-//        }
-//        
-//        // POST Request with JSON-encoded Parameters
-//        
-//        
-//        let parameters = [
-//            "foo": [1,2,3],
-//            "bar": [
-//                "baz": "qux"
-//            ]
-//        ]
-//        
-//        Alamofire.request(.POST, "https://httpbin.org/post", parameters: parameters, encoding: .JSON)
-        // HTTP body: {"foo": [1, 2, 3], "bar": {"baz": "qux"}}
         
     }
     

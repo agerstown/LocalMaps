@@ -22,9 +22,6 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
     var map: Map?
     var mapViewController: MapViewController?
     
-    //var name: String?
-    //var descr: String?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,7 +34,7 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
         
         imagePicker.delegate = self
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissItems")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SpotViewController.dismissItems))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }

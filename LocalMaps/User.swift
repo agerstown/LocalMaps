@@ -60,8 +60,8 @@ class User: NSObject {
 
         //permanentMapsList.append(map1)
         //temporaryMapsList.append(map2)
-        maps.append(map1)
-        maps.append(map2)
+        //maps.append(map1)
+        //maps.append(map2)
     }
     
 //    func getMapsOfType(type: Map.mapType) -> [Map] {

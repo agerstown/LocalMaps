@@ -54,7 +54,7 @@ class AddMapViewController: UIViewController {
         endDateTextField.delegate = self
         imagePicker.delegate = self
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissItems")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddMapViewController.dismissItems))
         view.addGestureRecognizer(tap)
         
         if let place = selectedPlace {
@@ -257,9 +257,7 @@ class AddMapViewController: UIViewController {
             controller.map = mapToPass
             controller.title = nameTextBox.text
             controller.shouldAddCreateButton = true
-        } //else if let controller = segue.destinationViewController as? MapViewController {
-            //controller.title = mapToPass!.name
-        //}
+        } 
     }
 }
 

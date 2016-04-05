@@ -41,7 +41,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         locationManager.requestWhenInUseAuthorization()
         
         if shouldAddCreateButton == true {
-            let createButton = UIBarButtonItem(title: "Create", style: UIBarButtonItemStyle.Plain, target: self, action: "createMapButtonClicked:")
+            let createButton = UIBarButtonItem(title: "Create", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MapViewController.createMapButtonClicked(_:)))
             self.navigationItem.rightBarButtonItem = createButton
         }
     }
@@ -66,10 +66,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         
         var type: String?
         if map?.type == Map.mapType.temporary {
-            //User.currentUser?.temporaryMapsList.append(map!)
             type = "Temporary"
         } else {
-            //User.currentUser?.permanentMapsList.append(map!)
             type = "Permanent"
         }
         
@@ -78,40 +76,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         
         let link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_map&data={\"name\":\"\(map!.name)\",\"description\":\"\(map!.descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\((map!.zoom)!)\",\"type\": \"\(type!)\",\"author\":\"Natasha\"}"
         
-//        let parameters = [
-//            "name": map!.name,
-//            "description" : map!.descr,
-//            "longitude" : String(map!.coordinate?.longitude),
-//            "latitude" : String(map!.coordinate?.latitude),
-//            "zoom" : String(map!.zoom),
-//            "type" : type!,
-//            "author" : "Natasha"
-//        ]
-        
-        print(link)
-        
-        Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/views/6-get-test.json") //link
-            .responseJSON { response in
-//                
-//                if let json = response.result.value {
-//                    let message = json["test"] as! String
-//                    print(message)
-//                }
-        }
-        
-//        data={ "name": "Тестовая карта",
-//            "description": "Test Map, Test Map, Test Map",
-//            "longitude": "34.12313",
-//            "latitude": "12.14123",
-//            "zoom": "10",
-//            "type": "Permanent",
-//            "author": "Andru" }
-        
-        //Alamofire.request(.POST, "http://maps.sandbox.daturum.ru/maps/views/11-items.html?method=add_map&data=", parameters: parameters).responseJSON { response in
-        //    print("Response JSON: \(response.result.value)")
-        //}
-        // HTTP body: {"foo": [1, 2, 3], "bar": {"baz": "qux"}}
-
+        Alamofire.request(.GET, link.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!)
         
         performSegueWithIdentifier("mapToAllMapsSegue", sender: sender)
     }
@@ -167,11 +132,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             controller.mapView = mapView
             controller.map = map
             controller.mapViewController = self
-//            
-//            if let marker = sender as? GMSMarker {
-//                controller.name = marker.title
-//                controller.descr = marker.snippet
-//            }
         } else if let controller = segue.destinationViewController as? MapListViewController {
             controller.shouldAddAddButton = true
         }

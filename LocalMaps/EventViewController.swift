@@ -32,7 +32,7 @@ class EventViewController: UIViewController {
         
         loadEventData(currentEvent)
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissItems")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(EventViewController.dismissItems))
         view.addGestureRecognizer(tap)
     }
 

@@ -23,7 +23,7 @@ class MapListViewController: UIViewController {
         tableViewMaps.tableFooterView = UIView() // убрать разделители пустых ячеек
         
         if shouldAddAddButton == true {
-            let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addMapButtonClicked:")
+            let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(MapListViewController.addMapButtonClicked(_:)))
             self.navigationItem.rightBarButtonItem = addButton
         }
     }
@@ -95,19 +95,15 @@ extension MapListViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
-            //tableView.beginUpdates()
             var mapToDelete: Map?
             if indexPath.section == 0 {
                 mapToDelete = User.currentUser?.permanentMaps[indexPath.row]
-                //User.currentUser?.permanentMaps.removeAtIndex(indexPath.row)
             }
             else {
                 mapToDelete = User.currentUser?.temporaryMaps[indexPath.row]
-                //User.currentUser?.temporaryMaps.removeAtIndex(indexPath.row)
             }
             User.currentUser?.maps.removeObject(mapToDelete!)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-            //tableView.endUpdates()
         }
     }
 }

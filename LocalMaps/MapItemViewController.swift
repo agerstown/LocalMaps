@@ -25,7 +25,7 @@ class MapItemViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         self.title = map!.name
         
-        if map?.type == Map.mapType.temporary { //let eventMap = map as? EventMap {
+        if map?.type == Map.mapType.temporary { 
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
             dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
