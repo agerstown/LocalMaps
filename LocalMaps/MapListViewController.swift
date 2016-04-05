@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class MapListViewController: UIViewController {
 
@@ -15,17 +17,48 @@ class MapListViewController: UIViewController {
     
     var shouldAddAddButton: Bool?
     
+    var mapsList = [Map]()
+    
+    func getMapsList() {
+        
+        Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/items.json?method=get_maps")
+            .responseJSON { response in
+                
+                let maps = JSON(response.result.value!)
+                for map in maps.arrayValue {
+                    let name = map["name"].stringValue
+                    let descr = map["description"].stringValue
+                    
+                    let startDate = map["start_date"].stringValue
+                    let endDate = map["end_date"].stringValue
+                    var mapType: Map.mapType?
+                    if (startDate != "none" && endDate != "none" && startDate != "" && endDate != "") {
+                        mapType = Map.mapType.temporary
+                    } else {
+                        mapType = Map.mapType.permanent
+                    }
+                    
+                    let map = Map(name: name, descr: descr, type: mapType!)
+                    self.mapsList.append(map)
+                }
+                
+                User.currentUser?.maps = self.mapsList
+                self.tableViewMaps.reloadData()
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getMapsList()
+        User.currentUser = User(name: "user2", password: "blabla")
         
         tableViewMaps.delegate = self
         tableViewMaps.dataSource = self
         tableViewMaps.tableFooterView = UIView() // убрать разделители пустых ячеек
         
-        if shouldAddAddButton == true {
-            let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(MapListViewController.addMapButtonClicked(_:)))
-            self.navigationItem.rightBarButtonItem = addButton
-        }
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(MapListViewController.addMapButtonClicked(_:)))
+        self.navigationItem.rightBarButtonItem = addButton
     }
     
     override func viewWillAppear(animated: Bool) {

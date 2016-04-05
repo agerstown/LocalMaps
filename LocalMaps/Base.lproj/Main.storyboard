@@ -20,12 +20,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="sdv-oi-rpF" kind="relationship" relationship="rootViewController" id="Ra7-2n-3RL"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="2Mi-PC-8rg"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hDU-NK-o6c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1383" y="646"/>
+            <point key="canvasLocation" x="779" y="321"/>
         </scene>
         <!--Welcome login-->
         <scene sceneID="fl9-Zc-JEl">
@@ -71,7 +71,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8BC-wv-cwU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="60" y="1078"/>
+            <point key="canvasLocation" x="95" y="1194"/>
         </scene>
         <!--Log in-->
         <scene sceneID="KyI-s2-iYn">
@@ -100,7 +100,6 @@
                                 <state key="normal" title="Log in"/>
                                 <connections>
                                     <action selector="loginButtonClicked:" destination="Xq0-z2-7ZO" eventType="touchUpInside" id="oJP-Xf-GPl"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="lOp-1K-N98"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -125,7 +124,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zya-tH-gTY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="737" y="1078"/>
+            <point key="canvasLocation" x="769" y="1194"/>
         </scene>
         <!--Maps-->
         <scene sceneID="tne-QT-ifu">
@@ -191,7 +190,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1420" y="645"/>
+            <point key="canvasLocation" x="1467" y="321"/>
         </scene>
         <!--Add map-->
         <scene sceneID="9IK-lL-NAE">
@@ -368,9 +367,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4y-gA-TDt">
                                 <rect key="frame" x="281" y="364" width="38" height="30"/>
                                 <state key="normal" title="log in"/>
-                                <connections>
-                                    <segue destination="pVS-Sy-2nG" kind="show" id="q7i-t6-A9q"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iqs-vr-knI">
                                 <rect key="frame" x="269" y="234" width="62" height="30"/>
@@ -392,12 +388,11 @@
                     <connections>
                         <outlet property="bottonLogin" destination="M4y-gA-TDt" id="ZQy-Pu-xCH"/>
                         <outlet property="buttonMapList" destination="Iqs-vr-knI" id="bbN-2r-bnq"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="welcomeToMapsListSegue" id="LGE-2k-PQK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y44-EU-gcb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-675" y="645"/>
+            <point key="canvasLocation" x="73" y="429"/>
         </scene>
         <!--Map Item-->
         <scene sceneID="IkQ-OR-M2i">
@@ -719,7 +714,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="lbS-Vv-uhv"/>
-        <segue reference="LGE-2k-PQK"/>
+        <segue reference="2Mi-PC-8rg"/>
         <segue reference="Mvn-zf-tF7"/>
     </inferredMetricsTieBreakers>
 </document>
