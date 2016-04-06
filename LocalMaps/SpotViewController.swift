@@ -88,9 +88,10 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
         let descr = spot.descr
         let long = spot.coordinate.longitude
         let lat = spot.coordinate.latitude
+        let type = spot.type
         let map_id = (map!.id)!
         
-        var link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_spot&data={\"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"map\": \(map_id)}"
+        var link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_spot&data={\"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\", \"type\":\"\(type)\",\"map\": \(map_id)}"
         link = link.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
         
         Alamofire.request(.GET, link) .responseJSON { response in

@@ -461,7 +461,7 @@
             </objects>
             <point key="canvasLocation" x="2181" y="321"/>
         </scene>
-        <!--Title-->
+        <!--Map-->
         <scene sceneID="gBz-fb-1DL">
             <objects>
                 <viewController id="jDf-Ys-xXP" customClass="MapViewController" customModule="LocalMaps" customModuleProvider="target" sceneMemberID="viewController">
@@ -473,7 +473,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="eHk-Ua-dPn">
+                            <searchBar contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eHk-Ua-dPn">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -481,23 +481,32 @@
                                 <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jZ1-st-tln">
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Jjw-dc-X3p" firstAttribute="top" secondItem="YKk-IF-uL1" secondAttribute="bottom" id="2pa-3n-jfq"/>
                             <constraint firstItem="eHk-Ua-dPn" firstAttribute="top" secondItem="vUN-jI-ENv" secondAttribute="bottom" id="BCQ-ZW-Evo"/>
                             <constraint firstAttribute="trailing" secondItem="eHk-Ua-dPn" secondAttribute="trailing" id="C6k-hn-Ii0"/>
+                            <constraint firstAttribute="trailing" secondItem="jZ1-st-tln" secondAttribute="trailing" id="DEc-dG-5zb"/>
                             <constraint firstItem="eHk-Ua-dPn" firstAttribute="leading" secondItem="qq9-gX-BCC" secondAttribute="leading" id="H3z-ch-gWs"/>
                             <constraint firstAttribute="trailing" secondItem="YKk-IF-uL1" secondAttribute="trailing" id="HRx-dW-SUH"/>
+                            <constraint firstItem="Jjw-dc-X3p" firstAttribute="top" secondItem="jZ1-st-tln" secondAttribute="bottom" id="IcE-CM-hFG"/>
+                            <constraint firstItem="jZ1-st-tln" firstAttribute="leading" secondItem="qq9-gX-BCC" secondAttribute="leading" id="MmJ-sq-ydw"/>
+                            <constraint firstItem="jZ1-st-tln" firstAttribute="top" secondItem="eHk-Ua-dPn" secondAttribute="bottom" id="gBF-I7-oWD"/>
                             <constraint firstItem="eHk-Ua-dPn" firstAttribute="top" secondItem="vUN-jI-ENv" secondAttribute="bottom" id="gUh-O8-KUG"/>
                             <constraint firstItem="YKk-IF-uL1" firstAttribute="top" secondItem="eHk-Ua-dPn" secondAttribute="bottom" id="pxv-UK-2Ie"/>
                             <constraint firstItem="YKk-IF-uL1" firstAttribute="leading" secondItem="qq9-gX-BCC" secondAttribute="leading" id="r5O-7y-zZy"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Title" id="WMT-2v-y6z"/>
+                    <navigationItem key="navigationItem" title="Map" id="WMT-2v-y6z"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="autocompleteTableHolder" destination="jZ1-st-tln" id="17w-5W-lEs"/>
                         <outlet property="mapSearchBar" destination="eHk-Ua-dPn" id="YZM-yE-kye"/>
                         <outlet property="mapView" destination="YKk-IF-uL1" id="KlW-gO-tPO"/>
                         <segue destination="nOb-Jg-8XY" kind="show" identifier="mapViewToAddSpotSegue" id="v9I-Sk-UP1"/>
@@ -724,7 +733,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="lbS-Vv-uhv"/>
-        <segue reference="2Mi-PC-8rg"/>
+        <segue reference="jQw-Gg-wZ9"/>
         <segue reference="Mvn-zf-tF7"/>
     </inferredMetricsTieBreakers>
 </document>
