@@ -39,18 +39,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you have an acoount?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMW-MH-iQy">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Do you have an acoount?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMW-MH-iQy">
                                 <rect key="frame" x="204" y="238" width="193" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwn-xC-ROL">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwn-xC-ROL">
                                 <rect key="frame" x="274" y="311" width="52" height="30"/>
                                 <state key="normal" title="Sign up"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K8H-hp-0yw">
-                                <rect key="frame" x="279" y="388" width="42" height="30"/>
+                                <rect key="frame" x="279" y="344" width="42" height="30"/>
                                 <state key="normal" title="Log in"/>
                                 <connections>
                                     <segue destination="Xq0-z2-7ZO" kind="show" id="NP9-Uh-TR0"/>
@@ -85,17 +85,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kX0-p8-11m">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kX0-p8-11m">
                                 <rect key="frame" x="16" y="104" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a4k-0d-fL3">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a4k-0d-fL3">
                                 <rect key="frame" x="16" y="150" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6WV-Wx-pEa">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6WV-Wx-pEa">
                                 <rect key="frame" x="279" y="212" width="42" height="30"/>
                                 <state key="normal" title="Log in"/>
                                 <connections>
@@ -365,11 +365,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4y-gA-TDt">
-                                <rect key="frame" x="281" y="364" width="38" height="30"/>
+                                <rect key="frame" x="281" y="320" width="38" height="30"/>
                                 <state key="normal" title="log in"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iqs-vr-knI">
-                                <rect key="frame" x="269" y="234" width="62" height="30"/>
+                                <rect key="frame" x="269" y="190" width="62" height="30"/>
                                 <state key="normal" title="maps list"/>
                                 <connections>
                                     <action selector="mapsListButtonClicked:" destination="sdv-oi-rpF" eventType="touchUpInside" id="0Ac-W1-dkp"/>
@@ -392,7 +392,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y44-EU-gcb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="73" y="429"/>
+            <point key="canvasLocation" x="38" y="341"/>
         </scene>
         <!--Map Item-->
         <scene sceneID="IkQ-OR-M2i">
@@ -531,7 +531,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iPz-dF-8pn">
-                                <rect key="frame" x="0.0" y="376" width="600" height="224"/>
+                                <rect key="frame" x="0.0" y="376" width="600" height="170"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventTableViewCell" id="4Fn-aQ-zQS" customClass="EventTableViewCell" customModule="LocalMaps" customModuleProvider="target">
@@ -577,22 +577,32 @@
                                     <constraint firstAttribute="height" constant="196" id="zEM-Wn-WOt"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qrh-1O-dLd">
+                                <rect key="frame" x="276" y="554" width="49" height="30"/>
+                                <state key="normal" title="Delete ">
+                                    <color key="titleColor" red="1" green="0.010267665139987225" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteButtonClicked:" destination="nOb-Jg-8XY" eventType="touchUpInside" id="tGv-Y5-WVO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="cmS-Uc-bC6" firstAttribute="top" secondItem="iPz-dF-8pn" secondAttribute="bottom" id="0vD-pW-dlC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Lkh-kP-LGb" secondAttribute="trailing" constant="-4" id="3bG-l1-yYX"/>
                             <constraint firstItem="Lkh-kP-LGb" firstAttribute="leading" secondItem="h76-tr-Wpy" secondAttribute="leadingMargin" constant="-4" id="7ks-Oc-3DY"/>
                             <constraint firstItem="NlQ-hE-nci" firstAttribute="top" secondItem="np3-fd-g66" secondAttribute="bottom" constant="8" id="8lc-SE-zwN"/>
-                            <constraint firstItem="cmS-Uc-bC6" firstAttribute="top" secondItem="iPz-dF-8pn" secondAttribute="bottom" id="CNc-To-pbG"/>
                             <constraint firstItem="NlQ-hE-nci" firstAttribute="leading" secondItem="h76-tr-Wpy" secondAttribute="leading" constant="16" id="K6n-0E-7U9"/>
                             <constraint firstItem="iPz-dF-8pn" firstAttribute="leading" secondItem="h76-tr-Wpy" secondAttribute="leading" id="Kfe-PX-Z4a"/>
                             <constraint firstAttribute="trailing" secondItem="iPz-dF-8pn" secondAttribute="trailing" id="M4K-Ah-dNb"/>
                             <constraint firstItem="iPz-dF-8pn" firstAttribute="top" secondItem="NlQ-hE-nci" secondAttribute="bottom" constant="16" id="NhT-5Q-B3D"/>
+                            <constraint firstItem="qrh-1O-dLd" firstAttribute="top" secondItem="iPz-dF-8pn" secondAttribute="bottom" constant="8" id="OMq-t8-oiX"/>
                             <constraint firstAttribute="trailing" secondItem="np3-fd-g66" secondAttribute="trailing" constant="16" id="RPF-N1-sun"/>
                             <constraint firstItem="np3-fd-g66" firstAttribute="leading" secondItem="h76-tr-Wpy" secondAttribute="leading" constant="16" id="UkV-QT-J3K"/>
                             <constraint firstItem="iPz-dF-8pn" firstAttribute="leading" secondItem="h76-tr-Wpy" secondAttribute="leading" id="Vyh-V7-91h"/>
+                            <constraint firstItem="qrh-1O-dLd" firstAttribute="centerX" secondItem="h76-tr-Wpy" secondAttribute="centerX" id="beM-4f-edz"/>
+                            <constraint firstItem="cmS-Uc-bC6" firstAttribute="top" secondItem="qrh-1O-dLd" secondAttribute="bottom" constant="16" id="iaw-T3-KF9"/>
                             <constraint firstAttribute="trailing" secondItem="NlQ-hE-nci" secondAttribute="trailing" constant="16" id="jdJ-GI-n6c"/>
                             <constraint firstItem="Lkh-kP-LGb" firstAttribute="top" secondItem="vyK-ns-PBk" secondAttribute="bottom" constant="16" id="vwK-4Y-NUT"/>
                             <constraint firstItem="np3-fd-g66" firstAttribute="top" secondItem="Lkh-kP-LGb" secondAttribute="bottom" constant="16" id="xl1-Th-TVC"/>

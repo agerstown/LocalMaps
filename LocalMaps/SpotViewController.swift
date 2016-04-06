@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class SpotViewController: UIViewController, UIAlertViewDelegate {
     
@@ -81,6 +83,24 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
         performSegueWithIdentifier("spotToAddEventSegue", sender: nil)
     }
     
+    func postSpot(spot: Spot) {
+        let name = spot.name
+        let descr = spot.descr
+        let long = spot.coordinate.longitude
+        let lat = spot.coordinate.latitude
+        let map_id = (map!.id)!
+        
+        var link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_spot&data={\"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"map\": \(map_id)}"
+        link = link.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+        
+        Alamofire.request(.GET, link) .responseJSON { response in
+            print(response.result.value)
+            let id = JSON(response.result.value!)
+            spot.id = id.intValue
+        }
+    }
+
+    
     @IBAction func createSpotButtonClicked(sender: AnyObject) {
         if nameTextBox.text?.isEmpty == true {
             CommonMethodsForCotrollers.sharedInstance.showAlert(self, title: "Empty name field", message: "Please enter a name of the spot")
@@ -91,6 +111,9 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
             if currentSpot == nil {
                 let coordinate = marker?.position
                 currentSpot = Spot(name: name, descr: descr, coordinate: coordinate!)
+                currentSpot?.name = name
+                currentSpot?.descr = descr
+                postSpot(currentSpot!)
             }
             
             currentSpot?.name = name
@@ -129,6 +152,13 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .PhotoLibrary
         presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func deleteButtonClicked(sender: AnyObject) {
+        if let spot = currentSpot {
+            map?.spotList.removeObject(spot)
+            navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     var selectedEvent: Event?

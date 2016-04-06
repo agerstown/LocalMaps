@@ -19,28 +19,63 @@ class MapListViewController: UIViewController {
     
     var mapsList = [Map]()
     
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    
+    func startActivityIndicator() {
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+    }
+    
+    func stopActivityIndicator() {
+        activityIndicator.stopAnimating()
+        activityIndicator.removeFromSuperview()
+    }
+    
     func getMapsList() {
+        
+        startActivityIndicator()
         
         Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/items.json?method=get_maps")
             .responseJSON { response in
                 
                 let maps = JSON(response.result.value!)
                 for map in maps.arrayValue {
+                    let id = map["id"].intValue
                     let name = map["name"].stringValue
                     let descr = map["description"].stringValue
+                    let type = map["type"].stringValue
+                    let longitude = map["longitude"].doubleValue
+                    let latitude = map["latitude"].doubleValue
+                    let zoom = map["zoom"].floatValue
+                    let creator = map["creator"].stringValue
                     
                     let startDate = map["start_date"].stringValue
                     let endDate = map["end_date"].stringValue
+                    
                     var mapType: Map.mapType?
-                    if (startDate != "none" && endDate != "none" && startDate != "" && endDate != "") {
+                    if (type == "Temporary") {
                         mapType = Map.mapType.temporary
                     } else {
                         mapType = Map.mapType.permanent
                     }
                     
-                    let map = Map(name: name, descr: descr, type: mapType!)
-                    self.mapsList.append(map)
+                    let newMap = Map(name: name, descr: descr, type: mapType!)
+                    
+                    newMap.id = id
+                    newMap.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                    newMap.zoom = zoom
+                    newMap.creator = creator
+                    
+                    if (newMap.type == Map.mapType.temporary) {
+                        newMap.startDate = NSDate(timeIntervalSinceNow: 0) //todo тут сделать норм дату
+                        newMap.endDate = NSDate(timeIntervalSinceNow: 600)
+                    }
+                    
+                    self.mapsList.append(newMap)
                 }
+                
+                self.stopActivityIndicator()
                 
                 User.currentUser?.maps = self.mapsList
                 self.tableViewMaps.reloadData()
@@ -50,8 +85,8 @@ class MapListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getMapsList()
         User.currentUser = User(name: "user2", password: "blabla")
+        getMapsList()
         
         tableViewMaps.delegate = self
         tableViewMaps.dataSource = self
@@ -144,6 +179,34 @@ extension MapListViewController: UITableViewDataSource {
 
 extension MapListViewController: UITableViewDelegate {
     
+    func getSpots(map: Map) {
+        
+        startActivityIndicator()
+        
+        Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/items.json?method=get_spots&map_id=\(map.id!)")
+            .responseJSON { response in
+                let spots = JSON(response.result.value!)
+                for spot in spots.arrayValue {
+                    let id = spot["id"].intValue
+                    let name = spot["name"].stringValue
+                    let descr = spot["description"].stringValue
+                    let longitude = spot["longitude"].doubleValue
+                    let latitude = spot["latitude"].doubleValue
+                    let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                    let type = spot["type"].stringValue
+                    
+                    let newSpot = Spot(name: name, descr: descr, coordinate: coordinate)
+                    newSpot.type = type
+                    newSpot.id = id
+                    map.spotList.append(newSpot)
+                }
+                
+                self.stopActivityIndicator()
+                
+                self.performSegueWithIdentifier("mapListToMapItem", sender: map)
+        }
+    }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         var map: Map?
@@ -153,8 +216,7 @@ extension MapListViewController: UITableViewDelegate {
             map = User.currentUser?.temporaryMaps[indexPath.row]
         }
         
-        //переход на другой экран по segue
-        self.performSegueWithIdentifier("mapListToMapItem", sender: map)
+        getSpots(map!)
         
         //убрать выделение ячейки
         tableViewMaps.deselectRowAtIndexPath(indexPath, animated: true)

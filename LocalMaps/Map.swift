@@ -17,6 +17,8 @@ class Map: NSObject {
         case temporary
     }
     
+    var id: Int?
+    
     var name: String
     var descr: String
     var type: mapType
@@ -26,7 +28,7 @@ class Map: NSObject {
     var place: GMSPlace?
     var coordinate: CLLocationCoordinate2D?
     var zoom: Float?
-    var creator: User?
+    var creator: String?
     
     var startDate: NSDate?
     var endDate: NSDate?

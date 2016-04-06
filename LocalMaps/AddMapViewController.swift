@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class AddMapViewController: UIViewController {
 
@@ -144,6 +146,31 @@ class AddMapViewController: UIViewController {
         }
     }
     
+    func postMap(map: Map) {
+        let name = map.name
+        let descr = map.descr
+        let long = map.coordinate!.longitude
+        let lat = map.coordinate!.latitude
+        let zoom = 15 //(map.zoom)!
+        
+        var type: String?
+        if map.type == Map.mapType.temporary {
+            type = "Temporary"
+        } else {
+            type = "Permanent"
+        }
+        
+        var link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_map&data={\"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\(zoom)\",\"type\": \"\(type!)\",\"author\":\"Natasha\"}"
+        link = link.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+        
+        //todo дату еще добавить
+        
+        Alamofire.request(.GET, link).responseJSON { response in
+            let id = JSON(response.result.value!)
+            self.mapToPass?.id = id.intValue
+        }
+    }
+    
     @IBAction func addSpotsButtonClicked(sender: AnyObject) {
         if (nameTextBox.text?.isEmpty == true || (startDateTextField.text?.isEmpty == true && type == Map.mapType.temporary) || (endDateTextField.text?.isEmpty == true && type == Map.mapType.temporary)) {
             
@@ -184,6 +211,9 @@ class AddMapViewController: UIViewController {
 
             mapToPass?.place = selectedPlace
             mapToPass?.coordinate = selectedPlace?.coordinate
+            
+            postMap(mapToPass!)
+            
             performSegueWithIdentifier("addMapToMapSegue", sender: nil)
         }
     }

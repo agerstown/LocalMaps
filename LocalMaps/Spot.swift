@@ -11,8 +11,10 @@ import UIKit
 @objc(Spot)
 class Spot: NSObject {
 
+    var id: Int?
     var name: String
     var descr: String
+    var type: String?
     var pictureList: [UIImage] = []
     var coordinate: CLLocationCoordinate2D
     var eventList: [Event] = []

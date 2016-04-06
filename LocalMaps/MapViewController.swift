@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class MapViewController: UIViewController, GMSMapViewDelegate {
 
@@ -59,29 +60,50 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         locateMap()
     }
     
+//    func postMap(map: Map) {
+//        let name = map.name
+//        let descr = map.descr
+//        let long = map.coordinate!.longitude
+//        let lat = map.coordinate!.latitude
+//        let zoom = (map.zoom)!
+//        
+//        var type: String?
+//        if map.type == Map.mapType.temporary {
+//            type = "Temporary"
+//        } else {
+//            type = "Permanent"
+//        }
+//        
+//        var link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_map&data={\"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\(zoom)\",\"type\": \"\(type!)\",\"author\":\"Natasha\"}"
+//        link = link.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+//        
+//        //todo дату еще добавить
+//        
+//        Alamofire.request(.GET, link) .responseJSON { response in
+//            let id = JSON(response.result.value!)
+//            self.map?.id = id.intValue
+//        }
+//    }
+    
     func createMapButtonClicked(sender: UIBarButtonItem) {
         map?.coordinate = (mapView?.camera.target)!
-        map?.zoom = (mapView?.camera.zoom)!
+        //todo ???  map?.zoom = (mapView?.camera.zoom)!
         User.currentUser?.maps.append(map!)
         
-        var type: String?
-        if map?.type == Map.mapType.temporary {
-            type = "Temporary"
-        } else {
-            type = "Permanent"
-        }
-        
-        let long = map!.coordinate!.longitude
-        let lat = map!.coordinate!.latitude
-        
-        let link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_map&data={\"name\":\"\(map!.name)\",\"description\":\"\(map!.descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\((map!.zoom)!)\",\"type\": \"\(type!)\",\"author\":\"Natasha\"}"
-        
-        Alamofire.request(.GET, link.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!)
+        //postMap(map!)
         
         performSegueWithIdentifier("mapToAllMapsSegue", sender: sender)
     }
     
+    func removeAllSpots() {
+        for marker in markerToSpotDictionary.keys {
+            marker.map = nil
+        }
+        markerToSpotDictionary.removeAll()
+    }
+    
     func addMarkers() {
+        removeAllSpots()
         if (map?.spotList)?.isEmpty == false {
             for spot in (map?.spotList)! {
                 let marker = GMSMarker(position: spot.coordinate)
