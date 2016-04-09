@@ -18,4 +18,17 @@ class CommonMethodsForCotrollers: UIViewController {
         emptyNameFieldAlertController.addAction(OKAction)
         controller.presentViewController(emptyNameFieldAlertController, animated: true, completion: nil)
     }
+    
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    
+    func startActivityIndicator(controller: UIViewController) {
+        activityIndicator.center = view.center
+        controller.view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+    }
+    
+    func stopActivityIndicator() {
+        activityIndicator.stopAnimating()
+        activityIndicator.removeFromSuperview()
+    }
 }

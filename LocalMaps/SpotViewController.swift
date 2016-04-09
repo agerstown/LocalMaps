@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class SpotViewController: UIViewController, UIAlertViewDelegate {
+class SpotViewController: UIViewController {
     
     @IBOutlet weak var nameTextBox: UITextField!
     @IBOutlet weak var descriptionTextBox: UITextField!
@@ -18,17 +18,24 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
     @IBOutlet weak var eventsTableView: UITableView!
     @IBOutlet weak var createSpotButton: UIBarButtonItem!
     @IBOutlet weak var spotImageView: UIImageView!
+    @IBOutlet weak var typeCollectionView: UICollectionView!
     
     var mapView: GMSMapView?
     var marker: GMSMarker?
     var map: Map?
     var mapViewController: MapViewController?
+    var currentSpot: Spot?
+    
+    let types = ["default", "bar", "dining", "wc", "star", "movies", "atm", "bike", "flower", "fitness"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         nameTextBox.delegate = self
         descriptionTextBox.delegate = self
+        
+        typeCollectionView.dataSource = self
+        typeCollectionView.delegate = self
         
         eventsTableView.delegate = self
         eventsTableView.dataSource = self
@@ -48,16 +55,15 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
     }
     
     func loadSpotData() {
-        if let name = currentSpot?.name { //name {
+        if let name = currentSpot?.name {
             nameTextBox.text = name
             createSpotButton.title = "Save"
             self.title = "Edit spot"
         }
-        if let descr = currentSpot?.descr { //descr {
+        if let descr = currentSpot?.descr {
             descriptionTextBox.text = descr
         }
         if currentSpot?.pictureList.isEmpty == false {
-            //image = currentSpot?.pictureList[0]
             spotImageView.image = currentSpot?.pictureList[0]
         }
     }
@@ -65,9 +71,6 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
     func dismissItems() {
         self.view.endEditing(true)
     }
-    
-    var currentSpot: Spot?
-    
     
     @IBAction func addEventClicked(sender: AnyObject) {
         if (currentSpot == nil) {
@@ -101,6 +104,7 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
         }
     }
 
+    var type: String?
     
     @IBAction func createSpotButtonClicked(sender: AnyObject) {
         if nameTextBox.text?.isEmpty == true {
@@ -116,9 +120,13 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
                 currentSpot?.descr = descr
                 postSpot(currentSpot!)
             }
-            
+        
             currentSpot?.name = name
             currentSpot?.descr = descr
+            
+            if let type = type {
+                currentSpot?.type = type
+            }
             
             if (map?.spotList.contains(currentSpot!) == false) {
                 map?.spotList.append(currentSpot!)
@@ -139,6 +147,7 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
             
             marker?.title = nameTextBox.text
             marker?.snippet = descriptionTextBox.text
+            marker?.icon = UIImage(named: "\(currentSpot?.type)_pin")
             
             mapView?.selectedMarker = marker
             
@@ -155,9 +164,14 @@ class SpotViewController: UIViewController, UIAlertViewDelegate {
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     
+    func deleteSpot(spot: Spot) {
+        Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/items.json?method=destroy_spot&spot_id=\(spot.id!)")
+    }
+    
     @IBAction func deleteButtonClicked(sender: AnyObject) {
         if let spot = currentSpot {
             map?.spotList.removeObject(spot)
+            deleteSpot(spot)
             navigationController?.popViewControllerAnimated(true)
         }
     }
@@ -244,5 +258,44 @@ extension SpotViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
+extension SpotViewController: UICollectionViewDataSource {
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return types.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SpotTypeCell", forIndexPath: indexPath) as! SpotTypeCell
+        let image = UIImage(named: types[indexPath.row])
+        cell.layer.borderWidth = 0
+        if (types[indexPath.row] == currentSpot?.type) {
+            highlightCell(cell)
+        }
+        cell.typeImageView.image = image
+        return cell
+    }
+}
+
+extension SpotViewController: UICollectionViewDelegate {
+    
+    func highlightCell(cell: UICollectionViewCell) {
+        cell.layer.borderWidth = 1
+        cell.layer.borderColor = UIColor.redColor().CGColor
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        collectionView.visibleCells().forEach { $0.layer.borderWidth = 0 }
+        highlightCell(cell!)
+        type = types[indexPath.row]
+        currentSpot?.type = type!
+    }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        cell?.layer.borderWidth = 0
     }
 }

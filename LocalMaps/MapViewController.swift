@@ -53,6 +53,7 @@ class MapViewController: UIViewController {
         autocompleteTableView.delegate = self;
         autocompleteTableView.dataSource = self;
         autocompleteTableView.scrollEnabled = true;
+        autocompleteTableView.tableFooterView = UIView()
         let x = autocompleteTableHolder.frame.origin.x
         let y = autocompleteTableHolder.frame.origin.y
         let width = autocompleteTableHolder.frame.width
@@ -94,9 +95,6 @@ class MapViewController: UIViewController {
         map?.coordinate = (mapView?.camera.target)!
         //todo ???  map?.zoom = (mapView?.camera.zoom)!
         User.currentUser?.maps.append(map!)
-        
-        //postMap(map!)
-        
         performSegueWithIdentifier("mapToAllMapsSegue", sender: sender)
     }
     
@@ -116,6 +114,9 @@ class MapViewController: UIViewController {
                 marker?.snippet = spot.descr
                 marker?.map = mapView
                 marker?.draggable = true
+                
+                marker?.icon = UIImage(named: "\(spot.type)_pin")
+                
                 markerToSpotDictionary[marker] = spot
             }
         }
@@ -171,6 +172,7 @@ extension MapViewController: GMSMapViewDelegate {
         currentMarker = marker
         performSegueWithIdentifier("mapViewToAddSpotSegue", sender: marker)
     }
+
 }
 
 extension MapViewController: CLLocationManagerDelegate {
@@ -194,7 +196,9 @@ extension MapViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        mapSearchBar.text = ""
         mapSearchBar.resignFirstResponder()
+        autocompleteTableHolder.hidden = true
     }
 }
 
@@ -243,7 +247,7 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
         }
         let markers = allKeysForValue(markerToSpotDictionary, val: selectedSpot!)
         mapView.selectedMarker = markers[0]
-        let position = GMSCameraPosition.cameraWithLatitude(selectedSpot!.coordinate.latitude, longitude: selectedSpot!.coordinate.longitude, zoom: map!.zoom!)
+        let position = GMSCameraPosition.cameraWithLatitude(selectedSpot!.coordinate.latitude, longitude: selectedSpot!.coordinate.longitude, zoom: 17)
         mapView.animateToCameraPosition(position)
     }
     

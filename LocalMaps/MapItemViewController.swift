@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class MapItemViewController: UIViewController {
     
@@ -39,6 +41,40 @@ class MapItemViewController: UIViewController {
         labelMapDescription.text = map!.descr
         if map!.images.count != 0 {
             imageViewMap.image = map!.images[0]
+        }
+    }
+    
+    @IBAction func mapButtonClicked(sender: AnyObject) {
+        getSpots(map!)
+    }
+    
+    func getSpots(map: Map) {
+        
+        CommonMethodsForCotrollers.sharedInstance.startActivityIndicator(self)
+        
+        map.spotList.removeAll()
+        
+        Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/items.json?method=get_spots&map_id=\(map.id!)")
+            .responseJSON { response in
+                let spots = JSON(response.result.value!)
+                for spot in spots.arrayValue {
+                    let id = spot["id"].intValue
+                    let name = spot["name"].stringValue
+                    let descr = spot["description"].stringValue
+                    let longitude = spot["longitude"].doubleValue
+                    let latitude = spot["latitude"].doubleValue
+                    let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                    let type = spot["type"].stringValue
+                    
+                    let newSpot = Spot(name: name, descr: descr, coordinate: coordinate)
+                    newSpot.type = type
+                    newSpot.id = id
+                    map.spotList.append(newSpot)
+                }
+                
+                CommonMethodsForCotrollers.sharedInstance.stopActivityIndicator()
+                
+                self.performSegueWithIdentifier("MapItemToMapSegue", sender: nil)
         }
     }
     

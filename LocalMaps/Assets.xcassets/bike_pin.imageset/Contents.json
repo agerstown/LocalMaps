@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "photo.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "bike_pin.png",
       "scale" : "2x"
     },
     {

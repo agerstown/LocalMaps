@@ -17,24 +17,15 @@ class MapListViewController: UIViewController {
     
     var shouldAddAddButton: Bool?
     
+    var refreshControl: UIRefreshControl!
+    
     var mapsList = [Map]()
-    
-    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-    
-    func startActivityIndicator() {
-        activityIndicator.center = view.center
-        view.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
-    }
-    
-    func stopActivityIndicator() {
-        activityIndicator.stopAnimating()
-        activityIndicator.removeFromSuperview()
-    }
     
     func getMapsList() {
         
-        startActivityIndicator()
+        CommonMethodsForCotrollers.sharedInstance.startActivityIndicator(self)
+        
+        mapsList.removeAll()
         
         Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/items.json?method=get_maps")
             .responseJSON { response in
@@ -75,7 +66,7 @@ class MapListViewController: UIViewController {
                     self.mapsList.append(newMap)
                 }
                 
-                self.stopActivityIndicator()
+                CommonMethodsForCotrollers.sharedInstance.stopActivityIndicator()
                 
                 User.currentUser?.maps = self.mapsList
                 self.tableViewMaps.reloadData()
@@ -92,11 +83,22 @@ class MapListViewController: UIViewController {
         tableViewMaps.dataSource = self
         tableViewMaps.tableFooterView = UIView() // убрать разделители пустых ячеек
         
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.addTarget(self, action: #selector(MapListViewController.refreshTable), forControlEvents: UIControlEvents.ValueChanged)
+        self.tableViewMaps.addSubview(self.refreshControl)
+        
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(MapListViewController.addMapButtonClicked(_:)))
         self.navigationItem.rightBarButtonItem = addButton
     }
     
     override func viewWillAppear(animated: Bool) {
+        tableViewMaps.reloadData()
+    }
+    
+    func refreshTable()
+    {
+        getMapsList()
+        self.refreshControl.endRefreshing()
         tableViewMaps.reloadData()
     }
     
@@ -161,6 +163,11 @@ extension MapListViewController: UITableViewDataSource {
         return true
     }
     
+    func deleteMap(map: Map) {
+        print("http://maps-staging.sandbox.daturum.ru/maps/items.json?method=destroy_map&map_id=\(map.id!)")
+        Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/items.json?method=destroy_map&map_id=\(map.id!)")
+    }
+    
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             var mapToDelete: Map?
@@ -172,40 +179,13 @@ extension MapListViewController: UITableViewDataSource {
             }
             User.currentUser?.maps.removeObject(mapToDelete!)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            deleteMap(mapToDelete!)
         }
     }
 }
 
 
 extension MapListViewController: UITableViewDelegate {
-    
-    func getSpots(map: Map) {
-        
-        startActivityIndicator()
-        
-        Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/items.json?method=get_spots&map_id=\(map.id!)")
-            .responseJSON { response in
-                let spots = JSON(response.result.value!)
-                for spot in spots.arrayValue {
-                    let id = spot["id"].intValue
-                    let name = spot["name"].stringValue
-                    let descr = spot["description"].stringValue
-                    let longitude = spot["longitude"].doubleValue
-                    let latitude = spot["latitude"].doubleValue
-                    let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                    let type = spot["type"].stringValue
-                    
-                    let newSpot = Spot(name: name, descr: descr, coordinate: coordinate)
-                    newSpot.type = type
-                    newSpot.id = id
-                    map.spotList.append(newSpot)
-                }
-                
-                self.stopActivityIndicator()
-                
-                self.performSegueWithIdentifier("mapListToMapItem", sender: map)
-        }
-    }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -215,11 +195,12 @@ extension MapListViewController: UITableViewDelegate {
         } else {
             map = User.currentUser?.temporaryMaps[indexPath.row]
         }
-        
-        getSpots(map!)
-        
+
         //убрать выделение ячейки
         tableViewMaps.deselectRowAtIndexPath(indexPath, animated: true)
+
+        self.performSegueWithIdentifier("mapListToMapItem", sender: map)
     }
+    
 }
 
