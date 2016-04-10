@@ -14,7 +14,7 @@ class Spot: NSObject {
     var id: Int?
     var name: String
     var descr: String
-    var type = ""
+    var type = "Default"
     var pictureList: [UIImage] = []
     var coordinate: CLLocationCoordinate2D
     var eventList: [Event] = []

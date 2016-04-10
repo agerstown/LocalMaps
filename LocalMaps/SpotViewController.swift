@@ -26,7 +26,7 @@ class SpotViewController: UIViewController {
     var mapViewController: MapViewController?
     var currentSpot: Spot?
     
-    let types = ["default", "bar", "dining", "wc", "star", "movies", "atm", "bike", "flower", "fitness"]
+    let types = ["Default", "Bar", "Dining", "Wc", "Star", "Movies", "Atm", "Bike", "Flower", "Fitness"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +98,6 @@ class SpotViewController: UIViewController {
         link = link.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
         
         Alamofire.request(.GET, link) .responseJSON { response in
-            print(response.result.value)
             let id = JSON(response.result.value!)
             spot.id = id.intValue
         }
@@ -118,6 +117,9 @@ class SpotViewController: UIViewController {
                 currentSpot = Spot(name: name, descr: descr, coordinate: coordinate!)
                 currentSpot?.name = name
                 currentSpot?.descr = descr
+                if let type = type {
+                    currentSpot?.type = type
+                }
                 postSpot(currentSpot!)
             }
         
@@ -165,7 +167,7 @@ class SpotViewController: UIViewController {
     }
     
     func deleteSpot(spot: Spot) {
-        Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/items.json?method=destroy_spot&spot_id=\(spot.id!)")
+        Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/items.json?method=destroy_spot&spot_id=\(spot.id!)&map_id=\((map?.id)!)")
     }
     
     @IBAction func deleteButtonClicked(sender: AnyObject) {
@@ -291,7 +293,7 @@ extension SpotViewController: UICollectionViewDelegate {
         collectionView.visibleCells().forEach { $0.layer.borderWidth = 0 }
         highlightCell(cell!)
         type = types[indexPath.row]
-        currentSpot?.type = type!
+        //currentSpot?.type = type!
     }
     
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {

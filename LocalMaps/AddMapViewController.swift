@@ -83,12 +83,52 @@ class AddMapViewController: UIViewController {
                 startDateTextField.text = dateFormatter.stringFromDate(startDate!)
                 endDateTextField.text = dateFormatter.stringFromDate(endDate!)
             }
+            type = (mapToPass?.type)!
             addSpotsButton.hidden = true
             saveButton.hidden = false
             self.title = "Edit info"
         }
     }
     
+    func updateMap(map: Map) {
+        let id = (map.id)!
+        let name = map.name
+        let descr = map.descr
+        let long = map.coordinate!.longitude
+        let lat = map.coordinate!.latitude
+        let startDate = map.startDate
+        let endDate = map.endDate
+        var zoom: Float?
+        if let zooom = map.zoom {
+            zoom = zooom
+        } else {
+            zoom = 15
+        }
+        
+        var type: String?
+        var start = "None"
+        var end = "None"
+        
+        var link = ""
+        
+        if map.type == Map.mapType.temporary {
+            type = "Temporary"
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "dd MM yyyy HH:mm:ss"
+            start = dateFormatter.stringFromDate(startDate!)
+            end = dateFormatter.stringFromDate(endDate!)
+            
+            link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=update_map&data={\"map_id\":\"\(id)\", \"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\(zoom!)\",\"type\": \"\(type!)\",\"start_date\":\"\(start)\",\"end_date\":\"\(end)\",\"author\":\"Natasha\"}&map_id=\(id)"
+        } else {
+            type = "Permanent"
+            
+            link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=update_map&data={\"map_id\":\"\(id)\", \"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\(zoom!)\",\"type\": \"\(type!)\",\"author\":\"Natasha\"}&map_id=\(id)"
+        }
+
+        link = link.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+        
+        Alamofire.request(.GET, link)
+    }
     
     @IBAction func saveButtonClicked(sender: AnyObject) {
         mapToPass?.name = nameTextBox.text!
@@ -110,6 +150,9 @@ class AddMapViewController: UIViewController {
             mapToPass?.startDate = nil
             mapToPass?.endDate = nil
         }
+        
+        updateMap(mapToPass!)
+        
         self.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -149,21 +192,42 @@ class AddMapViewController: UIViewController {
     func postMap(map: Map) {
         let name = map.name
         let descr = map.descr
-        let long = map.coordinate!.longitude
-        let lat = map.coordinate!.latitude
-        let zoom = 15 //(map.zoom)!
-        
-        var type: String?
-        if map.type == Map.mapType.temporary {
-            type = "Temporary"
+        var long = 0.0
+        var lat = 0.0
+        if let coordinate = map.coordinate {
+            long = coordinate.longitude
+            lat = coordinate.latitude
+        }
+        let startDate = map.startDate
+        let endDate = map.endDate
+        var zoom: Float?
+        if let zooom = map.zoom {
+            zoom = zooom
         } else {
-            type = "Permanent"
+            zoom = 15
         }
         
-        var link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_map&data={\"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\(zoom)\",\"type\": \"\(type!)\",\"author\":\"Natasha\"}"
-        link = link.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+        var type: String?
+        var start = "None"
+        var end = "None"
+
+        var link = ""
         
-        //todo дату еще добавить
+        if map.type == Map.mapType.temporary {
+            type = "Temporary"
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "dd MM yyyy HH:mm:ss"
+            start = dateFormatter.stringFromDate(startDate!)
+            end = dateFormatter.stringFromDate(endDate!)
+            
+            link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_map&data={\"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\(zoom!)\",\"type\": \"\(type!)\",\"start_date\":\"\(start)\",\"end_date\":\"\(end)\",\"author\":\"Natasha\"}"
+        } else {
+            type = "Permanent"
+            
+            link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_map&data={\"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\(zoom!)\",\"type\": \"\(type!)\",\"author\":\"Natasha\"}"
+        }
+    
+        link = link.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
         
         Alamofire.request(.GET, link).responseJSON { response in
             let id = JSON(response.result.value!)
@@ -280,7 +344,6 @@ class AddMapViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let controller = segue.destinationViewController as? MapViewController {
-            controller.mode = "create"
             if let image = image {
                 mapToPass!.images.append(image)
             }

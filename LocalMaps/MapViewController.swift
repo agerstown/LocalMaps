@@ -19,16 +19,7 @@ class MapViewController: UIViewController {
     var detailsView: UIView?
     var map: Map?
     var markerToSpotDictionary = [GMSMarker: Spot]()
-    
-    var mode: String?
-    
-    enum userMode {
-        case edit
-        case create
-        case look
-    }
-    
-    var currentMode = userMode.look
+
     var currentMarker: GMSMarker?
     
     let locationManager = CLLocationManager()
@@ -79,14 +70,6 @@ class MapViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        if mode == "create" {
-            currentMode = userMode.create
-        } else if let name = User.currentUser?.name {
-            if name != "user1" {
-                currentMode = userMode.edit
-            }
-        }
-        
         addMarkers()
         locateMap()
     }
@@ -155,10 +138,8 @@ extension MapViewController: GMSMapViewDelegate {
     }
     
     func mapView(mapView: GMSMapView!, didLongPressAtCoordinate coordinate: CLLocationCoordinate2D) {
-        if currentMode == userMode.edit || currentMode == userMode.create {
-            currentMarker = GMSMarker(position: coordinate)
-            performSegueWithIdentifier("mapViewToAddSpotSegue", sender: nil)
-        }
+        currentMarker = GMSMarker(position: coordinate)
+        performSegueWithIdentifier("mapViewToAddSpotSegue", sender: nil)
     }
     
     func mapView(mapView: GMSMapView!, didDragMarker marker: GMSMarker!) {
@@ -178,7 +159,7 @@ extension MapViewController: GMSMapViewDelegate {
 extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if currentMode == userMode.create && status == .AuthorizedWhenInUse {
+        if status == .AuthorizedWhenInUse {
             locationManager.startUpdatingLocation()
             mapView.myLocationEnabled = true
             mapView.settings.myLocationButton = true

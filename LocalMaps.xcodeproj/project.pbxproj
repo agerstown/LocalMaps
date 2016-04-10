@@ -11,9 +11,7 @@
 		61053EB21C6BDF740047892B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61053EB11C6BDF740047892B /* MapViewController.swift */; };
 		610616491C7CE84200895235 /* SpotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610616481C7CE84200895235 /* SpotViewController.swift */; };
 		6106164B1C7D05B000895235 /* AddMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6106164A1C7D05B000895235 /* AddMapViewController.swift */; };
-		6106164D1C7E36E200895235 /* PlaceMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6106164C1C7E36E200895235 /* PlaceMarker.swift */; };
 		612315771CABEEB300DDFC03 /* MapItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61053EAF1C67CEFD0047892B /* MapItemViewController.swift */; };
-		61BBD7FB1C6D1F7900CBAF02 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BBD7FA1C6D1F7900CBAF02 /* LoginViewController.swift */; };
 		61CC381A1C67B665001EBA96 /* MapItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC38191C67B665001EBA96 /* MapItemCell.swift */; };
 		61DB9B851C96D185008208A0 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB9B841C96D185008208A0 /* EventViewController.swift */; };
 		61DB9B891C9C5A13008208A0 /* CommonMethodsForCotrollers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB9B881C9C5A13008208A0 /* CommonMethodsForCotrollers.swift */; };
@@ -26,9 +24,7 @@
 		61E963D31CABFC8B000B0A0A /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB9B841C96D185008208A0 /* EventViewController.swift */; };
 		61E963D41CABFC91000B0A0A /* AddMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6106164A1C7D05B000895235 /* AddMapViewController.swift */; };
 		61E963D51CABFC93000B0A0A /* SpotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610616481C7CE84200895235 /* SpotViewController.swift */; };
-		61E963D61CABFC95000B0A0A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BBD7FA1C6D1F7900CBAF02 /* LoginViewController.swift */; };
 		61E963D71CABFC98000B0A0A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61053EB11C6BDF740047892B /* MapViewController.swift */; };
-		61E963D81CABFC9D000B0A0A /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F36E861C67970900E7FA71 /* WelcomeViewController.swift */; };
 		61E963D91CABFC9F000B0A0A /* MapItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC38191C67B665001EBA96 /* MapItemCell.swift */; };
 		61E963DA1CABFCA1000B0A0A /* MapListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F36E511C65171D00E7FA71 /* MapListViewController.swift */; };
 		61E963DB1CABFCA4000B0A0A /* CommonMethodsForCotrollers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB9B881C9C5A13008208A0 /* CommonMethodsForCotrollers.swift */; };
@@ -45,9 +41,6 @@
 		61F36E811C6547C800E7FA71 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F36E801C6547C800E7FA71 /* Map.swift */; };
 		61F36E831C6547D200E7FA71 /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F36E821C6547D200E7FA71 /* Spot.swift */; };
 		61F36E851C6547DF00E7FA71 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F36E841C6547DF00E7FA71 /* Event.swift */; };
-		61F36E871C67970900E7FA71 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F36E861C67970900E7FA71 /* WelcomeViewController.swift */; };
-		61FDFA251C6E841C006C91FB /* GoogleDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FDFA231C6E841C006C91FB /* GoogleDataProvider.swift */; };
-		61FDFA261C6E841C006C91FB /* GooglePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FDFA241C6E841C006C91FB /* GooglePlace.swift */; };
 		A743F854A2227BF34C1E2F17 /* Pods_LocalMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7979DAE1BB2B092097C013A1 /* Pods_LocalMaps.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,8 +67,6 @@
 		61053EB11C6BDF740047892B /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		610616481C7CE84200895235 /* SpotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotViewController.swift; sourceTree = "<group>"; };
 		6106164A1C7D05B000895235 /* AddMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMapViewController.swift; sourceTree = "<group>"; };
-		6106164C1C7E36E200895235 /* PlaceMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceMarker.swift; sourceTree = "<group>"; };
-		61BBD7FA1C6D1F7900CBAF02 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		61CC38191C67B665001EBA96 /* MapItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapItemCell.swift; sourceTree = "<group>"; };
 		61D28EBA1C6E760F0088F2F0 /* LocalMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LocalMaps-Bridging-Header.h"; sourceTree = "<group>"; };
 		61DB9B841C96D185008208A0 /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
@@ -100,9 +91,6 @@
 		61F36E801C6547C800E7FA71 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		61F36E821C6547D200E7FA71 /* Spot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		61F36E841C6547DF00E7FA71 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		61F36E861C67970900E7FA71 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		61FDFA231C6E841C006C91FB /* GoogleDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleDataProvider.swift; sourceTree = "<group>"; };
-		61FDFA241C6E841C006C91FB /* GooglePlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePlace.swift; sourceTree = "<group>"; };
 		7979DAE1BB2B092097C013A1 /* Pods_LocalMaps.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LocalMaps.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		88D5CA90F5364BF104194030 /* Pods-LocalMaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalMaps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LocalMaps/Pods-LocalMaps.debug.xcconfig"; sourceTree = "<group>"; };
 		FC5A7FBA701CA4C099230122 /* Pods-LocalMaps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalMaps.release.xcconfig"; path = "Pods/Target Support Files/Pods-LocalMaps/Pods-LocalMaps.release.xcconfig"; sourceTree = "<group>"; };
@@ -139,10 +127,8 @@
 			children = (
 				61F36E511C65171D00E7FA71 /* MapListViewController.swift */,
 				61CC38191C67B665001EBA96 /* MapItemCell.swift */,
-				61F36E861C67970900E7FA71 /* WelcomeViewController.swift */,
 				61053EAF1C67CEFD0047892B /* MapItemViewController.swift */,
 				61053EB11C6BDF740047892B /* MapViewController.swift */,
-				61BBD7FA1C6D1F7900CBAF02 /* LoginViewController.swift */,
 				610616481C7CE84200895235 /* SpotViewController.swift */,
 				6106164A1C7D05B000895235 /* AddMapViewController.swift */,
 				61DB9B841C96D185008208A0 /* EventViewController.swift */,
@@ -177,9 +163,6 @@
 		61F36E4E1C65171D00E7FA71 /* LocalMaps */ = {
 			isa = PBXGroup;
 			children = (
-				61FDFA231C6E841C006C91FB /* GoogleDataProvider.swift */,
-				61FDFA241C6E841C006C91FB /* GooglePlace.swift */,
-				6106164C1C7E36E200895235 /* PlaceMarker.swift */,
 				61DB9B881C9C5A13008208A0 /* CommonMethodsForCotrollers.swift */,
 				61E963DC1CAD8B3E000B0A0A /* ArrayExtensions.swift */,
 				61CC38181C67B436001EBA96 /* Controllers */,
@@ -424,8 +407,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61FDFA251C6E841C006C91FB /* GoogleDataProvider.swift in Sources */,
-				61FDFA261C6E841C006C91FB /* GooglePlace.swift in Sources */,
 				6106164B1C7D05B000895235 /* AddMapViewController.swift in Sources */,
 				61F36E521C65171D00E7FA71 /* MapListViewController.swift in Sources */,
 				61F36E501C65171D00E7FA71 /* AppDelegate.swift in Sources */,
@@ -437,10 +418,7 @@
 				61F36E7F1C6547BA00E7FA71 /* User.swift in Sources */,
 				61E963DD1CAD8B3E000B0A0A /* ArrayExtensions.swift in Sources */,
 				61DB9B8B1C9C8200008208A0 /* EventTableViewCell.swift in Sources */,
-				6106164D1C7E36E200895235 /* PlaceMarker.swift in Sources */,
 				61CC381A1C67B665001EBA96 /* MapItemCell.swift in Sources */,
-				61F36E871C67970900E7FA71 /* WelcomeViewController.swift in Sources */,
-				61BBD7FB1C6D1F7900CBAF02 /* LoginViewController.swift in Sources */,
 				61F0AE491CB6902B00FD3D21 /* SpotTypeCell.swift in Sources */,
 				61053EB01C67CEFD0047892B /* MapItemViewController.swift in Sources */,
 				61DB9B891C9C5A13008208A0 /* CommonMethodsForCotrollers.swift in Sources */,
@@ -460,14 +438,12 @@
 				61E963CE1CABFC72000B0A0A /* Map.swift in Sources */,
 				61E963D21CABFC87000B0A0A /* EventTableViewCell.swift in Sources */,
 				61E963D41CABFC91000B0A0A /* AddMapViewController.swift in Sources */,
-				61E963D81CABFC9D000B0A0A /* WelcomeViewController.swift in Sources */,
 				61E963D31CABFC8B000B0A0A /* EventViewController.swift in Sources */,
 				61E963D71CABFC98000B0A0A /* MapViewController.swift in Sources */,
 				61E963D91CABFC9F000B0A0A /* MapItemCell.swift in Sources */,
 				61E963D11CABFC84000B0A0A /* Event.swift in Sources */,
 				61E963D51CABFC93000B0A0A /* SpotViewController.swift in Sources */,
 				61F36E651C65171D00E7FA71 /* LocalMapsTests.swift in Sources */,
-				61E963D61CABFC95000B0A0A /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,6 +582,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LocalMaps/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = natalia.LocalMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -624,6 +601,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LocalMaps/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = natalia.LocalMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -33,9 +33,6 @@ class Map: NSObject {
     var startDate: NSDate?
     var endDate: NSDate?
     
-//    var northEastCoordinate: CLLocationCoordinate2D?
-//    var southWestCoordinate: CLLocationCoordinate2D?
-    
     var images: [UIImage] = [UIImage]()
    
     init(name: String, descr: String, type: mapType) {

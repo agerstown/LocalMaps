@@ -59,8 +59,11 @@ class MapListViewController: UIViewController {
                     newMap.creator = creator
                     
                     if (newMap.type == Map.mapType.temporary) {
-                        newMap.startDate = NSDate(timeIntervalSinceNow: 0) //todo тут сделать норм дату
-                        newMap.endDate = NSDate(timeIntervalSinceNow: 600)
+                        let dateFormatter = NSDateFormatter()
+                        dateFormatter.dateFormat = "dd MM yyyy HH:mm:ss"
+                        
+                        newMap.startDate = dateFormatter.dateFromString(startDate)
+                        newMap.endDate = dateFormatter.dateFromString(endDate)
                     }
                     
                     self.mapsList.append(newMap)
@@ -164,7 +167,6 @@ extension MapListViewController: UITableViewDataSource {
     }
     
     func deleteMap(map: Map) {
-        print("http://maps-staging.sandbox.daturum.ru/maps/items.json?method=destroy_map&map_id=\(map.id!)")
         Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/items.json?method=destroy_map&map_id=\(map.id!)")
     }
     
