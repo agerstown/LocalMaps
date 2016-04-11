@@ -14,7 +14,7 @@
 		612315771CABEEB300DDFC03 /* MapItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61053EAF1C67CEFD0047892B /* MapItemViewController.swift */; };
 		61CC381A1C67B665001EBA96 /* MapItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC38191C67B665001EBA96 /* MapItemCell.swift */; };
 		61DB9B851C96D185008208A0 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB9B841C96D185008208A0 /* EventViewController.swift */; };
-		61DB9B891C9C5A13008208A0 /* CommonMethodsForCotrollers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB9B881C9C5A13008208A0 /* CommonMethodsForCotrollers.swift */; };
+		61DB9B891C9C5A13008208A0 /* CommonMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB9B881C9C5A13008208A0 /* CommonMethods.swift */; };
 		61DB9B8B1C9C8200008208A0 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB9B8A1C9C8200008208A0 /* EventTableViewCell.swift */; };
 		61E963CE1CABFC72000B0A0A /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F36E801C6547C800E7FA71 /* Map.swift */; };
 		61E963CF1CABFC7F000B0A0A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F36E7E1C6547BA00E7FA71 /* User.swift */; };
@@ -27,7 +27,7 @@
 		61E963D71CABFC98000B0A0A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61053EB11C6BDF740047892B /* MapViewController.swift */; };
 		61E963D91CABFC9F000B0A0A /* MapItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC38191C67B665001EBA96 /* MapItemCell.swift */; };
 		61E963DA1CABFCA1000B0A0A /* MapListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F36E511C65171D00E7FA71 /* MapListViewController.swift */; };
-		61E963DB1CABFCA4000B0A0A /* CommonMethodsForCotrollers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB9B881C9C5A13008208A0 /* CommonMethodsForCotrollers.swift */; };
+		61E963DB1CABFCA4000B0A0A /* CommonMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB9B881C9C5A13008208A0 /* CommonMethods.swift */; };
 		61E963DD1CAD8B3E000B0A0A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E963DC1CAD8B3E000B0A0A /* Extensions.swift */; };
 		61F0AE491CB6902B00FD3D21 /* SpotTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F0AE481CB6902B00FD3D21 /* SpotTypeCell.swift */; };
 		61F36E501C65171D00E7FA71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F36E4F1C65171D00E7FA71 /* AppDelegate.swift */; };
@@ -70,7 +70,7 @@
 		61CC38191C67B665001EBA96 /* MapItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapItemCell.swift; sourceTree = "<group>"; };
 		61D28EBA1C6E760F0088F2F0 /* LocalMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LocalMaps-Bridging-Header.h"; sourceTree = "<group>"; };
 		61DB9B841C96D185008208A0 /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
-		61DB9B881C9C5A13008208A0 /* CommonMethodsForCotrollers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMethodsForCotrollers.swift; sourceTree = "<group>"; };
+		61DB9B881C9C5A13008208A0 /* CommonMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMethods.swift; sourceTree = "<group>"; };
 		61DB9B8A1C9C8200008208A0 /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		61E963DC1CAD8B3E000B0A0A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		61F0AE481CB6902B00FD3D21 /* SpotTypeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotTypeCell.swift; sourceTree = "<group>"; };
@@ -163,7 +163,7 @@
 		61F36E4E1C65171D00E7FA71 /* LocalMaps */ = {
 			isa = PBXGroup;
 			children = (
-				61DB9B881C9C5A13008208A0 /* CommonMethodsForCotrollers.swift */,
+				61DB9B881C9C5A13008208A0 /* CommonMethods.swift */,
 				61E963DC1CAD8B3E000B0A0A /* Extensions.swift */,
 				61CC38181C67B436001EBA96 /* Controllers */,
 				61F36E7D1C65477900E7FA71 /* Model */,
@@ -421,7 +421,7 @@
 				61CC381A1C67B665001EBA96 /* MapItemCell.swift in Sources */,
 				61F0AE491CB6902B00FD3D21 /* SpotTypeCell.swift in Sources */,
 				61053EB01C67CEFD0047892B /* MapItemViewController.swift in Sources */,
-				61DB9B891C9C5A13008208A0 /* CommonMethodsForCotrollers.swift in Sources */,
+				61DB9B891C9C5A13008208A0 /* CommonMethods.swift in Sources */,
 				61DB9B851C96D185008208A0 /* EventViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,7 +430,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61E963DB1CABFCA4000B0A0A /* CommonMethodsForCotrollers.swift in Sources */,
+				61E963DB1CABFCA4000B0A0A /* CommonMethods.swift in Sources */,
 				61E963DA1CABFCA1000B0A0A /* MapListViewController.swift in Sources */,
 				61E963CF1CABFC7F000B0A0A /* User.swift in Sources */,
 				612315771CABEEB300DDFC03 /* MapItemViewController.swift in Sources */,

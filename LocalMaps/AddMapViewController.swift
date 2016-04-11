@@ -83,51 +83,14 @@ class AddMapViewController: UIViewController {
                 startDateTextField.text = dateFormatter.stringFromDate(startDate!)
                 endDateTextField.text = dateFormatter.stringFromDate(endDate!)
             }
+            if let place = map.place {
+                placeTextField.text = place.name
+            }
             type = (mapToPass?.type)!
             addSpotsButton.hidden = true
             saveButton.hidden = false
             self.title = "Edit info"
         }
-    }
-    
-    func updateMap(map: Map) {
-        let id = (map.id)!
-        let name = map.name
-        let descr = map.descr
-        let long = map.coordinate!.longitude
-        let lat = map.coordinate!.latitude
-        let startDate = map.startDate
-        let endDate = map.endDate
-        var zoom: Float?
-        if let zooom = map.zoom {
-            zoom = zooom
-        } else {
-            zoom = 15
-        }
-        
-        var type: String?
-        var start = "None"
-        var end = "None"
-        
-        var link = ""
-        
-        if map.type == Map.mapType.temporary {
-            type = "Temporary"
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "dd MM yyyy HH:mm:ss"
-            start = dateFormatter.stringFromDate(startDate!)
-            end = dateFormatter.stringFromDate(endDate!)
-            
-            link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=update_map&data={\"map_id\":\"\(id)\", \"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\(zoom!)\",\"type\": \"\(type!)\",\"start_date\":\"\(start)\",\"end_date\":\"\(end)\",\"author\":\"Natasha\"}&map_id=\(id)"
-        } else {
-            type = "Permanent"
-            
-            link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=update_map&data={\"map_id\":\"\(id)\", \"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\(zoom!)\",\"type\": \"\(type!)\",\"author\":\"Natasha\"}&map_id=\(id)"
-        }
-
-        link = link.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
-        
-        Alamofire.request(.GET, link)
     }
     
     @IBAction func saveButtonClicked(sender: AnyObject) {
@@ -151,7 +114,7 @@ class AddMapViewController: UIViewController {
             mapToPass?.endDate = nil
         }
         
-        updateMap(mapToPass!)
+        CommonMethods.sharedInstance.updateMap(mapToPass!)
         
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -260,10 +223,10 @@ class AddMapViewController: UIViewController {
             
             message += emptyFields.last!
             
-            CommonMethodsForCotrollers.sharedInstance.showAlert(self, title: "Empty fields", message: message)
+            CommonMethods.sharedInstance.showAlert(self, title: "Empty fields", message: message)
 
-        } else if (startDate!.isGreaterThanDate(endDate!)) {
-            CommonMethodsForCotrollers.sharedInstance.showAlert(self, title: "Incorrect time period", message: "Start date should be earlier than end")
+        } else if (startDate != nil && startDate!.isGreaterThanDate(endDate!)) {
+                CommonMethods.sharedInstance.showAlert(self, title: "Incorrect time period", message: "Start date should be earlier than end")
         } else {
             let name = nameTextBox.text!
             let descr = descriptionTextBox.text!
@@ -277,6 +240,10 @@ class AddMapViewController: UIViewController {
 
             mapToPass?.place = selectedPlace
             mapToPass?.coordinate = selectedPlace?.coordinate
+            
+            if let image = image {
+                mapToPass?.images.append(image)
+            }
             
             postMap(mapToPass!)
             
@@ -317,9 +284,6 @@ class AddMapViewController: UIViewController {
         if (date == "start") {
             startDate = datePicker.date
         } else {
-            if let start = startDate {
-                datePicker.date = start
-            }
             endDate = datePicker.date
         }
         textField.text = dateFormatter.stringFromDate(datePicker.date)
@@ -349,9 +313,9 @@ class AddMapViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let controller = segue.destinationViewController as? MapViewController {
-            if let image = image {
-                mapToPass!.images.append(image)
-            }
+            //if let image = image {
+            //    mapToPass!.images.append(image)
+            //}
             controller.map = mapToPass
             controller.title = nameTextBox.text
             controller.shouldAddCreateButton = true

@@ -102,9 +102,9 @@ class EventViewController: UIViewController {
             
             message += emptyFields.last!
             
-            CommonMethodsForCotrollers.sharedInstance.showAlert(self, title: "Empty fields", message: message)
-        } else if (startTime!.isGreaterThanDate(endTime!)) {
-            CommonMethodsForCotrollers.sharedInstance.showAlert(self, title: "Incorrect time period", message: "Start time should be earlier than end")
+            CommonMethods.sharedInstance.showAlert(self, title: "Empty fields", message: message)
+        } else if (startTime != nil && startTime!.isGreaterThanDate(endTime!)) {
+                CommonMethods.sharedInstance.showAlert(self, title: "Incorrect time period", message: "Start time should be earlier than end")
         } else {
             let name = eventNameTextField.text
             if currentEvent == nil {

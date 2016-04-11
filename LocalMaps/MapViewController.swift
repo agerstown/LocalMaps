@@ -76,7 +76,6 @@ class MapViewController: UIViewController {
     
     func createMapButtonClicked(sender: UIBarButtonItem) {
         map?.coordinate = (mapView?.camera.target)!
-        //todo ???  map?.zoom = (mapView?.camera.zoom)!
         User.currentUser?.maps.append(map!)
         performSegueWithIdentifier("mapToAllMapsSegue", sender: sender)
     }
@@ -119,6 +118,10 @@ class MapViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let controller = segue.destinationViewController as? SpotViewController {
+            map?.coordinate = (mapView?.camera.target)!
+            map?.zoom = (mapView?.camera.zoom)!
+            CommonMethods.sharedInstance.updateMap(map!)
+            
             controller.marker = currentMarker
             controller.currentSpot = markerToSpotDictionary[currentMarker!]
             controller.mapView = mapView
@@ -143,6 +146,7 @@ extension MapViewController: GMSMapViewDelegate {
     func mapView(mapView: GMSMapView!, didDragMarker marker: GMSMarker!) {
         for (markerDict, spotDict) in markerToSpotDictionary where markerDict == marker {
             spotDict.coordinate = marker.position
+            CommonMethods.sharedInstance.updateSpot(spotDict, map: map!)
         }
         
     }
@@ -150,6 +154,12 @@ extension MapViewController: GMSMapViewDelegate {
     func mapView(mapView: GMSMapView!, didTapInfoWindowOfMarker marker: GMSMarker!) {
         currentMarker = marker
         performSegueWithIdentifier("mapViewToAddSpotSegue", sender: marker)
+    }
+    
+    func mapView(mapView: GMSMapView!, didChangeCameraPosition position: GMSCameraPosition!) {
+        map?.coordinate = position.target
+        map?.zoom = position.zoom
+        CommonMethods.sharedInstance.updateMap(map!)
     }
 
 }
@@ -167,8 +177,14 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController: UISearchBarDelegate {
     
-    func searchBar(searchBar: UISearchBar, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
         autocompleteTableHolder.hidden = false
+        searchAutocompleteEntriesWithSubstring("")
+        return true
+    }
+    
+    func searchBar(searchBar: UISearchBar, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        //autocompleteTableHolder.hidden = false
         let substring = (searchBar.text! as NSString).stringByReplacingCharactersInRange(range, withString: text)
         searchAutocompleteEntriesWithSubstring(substring)
         return true
@@ -191,7 +207,7 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
         {
             let name: NSString! = spotName as NSString
             let substringRange: NSRange! = name.rangeOfString(substring, options: [.CaseInsensitiveSearch])
-            if (substringRange.location  == 0) {
+            if (substringRange.location  == 0 || substring == "") {
                 autocompleteSpotNames.append(spotName)
             }
         }

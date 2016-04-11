@@ -75,7 +75,7 @@ class SpotViewController: UIViewController {
     @IBAction func addEventClicked(sender: AnyObject) {
         if (currentSpot == nil) {
             if (nameTextBox.text?.isEmpty == true) {
-                CommonMethodsForCotrollers.sharedInstance.showAlert(self, title: "Empty name field", message: "Please enter a name of the spot")
+                CommonMethods.sharedInstance.showAlert(self, title: "Empty name field", message: "Please enter a name of the spot")
             } else {
                 let name = nameTextBox.text!
                 let descr = descriptionTextBox.text!
@@ -107,7 +107,7 @@ class SpotViewController: UIViewController {
     
     @IBAction func createSpotButtonClicked(sender: AnyObject) {
         if nameTextBox.text?.isEmpty == true {
-            CommonMethodsForCotrollers.sharedInstance.showAlert(self, title: "Empty name field", message: "Please enter a name of the spot")
+            CommonMethods.sharedInstance.showAlert(self, title: "Empty name field", message: "Please enter a name of the spot")
         } else {
             let name = nameTextBox.text!
             let descr = descriptionTextBox.text!
@@ -121,15 +121,15 @@ class SpotViewController: UIViewController {
                     currentSpot?.type = type
                 }
                 postSpot(currentSpot!)
-            }
-        
-            currentSpot?.name = name
-            currentSpot?.descr = descr
+            } else {
+                currentSpot?.name = name
+                currentSpot?.descr = descr
             
-            if let type = type {
-                currentSpot?.type = type
+                if let type = type {
+                    currentSpot?.type = type
+                }
+                CommonMethods.sharedInstance.updateSpot(currentSpot!, map: map!)
             }
-            
             if (map?.spotList.contains(currentSpot!) == false) {
                 map?.spotList.append(currentSpot!)
             }

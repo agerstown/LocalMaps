@@ -45,9 +45,9 @@ class MapListViewController: UIViewController {
     
     func getMapsList() {
         
-        CommonMethodsForCotrollers.sharedInstance.startActivityIndicator(self)
+        CommonMethods.sharedInstance.startActivityIndicator(self)
         
-        mapsList.removeAll()
+        User.currentUser?.maps.removeAll()
         
         Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/items.json?method=get_maps")
             .responseJSON { response in
@@ -91,7 +91,7 @@ class MapListViewController: UIViewController {
                     User.currentUser?.maps.append(newMap)
                 }
                 
-                CommonMethodsForCotrollers.sharedInstance.stopActivityIndicator()
+                CommonMethods.sharedInstance.stopActivityIndicator()
                 
                 self.copyToMapsList()
                 self.tableViewMaps.reloadData()
@@ -104,6 +104,7 @@ class MapListViewController: UIViewController {
             mapsList.append(map)
         }
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -256,6 +257,18 @@ extension MapListViewController: UISearchBarDelegate {
         tableViewMaps.reloadData()
     }
     
+    func cancelSearch() {
+        searchBarMap.resignFirstResponder()
+        copyToMapsList()
+        tableViewMaps.reloadData()
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if (searchText == "") {
+            cancelSearch()
+        }
+    }
+    
     func searchBar(searchBar: UISearchBar, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         let substring = (searchBar.text! as NSString).stringByReplacingCharactersInRange(range, withString: text)
         searchAutocompleteEntriesWithSubstring(substring)
@@ -264,9 +277,7 @@ extension MapListViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchBarMap.text = ""
-        searchBarMap.resignFirstResponder()
-        copyToMapsList()
-        tableViewMaps.reloadData()
+        cancelSearch()
     }
 }
 

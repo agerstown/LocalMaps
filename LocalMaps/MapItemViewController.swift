@@ -50,7 +50,7 @@ class MapItemViewController: UIViewController {
     
     func getSpots(map: Map) {
         
-        CommonMethodsForCotrollers.sharedInstance.startActivityIndicator(self)
+        CommonMethods.sharedInstance.startActivityIndicator(self)
         
         map.spotList.removeAll()
         
@@ -72,13 +72,14 @@ class MapItemViewController: UIViewController {
                     map.spotList.append(newSpot)
                 }
                 
-                CommonMethodsForCotrollers.sharedInstance.stopActivityIndicator()
+                CommonMethods.sharedInstance.stopActivityIndicator()
                 
                 self.performSegueWithIdentifier("MapItemToMapSegue", sender: nil)
         }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+         self.title = "Back"
         //куда мы направляемся
         if let controller = segue.destinationViewController as? MapViewController {
             controller.title = map!.name

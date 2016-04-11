@@ -11,9 +11,15 @@
         <scene sceneID="ngW-OK-BdT">
             <objects>
                 <navigationController id="FoG-mX-bib" sceneMemberID="viewController">
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uHM-tO-6jB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.0" green="0.3922441033043485" blue="0.5362606348167539" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="6ij-No-vQv">
                         <rect key="frame" x="0.0" y="623" width="375" height="44"/>
@@ -137,6 +143,7 @@
                                     <segment title="Permanent"/>
                                     <segment title="Temporary"/>
                                 </segments>
+                                <color key="tintColor" red="0.0" green="0.39224410329999998" blue="0.53626063479999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="mapTypeValueChanged:" destination="Q3g-kj-p0J" eventType="valueChanged" id="KJN-0a-dw3"/>
                                 </connections>
@@ -267,16 +274,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no-photo" translatesAutoresizingMaskIntoConstraints="NO" id="W85-7y-TjK">
-                                <rect key="frame" x="16" y="80" width="568" height="406"/>
+                                <rect key="frame" x="16" y="80" width="568" height="374"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EX-S4-2Ib">
-                                <rect key="frame" x="279" y="555" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EX-S4-2Ib">
+                                <rect key="frame" x="8" y="515" width="584" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fxv-5I-ELA">
-                                <rect key="frame" x="279" y="510" width="42" height="21"/>
+                                <rect key="frame" x="279" y="478" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -285,13 +292,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="W85-7y-TjK" firstAttribute="leading" secondItem="FGb-ZS-tC7" secondAttribute="leading" constant="16" id="1Kp-TG-IeI"/>
+                            <constraint firstAttribute="trailing" secondItem="7EX-S4-2Ib" secondAttribute="trailing" constant="8" id="9LF-Z5-BoD"/>
                             <constraint firstItem="7EX-S4-2Ib" firstAttribute="centerX" secondItem="FGb-ZS-tC7" secondAttribute="centerX" id="E1T-Z6-Oiu"/>
                             <constraint firstAttribute="trailing" secondItem="W85-7y-TjK" secondAttribute="trailing" constant="16" id="FBF-ak-UXq"/>
                             <constraint firstItem="W85-7y-TjK" firstAttribute="top" secondItem="0dk-aQ-xM4" secondAttribute="bottom" constant="16" id="ObS-MI-fA5"/>
-                            <constraint firstItem="f8K-Mc-jAo" firstAttribute="top" secondItem="7EX-S4-2Ib" secondAttribute="bottom" constant="24" id="T8v-Bm-vo5"/>
-                            <constraint firstItem="7EX-S4-2Ib" firstAttribute="top" secondItem="Fxv-5I-ELA" secondAttribute="bottom" constant="24" id="gFJ-3q-GUr"/>
+                            <constraint firstItem="7EX-S4-2Ib" firstAttribute="leading" secondItem="FGb-ZS-tC7" secondAttribute="leading" constant="8" id="R0b-2c-RiP"/>
+                            <constraint firstItem="f8K-Mc-jAo" firstAttribute="top" secondItem="7EX-S4-2Ib" secondAttribute="bottom" constant="64" id="T8v-Bm-vo5"/>
+                            <constraint firstItem="7EX-S4-2Ib" firstAttribute="top" secondItem="Fxv-5I-ELA" secondAttribute="bottom" constant="16" id="sZk-h0-StK"/>
                             <constraint firstItem="Fxv-5I-ELA" firstAttribute="centerX" secondItem="FGb-ZS-tC7" secondAttribute="centerX" id="vqA-vP-5ru"/>
-                            <constraint firstItem="f8K-Mc-jAo" firstAttribute="top" secondItem="W85-7y-TjK" secondAttribute="bottom" constant="114" id="wVl-Gm-wHm"/>
+                            <constraint firstItem="f8K-Mc-jAo" firstAttribute="top" secondItem="W85-7y-TjK" secondAttribute="bottom" constant="146" id="wVl-Gm-wHm"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Map Item" id="dtZ-G8-0nY">
@@ -640,8 +649,8 @@
         <image name="star" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kHE-6c-AZW"/>
-        <segue reference="Mvn-zf-tF7"/>
+        <segue reference="Y1R-oR-tQM"/>
         <segue reference="jQw-Gg-wZ9"/>
+        <segue reference="X7p-ib-fCH"/>
     </inferredMetricsTieBreakers>
 </document>
