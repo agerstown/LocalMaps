@@ -19,3 +19,14 @@ extension RangeReplaceableCollectionType where Generator.Element : Equatable {
     
 }
 
+extension NSDate {
+    func isGreaterThanDate(dateToCompare: NSDate) -> Bool {
+        
+        var isGreater = false
+        if self.compare(dateToCompare) == NSComparisonResult.OrderedDescending {
+            isGreater = true
+        }
+        return isGreater
+    }
+}
+

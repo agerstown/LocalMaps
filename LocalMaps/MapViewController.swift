@@ -124,8 +124,6 @@ class MapViewController: UIViewController {
             controller.mapView = mapView
             controller.map = map
             controller.mapViewController = self
-        } else if let controller = segue.destinationViewController as? MapListViewController {
-            controller.shouldAddAddButton = true
         }
     }
     

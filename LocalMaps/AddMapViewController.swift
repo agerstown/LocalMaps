@@ -262,6 +262,8 @@ class AddMapViewController: UIViewController {
             
             CommonMethodsForCotrollers.sharedInstance.showAlert(self, title: "Empty fields", message: message)
 
+        } else if (startDate!.isGreaterThanDate(endDate!)) {
+            CommonMethodsForCotrollers.sharedInstance.showAlert(self, title: "Incorrect time period", message: "Start date should be earlier than end")
         } else {
             let name = nameTextBox.text!
             let descr = descriptionTextBox.text!
@@ -312,12 +314,15 @@ class AddMapViewController: UIViewController {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
         dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        textField.text = dateFormatter.stringFromDate(datePicker.date)
         if (date == "start") {
             startDate = datePicker.date
         } else {
+            if let start = startDate {
+                datePicker.date = start
+            }
             endDate = datePicker.date
         }
+        textField.text = dateFormatter.stringFromDate(datePicker.date)
     }
     
     var date = "start"

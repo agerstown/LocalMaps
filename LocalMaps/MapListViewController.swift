@@ -15,11 +15,33 @@ class MapListViewController: UIViewController {
     @IBOutlet var tableViewMaps: UITableView!
     @IBOutlet weak var searchBarMap: UISearchBar!
     
-    var shouldAddAddButton: Bool?
-    
     var refreshControl: UIRefreshControl!
-    
+
     var mapsList = [Map]()
+    
+    var permanentMaps: [Map] {
+        get {
+            var mapsOfType = [Map]()
+            for map in mapsList {
+                if (map.type == Map.mapType.permanent) {
+                    mapsOfType.append(map)
+                }
+            }
+            return mapsOfType
+        }
+    }
+    
+    var temporaryMaps: [Map] {
+        get {
+            var mapsOfType = [Map]()
+            for map in mapsList {
+                if (map.type == Map.mapType.temporary) {
+                    mapsOfType.append(map)
+                }
+            }
+            return mapsOfType
+        }
+    }
     
     func getMapsList() {
         
@@ -66,21 +88,30 @@ class MapListViewController: UIViewController {
                         newMap.endDate = dateFormatter.dateFromString(endDate)
                     }
                     
-                    self.mapsList.append(newMap)
+                    User.currentUser?.maps.append(newMap)
                 }
                 
                 CommonMethodsForCotrollers.sharedInstance.stopActivityIndicator()
                 
-                User.currentUser?.maps = self.mapsList
+                self.copyToMapsList()
                 self.tableViewMaps.reloadData()
         }
     }
 
+    func copyToMapsList() {
+        mapsList.removeAll()
+        for map in (User.currentUser?.maps)! {
+            mapsList.append(map)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         User.currentUser = User(name: "user2", password: "blabla")
         getMapsList()
+        
+        searchBarMap.delegate = self
         
         tableViewMaps.delegate = self
         tableViewMaps.dataSource = self
@@ -137,9 +168,9 @@ extension MapListViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return User.currentUser!.permanentMaps.count
+            return permanentMaps.count
         } else {
-            return User.currentUser!.temporaryMaps.count
+            return temporaryMaps.count
         }
     }
     
@@ -148,15 +179,15 @@ extension MapListViewController: UITableViewDataSource {
         let cell = tableViewMaps.dequeueReusableCellWithIdentifier("MapItemCell") as! MapItemCell
         
         if indexPath.section == 0 {
-            cell.labelMapName.text = User.currentUser?.permanentMaps[indexPath.row].name
+            cell.labelMapName.text = permanentMaps[indexPath.row].name
             cell.labelMapPeriod.text = nil
         } else {
-            cell.labelMapName.text = User.currentUser?.temporaryMaps[indexPath.row].name
+            cell.labelMapName.text = temporaryMaps[indexPath.row].name
             
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
             
-            let startDate = User.currentUser?.temporaryMaps[indexPath.row].startDate
+            let startDate = temporaryMaps[indexPath.row].startDate
             cell.labelMapPeriod.text = dateFormatter.stringFromDate(startDate!)
         }
         return cell
@@ -174,12 +205,13 @@ extension MapListViewController: UITableViewDataSource {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             var mapToDelete: Map?
             if indexPath.section == 0 {
-                mapToDelete = User.currentUser?.permanentMaps[indexPath.row]
+                mapToDelete = permanentMaps[indexPath.row]
             }
             else {
-                mapToDelete = User.currentUser?.temporaryMaps[indexPath.row]
+                mapToDelete = temporaryMaps[indexPath.row]
             }
             User.currentUser?.maps.removeObject(mapToDelete!)
+            mapsList.removeObject(mapToDelete!)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
             deleteMap(mapToDelete!)
         }
@@ -193,9 +225,9 @@ extension MapListViewController: UITableViewDelegate {
         
         var map: Map?
         if indexPath.section == 0 {
-            map = User.currentUser?.permanentMaps[indexPath.row]
+            map = permanentMaps[indexPath.row]
         } else {
-            map = User.currentUser?.temporaryMaps[indexPath.row]
+            map = temporaryMaps[indexPath.row]
         }
 
         //убрать выделение ячейки
@@ -204,5 +236,37 @@ extension MapListViewController: UITableViewDelegate {
         self.performSegueWithIdentifier("mapListToMapItem", sender: map)
     }
     
+}
+
+extension MapListViewController: UISearchBarDelegate {
+    
+    func searchAutocompleteEntriesWithSubstring(substring: String)
+    {
+        mapsList.removeAll(keepCapacity: false)
+        
+        for map in (User.currentUser?.maps)!
+        {
+            let name: NSString! = map.name as NSString
+            let substringRange: NSRange! = name.rangeOfString(substring, options: [.CaseInsensitiveSearch])
+            if (substringRange.location  == 0 || substring == "") {
+                mapsList.append(map)
+            }
+        }
+        
+        tableViewMaps.reloadData()
+    }
+    
+    func searchBar(searchBar: UISearchBar, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        let substring = (searchBar.text! as NSString).stringByReplacingCharactersInRange(range, withString: text)
+        searchAutocompleteEntriesWithSubstring(substring)
+        return true
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBarMap.text = ""
+        searchBarMap.resignFirstResponder()
+        copyToMapsList()
+        tableViewMaps.reloadData()
+    }
 }
 
