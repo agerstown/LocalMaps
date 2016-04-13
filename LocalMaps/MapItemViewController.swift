@@ -34,7 +34,7 @@ class MapItemViewController: UIViewController {
             let period = dateFormatter.stringFromDate((map?.startDate!)!) + " - " + dateFormatter.stringFromDate((map?.endDate!)!)
             periodLabel.text = period
         } else {
-            imageViewConstraint.constant = 64
+            imageViewConstraint.constant = 122
             periodLabel.hidden = true
         }
         

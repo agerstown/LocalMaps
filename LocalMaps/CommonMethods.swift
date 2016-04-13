@@ -1,5 +1,5 @@
 //
-//  CommonMethodsForCotrollers.swift
+//  CommonMethods.swift
 //  LocalMaps
 //
 //  Created by Natalia Nikitina on 3/18/16.

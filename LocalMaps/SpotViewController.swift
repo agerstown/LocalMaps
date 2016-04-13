@@ -140,11 +140,7 @@ class SpotViewController: UIViewController {
             marker?.draggable = true
             
             if let image = image {
-                if (currentSpot?.pictureList.isEmpty == true) {
-                    currentSpot?.pictureList.append(image)
-                } else {
-                    currentSpot?.pictureList[0] = image
-                }
+                changeImage(currentSpot!, image: image)
             }
             
             marker?.title = nameTextBox.text
@@ -244,14 +240,21 @@ extension SpotViewController: UITableViewDelegate {
 }
 
 extension SpotViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func changeImage(spot: Spot, image: UIImage) {
+        if (spot.pictureList.isEmpty == true) {
+            spot.pictureList.append(image)
+        } else {
+            spot.pictureList[0] = image
+        }
+    }
+    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             image = pickedImage
             spotImageView.image = image
-            if (currentSpot?.pictureList.isEmpty == true) {
-                currentSpot?.pictureList.append(image!)
-            } else {
-                currentSpot?.pictureList[0] = image!
+            if let spot = currentSpot {
+                changeImage(spot, image: image)
             }
         }
         

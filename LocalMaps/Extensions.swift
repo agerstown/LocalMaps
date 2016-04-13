@@ -1,5 +1,5 @@
 //
-//  ArrayExtensions.swift
+//  Extensions.swift
 //  LocalMaps
 //
 //  Created by Natalia Nikitina on 3/31/16.

@@ -242,12 +242,20 @@ class AddMapViewController: UIViewController {
             mapToPass?.coordinate = selectedPlace?.coordinate
             
             if let image = image {
-                mapToPass?.images.append(image)
+                changeImage(mapToPass!, image: image) //mapToPass?.images.append(image)
             }
             
             postMap(mapToPass!)
             
             performSegueWithIdentifier("addMapToMapSegue", sender: nil)
+        }
+    }
+    
+    func changeImage(map: Map, image: UIImage) {
+        if map.images.isEmpty {
+            map.images.append(image)
+        } else {
+            map.images[0] = image
         }
     }
     
@@ -419,6 +427,9 @@ extension AddMapViewController: UIImagePickerControllerDelegate, UINavigationCon
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             image = pickedImage
+            if let map = mapToPass {
+                changeImage(map, image: image) //map.images[0] = image
+            }
         }
         
         dismissViewControllerAnimated(true, completion: nil)
