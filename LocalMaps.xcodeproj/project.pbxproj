@@ -231,12 +231,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 61F36E741C65171D00E7FA71 /* Build configuration list for PBXNativeTarget "LocalMaps" */;
 			buildPhases = (
-				54DFE7988B32425BE6421A51 /* 📦 Check Pods Manifest.lock */,
+				54DFE7988B32425BE6421A51 /* [CP] Check Pods Manifest.lock */,
 				61F36E481C65171D00E7FA71 /* Sources */,
 				61F36E491C65171D00E7FA71 /* Frameworks */,
 				61F36E4A1C65171D00E7FA71 /* Resources */,
-				CCBD397289B4FA48B71D5707 /* 📦 Embed Pods Frameworks */,
-				73F16D64A34897F0E66041F2 /* 📦 Copy Pods Resources */,
+				CCBD397289B4FA48B71D5707 /* [CP] Embed Pods Frameworks */,
+				73F16D64A34897F0E66041F2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -290,19 +290,22 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Natalia Nikitina";
 				TargetAttributes = {
 					61F36E4B1C65171D00E7FA71 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = 5H72FC97K4;
+						LastSwiftMigration = 0810;
 					};
 					61F36E5F1C65171D00E7FA71 = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0810;
 						TestTargetID = 61F36E4B1C65171D00E7FA71;
 					};
 					61F36E6A1C65171D00E7FA71 = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0810;
 						TestTargetID = 61F36E4B1C65171D00E7FA71;
 					};
 				};
@@ -355,29 +358,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		54DFE7988B32425BE6421A51 /* 📦 Check Pods Manifest.lock */ = {
+		54DFE7988B32425BE6421A51 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		73F16D64A34897F0E66041F2 /* 📦 Copy Pods Resources */ = {
+		73F16D64A34897F0E66041F2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,14 +388,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LocalMaps/Pods-LocalMaps-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CCBD397289B4FA48B71D5707 /* 📦 Embed Pods Frameworks */ = {
+		CCBD397289B4FA48B71D5707 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -503,8 +506,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -548,8 +553,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -568,6 +575,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -577,6 +585,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 88D5CA90F5364BF104194030 /* Pods-LocalMaps.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -589,6 +598,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LocalMaps/LocalMaps-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -596,6 +606,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC5A7FBA701CA4C099230122 /* Pods-LocalMaps.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -607,6 +618,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LocalMaps/LocalMaps-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -618,6 +630,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = natalia.LocalMapsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LocalMaps.app/LocalMaps";
 			};
 			name = Debug;
@@ -630,6 +643,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = natalia.LocalMapsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LocalMaps.app/LocalMaps";
 			};
 			name = Release;
@@ -641,6 +655,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = natalia.LocalMapsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = LocalMaps;
 				USES_XCTRUNNER = YES;
 			};
@@ -653,6 +668,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = natalia.LocalMapsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = LocalMaps;
 				USES_XCTRUNNER = YES;
 			};

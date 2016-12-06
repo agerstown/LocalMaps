@@ -36,13 +36,13 @@ class EventViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
 
-    func loadEventData(selectedEvent: Event?) {
+    func loadEventData(_ selectedEvent: Event?) {
         if let event = selectedEvent {
             eventNameTextField.text = event.name
-            formatAndSetDateToTextField(event.startTime!, textField: startTimeTextField)
-            formatAndSetDateToTextField(event.endTime!, textField: endTimeTextField)
+            formatAndSetDateToTextField(event.startTime! as Date, textField: startTimeTextField)
+            formatAndSetDateToTextField(event.endTime! as Date, textField: endTimeTextField)
             
-            addEventButton.setTitle("Save", forState: UIControlState.Normal)
+            addEventButton.setTitle("Save", for: UIControlState())
             self.title = "Edit event"
         }
     }
@@ -51,14 +51,14 @@ class EventViewController: UIViewController {
         self.view.endEditing(true)
     }
 
-    func formatAndSetDateToTextField(date: NSDate, textField: UITextField) {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        textField.text = dateFormatter.stringFromDate(date)
+    func formatAndSetDateToTextField(_ date: Date, textField: UITextField) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        textField.text = dateFormatter.string(from: date)
     }
     
-    func showSelectedTime(textField: UITextField) {
+    func showSelectedTime(_ textField: UITextField) {
         formatAndSetDateToTextField(timePicker.date, textField: textField)
         if (time == "start") {
             startTime = timePicker.date
@@ -67,10 +67,10 @@ class EventViewController: UIViewController {
         }
     }
     
-    var startTime: NSDate?
-    var endTime: NSDate?
+    var startTime: Date?
+    var endTime: Date?
     
-    @IBAction func timePickerValueChanged(sender: AnyObject) {
+    @IBAction func timePickerValueChanged(_ sender: AnyObject) {
         if (time == "start") {
             showSelectedTime(startTimeTextField)
         } else {
@@ -78,7 +78,7 @@ class EventViewController: UIViewController {
         }
     }
     
-    @IBAction func addEventButtonClicked(sender: AnyObject) {
+    @IBAction func addEventButtonClicked(_ sender: AnyObject) {
         
         if (eventNameTextField.text?.isEmpty == true || startTimeTextField.text?.isEmpty == true || endTimeTextField.text?.isEmpty == true) {
             
@@ -119,7 +119,7 @@ class EventViewController: UIViewController {
                 }
             }
             
-            navigationController?.popViewControllerAnimated(true)
+            navigationController?.popViewController(animated: true)
         }
         
     }
@@ -128,15 +128,15 @@ class EventViewController: UIViewController {
 extension EventViewController: UITextFieldDelegate {
     
     //когда нажали return
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
     //надо ли начать редактировать
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == startTimeTextField {
-            timePicker.hidden = false
+            timePicker.isHidden = false
             addButtonConstraint.constant = 240
             time = "start"
             if startTime == nil {
@@ -147,7 +147,7 @@ extension EventViewController: UITextFieldDelegate {
             dismissItems()
             return false
         } else if textField == endTimeTextField {
-            timePicker.hidden = false
+            timePicker.isHidden = false
             addButtonConstraint.constant = 240
             time = "end"
             if endTime == nil {
@@ -161,9 +161,9 @@ extension EventViewController: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if (textField == eventNameTextField) {
-            timePicker.hidden = true
+            timePicker.isHidden = true
             addButtonConstraint.constant = 8
         }
     }

@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import GooglePlaces
 
 class AddMapViewController: UIViewController {
 
@@ -70,30 +71,30 @@ class AddMapViewController: UIViewController {
             nameTextBox.text = map.name
             descriptionTextBox.text = map.descr
             if let place = map.place {
-                placeTextField.text = place.name!
+                placeTextField.text = place.name
             }
             if map.type == Map.mapType.temporary {
                 mapTypeSegmentedControl.selectedSegmentIndex = 1
                 settingForTemporaryMap()
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-                dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-                startDate = map.startDate
-                endDate = map.endDate
-                startDateTextField.text = dateFormatter.stringFromDate(startDate!)
-                endDateTextField.text = dateFormatter.stringFromDate(endDate!)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = DateFormatter.Style.short
+                dateFormatter.timeStyle = DateFormatter.Style.short
+                startDate = map.startDate as Date?
+                endDate = map.endDate as Date?
+                startDateTextField.text = dateFormatter.string(from: startDate!)
+                endDateTextField.text = dateFormatter.string(from: endDate!)
             }
             if let place = map.place {
                 placeTextField.text = place.name
             }
             type = (mapToPass?.type)!
-            addSpotsButton.hidden = true
-            saveButton.hidden = false
+            addSpotsButton.isHidden = true
+            saveButton.isHidden = false
             self.title = "Edit info"
         }
     }
     
-    @IBAction func saveButtonClicked(sender: AnyObject) {
+    @IBAction func saveButtonClicked(_ sender: AnyObject) {
         mapToPass?.name = nameTextBox.text!
         mapToPass?.descr = descriptionTextBox.text!
         mapToPass?.type = type
@@ -114,9 +115,9 @@ class AddMapViewController: UIViewController {
             mapToPass?.endDate = nil
         }
         
-        CommonMethods.sharedInstance.updateMap(mapToPass!)
+        //CommonMethods.sharedInstance.updateMap(mapToPass!)
         
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func dismissItems() {
@@ -125,7 +126,7 @@ class AddMapViewController: UIViewController {
     
     var type = Map.mapType.permanent
     
-    @IBAction func placeTextFieldEditingDidBegin(sender: AnyObject) {
+    @IBAction func placeTextFieldEditingDidBegin(_ sender: AnyObject) {
         if doesReallyEdit == true {
             resultsViewController = GMSAutocompleteResultsViewController()
             resultsViewController?.delegate = self
@@ -152,53 +153,55 @@ class AddMapViewController: UIViewController {
         }
     }
     
-    func postMap(map: Map) {
-        let name = map.name
-        let descr = map.descr
-        var long = 0.0
-        var lat = 0.0
-        if let coordinate = map.coordinate {
-            long = coordinate.longitude
-            lat = coordinate.latitude
-        }
-        let startDate = map.startDate
-        let endDate = map.endDate
-        var zoom: Float?
-        if let zooom = map.zoom {
-            zoom = zooom
-        } else {
-            zoom = 15
-        }
-        
-        var type: String?
-        var start = "None"
-        var end = "None"
-
-        var link = ""
-        
-        if map.type == Map.mapType.temporary {
-            type = "Temporary"
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "dd MM yyyy HH:mm:ss"
-            start = dateFormatter.stringFromDate(startDate!)
-            end = dateFormatter.stringFromDate(endDate!)
-            
-            link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_map&data={\"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\(zoom!)\",\"type\": \"\(type!)\",\"start_date\":\"\(start)\",\"end_date\":\"\(end)\",\"author\":\"Natasha\"}"
-        } else {
-            type = "Permanent"
-            
-            link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_map&data={\"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\(zoom!)\",\"type\": \"\(type!)\",\"author\":\"Natasha\"}"
-        }
+//    func postMap(_ map: Map) {
+//        let name = map.name
+//        let descr = map.descr
+//        var long = 0.0
+//        var lat = 0.0
+//        if let coordinate = map.coordinate {
+//            long = coordinate.longitude
+//            lat = coordinate.latitude
+//        }
+//        let startDate = map.startDate
+//        let endDate = map.endDate
+//        var zoom: Float?
+//        if let zooom = map.zoom {
+//            zoom = zooom
+//        } else {
+//            zoom = 15
+//        }
+//        
+//        var type: String?
+//        var start = "None"
+//        var end = "None"
+//
+//        var link = ""
+//        
+//        if map.type == Map.mapType.temporary {
+//            type = "Temporary"
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "dd MM yyyy HH:mm:ss"
+//            start = dateFormatter.string(from: startDate! as Date)
+//            end = dateFormatter.string(from: endDate! as Date)
+//            
+//            link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_map&data={\"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\(zoom!)\",\"type\": \"\(type!)\",\"start_date\":\"\(start)\",\"end_date\":\"\(end)\",\"author\":\"Natasha\"}"
+//        } else {
+//            type = "Permanent"
+//            
+//            link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_map&data={\"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\",\"zoom\": \"\(zoom!)\",\"type\": \"\(type!)\",\"author\":\"Natasha\"}"
+//        }
+//    
+//        link = link.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+//        
+//        
+//        
+//        Alamofire.request(link).responseJSON { response in
+//            let id = JSON(response.result.value!)
+//            self.mapToPass?.id = id.intValue
+//        }
+//    }
     
-        link = link.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
-        
-        Alamofire.request(.GET, link).responseJSON { response in
-            let id = JSON(response.result.value!)
-            self.mapToPass?.id = id.intValue
-        }
-    }
-    
-    @IBAction func addSpotsButtonClicked(sender: AnyObject) {
+    @IBAction func addSpotsButtonClicked(_ sender: AnyObject) {
         if (nameTextBox.text?.isEmpty == true || (startDateTextField.text?.isEmpty == true && type == Map.mapType.temporary) || (endDateTextField.text?.isEmpty == true && type == Map.mapType.temporary)) {
             
             var emptyFields = [String]()
@@ -245,13 +248,13 @@ class AddMapViewController: UIViewController {
                 changeImage(mapToPass!, image: image) //mapToPass?.images.append(image)
             }
             
-            postMap(mapToPass!)
+            //postMap(mapToPass!)
             
-            performSegueWithIdentifier("addMapToMapSegue", sender: nil)
+            performSegue(withIdentifier: "addMapToMapSegue", sender: nil)
         }
     }
     
-    func changeImage(map: Map, image: UIImage) {
+    func changeImage(_ map: Map, image: UIImage) {
         if map.images.isEmpty {
             map.images.append(image)
         } else {
@@ -260,21 +263,21 @@ class AddMapViewController: UIViewController {
     }
     
     func settingForTemporaryMap() {
-        startDateTextField.hidden = false
-        endDateTextField.hidden = false
+        startDateTextField.isHidden = false
+        endDateTextField.isHidden = false
         addSpotsButtonConstraint.constant = 88
         saveButtonConstraint.constant = 88
     
     }
     
-    @IBAction func mapTypeValueChanged(sender: AnyObject) {
+    @IBAction func mapTypeValueChanged(_ sender: AnyObject) {
         switch mapTypeSegmentedControl.selectedSegmentIndex
         {
             case 0:
                 type = Map.mapType.permanent
-                startDateTextField.hidden = true
-                endDateTextField.hidden = true
-                datePicker.hidden = true
+                startDateTextField.isHidden = true
+                endDateTextField.isHidden = true
+                datePicker.isHidden = true
                 addSpotsButtonConstraint.constant = 16
                 saveButtonConstraint.constant = 16
             case 1:
@@ -285,24 +288,24 @@ class AddMapViewController: UIViewController {
         }
     }
     
-    func showSelectedDate(textField: UITextField) {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+    func showSelectedDate(_ textField: UITextField) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        dateFormatter.timeStyle = DateFormatter.Style.short
         if (date == "start") {
             startDate = datePicker.date
         } else {
             endDate = datePicker.date
         }
-        textField.text = dateFormatter.stringFromDate(datePicker.date)
+        textField.text = dateFormatter.string(from: datePicker.date)
     }
     
     var date = "start"
     
-    var startDate: NSDate?
-    var endDate: NSDate?
+    var startDate: Date?
+    var endDate: Date?
     
-    @IBAction func datePickerValueChanged(sender: AnyObject) {
+    @IBAction func datePickerValueChanged(_ sender: AnyObject) {
         if (date == "start") {
             showSelectedDate(startDateTextField)
         } else {
@@ -313,14 +316,14 @@ class AddMapViewController: UIViewController {
     let imagePicker = UIImagePickerController()
     var image: UIImage?
     
-    @IBAction func addPhotosButtonClicked(sender: AnyObject) {
+    @IBAction func addPhotosButtonClicked(_ sender: AnyObject) {
         imagePicker.allowsEditing = false
-        imagePicker.sourceType = .PhotoLibrary
-        presentViewController(imagePicker, animated: true, completion: nil)
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let controller = segue.destinationViewController as? MapViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? MapViewController {
             //if let image = image {
             //    mapToPass!.images.append(image)
             //}
@@ -335,15 +338,15 @@ class AddMapViewController: UIViewController {
 
 extension AddMapViewController: UITextFieldDelegate {
     //когда нажали return
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
     //надо ли начать редактировать
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == startDateTextField {
-            datePicker.hidden = false
+            datePicker.isHidden = false
             addSpotsButtonConstraint.constant = 296
             saveButtonConstraint.constant = 296
             date = "start"
@@ -355,7 +358,7 @@ extension AddMapViewController: UITextFieldDelegate {
             dismissItems()
             return false
         } else if textField == endDateTextField {
-            datePicker.hidden = false
+            datePicker.isHidden = false
             addSpotsButtonConstraint.constant = 296
             saveButtonConstraint.constant = 296
             date = "end"
@@ -370,9 +373,9 @@ extension AddMapViewController: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if (textField == nameTextBox || textField == descriptionTextBox || textField == placeTextField) {
-            datePicker.hidden = true
+            datePicker.isHidden = true
             if (type == Map.mapType.permanent) {
                 addSpotsButtonConstraint.constant = 16
                 saveButtonConstraint.constant = 16
@@ -386,15 +389,15 @@ extension AddMapViewController: UITextFieldDelegate {
 }
 
 extension AddMapViewController: GMSAutocompleteResultsViewControllerDelegate {
-    func resultsController(resultsController: GMSAutocompleteResultsViewController,
-        didAutocompleteWithPlace place: GMSPlace) {
+    func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
+        didAutocompleteWith place: GMSPlace) {
             selectedPlace = place
             placeTextField.text = selectedPlace?.name
             hideSearchBar()
     }
     
     func hideSearchBar() {
-        searchController?.active = false
+        searchController?.isActive = false
         searchBarConstraint.constant = 0
         nameConstraint.constant = 16
         for view in searchBarHolderView.subviews {
@@ -402,40 +405,40 @@ extension AddMapViewController: GMSAutocompleteResultsViewControllerDelegate {
         }
     }
     
-    func resultsController(resultsController: GMSAutocompleteResultsViewController,
-        didFailAutocompleteWithError error: NSError){
-            print("Error: ", error.description)
+    func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
+        didFailAutocompleteWithError error: Error){
+            print("Error: ", error.localizedDescription)
     }
     
     // Turn the network activity indicator on and off again.
-    func didRequestAutocompletePredictionsForResultsController(resultsController: GMSAutocompleteResultsViewController) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    func didRequestAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
     
-    func didUpdateAutocompletePredictionsForResultsController(resultsController: GMSAutocompleteResultsViewController) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    func didUpdateAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 }
 
 extension AddMapViewController: UISearchBarDelegate {
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         hideSearchBar()
     }
 }
 
 extension AddMapViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             image = pickedImage
             if let map = mapToPass {
-                changeImage(map, image: image) //map.images[0] = image
+                changeImage(map, image: image!) 
             }
         }
         
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }

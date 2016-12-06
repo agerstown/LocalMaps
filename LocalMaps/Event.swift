@@ -11,10 +11,10 @@ import UIKit
 class Event: NSObject {
 
     var name: String
-    var startTime: NSDate?
-    var endTime: NSDate?
+    var startTime: Date?
+    var endTime: Date?
     
-    init(name: String, startTime: NSDate, endTime: NSDate) {
+    init(name: String, startTime: Date, endTime: Date) {
         self.name = name
         self.startTime = startTime
         self.endTime = endTime

@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import GooglePlaces
 
 @objc(Map)
 class Map: NSObject {
@@ -30,8 +31,8 @@ class Map: NSObject {
     var zoom: Float?
     var creator: String?
     
-    var startDate: NSDate?
-    var endDate: NSDate?
+    var startDate: Date?
+    var endDate: Date?
     
     var images: [UIImage] = [UIImage]()
    

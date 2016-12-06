@@ -24,67 +24,68 @@ class MapItemViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.title = map!.name
         
         if map?.type == Map.mapType.temporary { 
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-            dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-            let period = dateFormatter.stringFromDate((map?.startDate!)!) + " - " + dateFormatter.stringFromDate((map?.endDate!)!)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = DateFormatter.Style.short
+            dateFormatter.timeStyle = DateFormatter.Style.short
+            let period = dateFormatter.string(from: (map?.startDate!)! as Date) + " - " + dateFormatter.string(from: (map?.endDate!)! as Date)
             periodLabel.text = period
         } else {
             imageViewConstraint.constant = 122
-            periodLabel.hidden = true
+            periodLabel.isHidden = true
         }
         
         labelMapDescription.text = map!.descr
+        
+        if map?.id == 1 {
+            map?.images.append((UIImage(named: "hse_day"))!)
+        } else if map?.id == 2 {
+            map?.images.append((UIImage(named: "sokolniki"))!)
+        }
+        
         if map!.images.count != 0 {
             imageViewMap.image = map!.images[0]
         }
     }
     
-    @IBAction func mapButtonClicked(sender: AnyObject) {
+    @IBAction func mapButtonClicked(_ sender: AnyObject) {
         getSpots(map!)
+        performSegue(withIdentifier: "MapItemToMapSegue", sender: nil)
     }
     
-    func getSpots(map: Map) {
-        
-        CommonMethods.sharedInstance.startActivityIndicator(self)
+    func getSpots(_ map: Map) {
         
         map.spotList.removeAll()
         
-        Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/items.json?method=get_spots&map_id=\(map.id!)")
-            .responseJSON { response in
-                let spots = JSON(response.result.value!)
-                for spot in spots.arrayValue {
-                    let id = spot["id"].intValue
-                    let name = spot["name"].stringValue
-                    let descr = spot["description"].stringValue
-                    let longitude = spot["longitude"].doubleValue
-                    let latitude = spot["latitude"].doubleValue
-                    let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                    let type = spot["type"].stringValue
-                    
-                    let newSpot = Spot(name: name, descr: descr, coordinate: coordinate)
-                    newSpot.type = type
-                    newSpot.id = id
-                    map.spotList.append(newSpot)
-                }
-                
-                CommonMethods.sharedInstance.stopActivityIndicator()
-                
-                self.performSegueWithIdentifier("MapItemToMapSegue", sender: nil)
-        }
+        let coord1 = CLLocationCoordinate2D(latitude: 55.729730, longitude: 37.601215)
+        let spot1 = Spot(name: "Кафе", descr: "Здесь можно вкусно покушать", coordinate: coord1)
+        spot1.type = "Dining"
+        map.spotList.append(spot1)
+        
+        let coord2 = CLLocationCoordinate2D(latitude: 55.729358, longitude: 37.605801)
+        let spot2 = Spot(name: "Лекторий", descr: "Здесь можно послушать разные выступления", coordinate: coord2)
+        spot2.type = "Star"
+        spot2.id = 1
+        map.spotList.append(spot2)
+        
+        let coord3 = CLLocationCoordinate2D(latitude: 55.729582, longitude: 37.597593)
+        let spot3 = Spot(name: "Прокат", descr: "Здесь можно взять велосипед, самокат или скейт напрокат", coordinate: coord3)
+        spot3.type = "Bike"
+        map.spotList.append(spot3)
+        
     }
+
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
          self.title = "Back"
         //куда мы направляемся
-        if let controller = segue.destinationViewController as? MapViewController {
+        if let controller = segue.destination as? MapViewController {
             controller.title = map!.name
             controller.map = map
-        } else if let controller = segue.destinationViewController as? AddMapViewController {
+        } else if let controller = segue.destination as? AddMapViewController {
             controller.mapToPass = map
         }
     }

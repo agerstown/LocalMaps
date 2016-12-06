@@ -48,10 +48,10 @@ class SpotViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        selectedEvent = nil
         loadSpotData()
         eventsTableView.reloadData()
-        selectedEvent = nil
     }
     
     func loadSpotData() {
@@ -66,13 +66,36 @@ class SpotViewController: UIViewController {
         if currentSpot?.pictureList.isEmpty == false {
             spotImageView.image = currentSpot?.pictureList[0]
         }
+        if currentSpot?.id == 1 {
+            //currentSpot?.eventList.removeAll()
+            
+            let start1 = CommonMethods.sharedInstance.getDate(hour: 12)
+            let end1 = CommonMethods.sharedInstance.getDate(hour: 13)
+            let event1 = Event(name: "Лекция К.Хабенского", startTime: start1, endTime: end1)
+            
+            let start2 = CommonMethods.sharedInstance.getDate(hour: 13)
+            let end2 = CommonMethods.sharedInstance.getDate(hour: 14)
+            let event2 = Event(name: "Выступление В.Путина", startTime: start2, endTime: end2)
+            
+            let containsDefault = currentSpot?.eventList.contains { event in
+                if event.name == "Выступление В.Путина" || event.name == "Лекция К.Хабенского" {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            if !containsDefault! {
+                currentSpot?.eventList.append(event1)
+                currentSpot?.eventList.append(event2)
+            }
+        }
     }
     
     func dismissItems() {
         self.view.endEditing(true)
     }
     
-    @IBAction func addEventClicked(sender: AnyObject) {
+    @IBAction func addEventClicked(_ sender: AnyObject) {
         if (currentSpot == nil) {
             if (nameTextBox.text?.isEmpty == true) {
                 CommonMethods.sharedInstance.showAlert(self, title: "Empty name field", message: "Please enter a name of the spot")
@@ -83,29 +106,29 @@ class SpotViewController: UIViewController {
                 currentSpot = Spot(name: name, descr: descr, coordinate: coordinate!)
             }
         }
-        performSegueWithIdentifier("spotToAddEventSegue", sender: nil)
+        performSegue(withIdentifier: "spotToAddEventSegue", sender: nil)
     }
     
-    func postSpot(spot: Spot) {
-        let name = spot.name
-        let descr = spot.descr
-        let long = spot.coordinate.longitude
-        let lat = spot.coordinate.latitude
-        let type = spot.type
-        let map_id = (map!.id)!
-        
-        var link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_spot&data={\"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\", \"type\":\"\(type)\",\"map\": \(map_id)}"
-        link = link.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
-        
-        Alamofire.request(.GET, link) .responseJSON { response in
-            let id = JSON(response.result.value!)
-            spot.id = id.intValue
-        }
-    }
+//    func postSpot(_ spot: Spot) {
+//        let name = spot.name
+//        let descr = spot.descr
+//        let long = spot.coordinate.longitude
+//        let lat = spot.coordinate.latitude
+//        let type = spot.type
+//        let map_id = (map!.id)!
+//        
+//        var link = "http://maps-staging.sandbox.daturum.ru/maps/views/11-items.html?method=add_spot&data={\"name\":\"\(name)\",\"description\":\"\(descr)\",\"longitude\":\"\(long)\",\"latitude\":\"\(lat)\", \"type\":\"\(type)\",\"map\": \(map_id)}"
+//        link = link.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+//        
+//        Alamofire.request(link) .responseJSON { response in
+//            let id = JSON(response.result.value!)
+//            spot.id = id.intValue
+//        }
+//    }
 
     var type: String?
     
-    @IBAction func createSpotButtonClicked(sender: AnyObject) {
+    @IBAction func createSpotButtonClicked(_ sender: AnyObject) {
         if nameTextBox.text?.isEmpty == true {
             CommonMethods.sharedInstance.showAlert(self, title: "Empty name field", message: "Please enter a name of the spot")
         } else {
@@ -120,7 +143,7 @@ class SpotViewController: UIViewController {
                 if let type = type {
                     currentSpot?.type = type
                 }
-                postSpot(currentSpot!)
+                //postSpot(currentSpot!)
             } else {
                 currentSpot?.name = name
                 currentSpot?.descr = descr
@@ -128,7 +151,7 @@ class SpotViewController: UIViewController {
                 if let type = type {
                     currentSpot?.type = type
                 }
-                CommonMethods.sharedInstance.updateSpot(currentSpot!, map: map!)
+                //CommonMethods.sharedInstance.updateSpot(currentSpot!, map: map!)
             }
             if (map?.spotList.contains(currentSpot!) == false) {
                 map?.spotList.append(currentSpot!)
@@ -137,7 +160,7 @@ class SpotViewController: UIViewController {
             mapViewController?.markerToSpotDictionary[marker!] = currentSpot
             
             marker?.map = mapView
-            marker?.draggable = true
+            marker?.isDraggable = true
             
             if let image = image {
                 changeImage(currentSpot!, image: image)
@@ -149,35 +172,35 @@ class SpotViewController: UIViewController {
             
             mapView?.selectedMarker = marker
             
-            navigationController?.popViewControllerAnimated(true)
+            navigationController?.popViewController(animated: true)
         }
     }
     
     let imagePicker = UIImagePickerController()
     var image: UIImage?
     
-    @IBAction func addPictureButtonClicked(sender: AnyObject) {
+    @IBAction func addPictureButtonClicked(_ sender: AnyObject) {
         imagePicker.allowsEditing = false
-        imagePicker.sourceType = .PhotoLibrary
-        presentViewController(imagePicker, animated: true, completion: nil)
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
     }
     
-    func deleteSpot(spot: Spot) {
-        Alamofire.request(.GET, "http://maps-staging.sandbox.daturum.ru/maps/items.json?method=destroy_spot&spot_id=\(spot.id!)&map_id=\((map?.id)!)")
-    }
+//    func deleteSpot(_ spot: Spot) {
+//        Alamofire.request("http://maps-staging.sandbox.daturum.ru/maps/items.json?method=destroy_spot&spot_id=\(spot.id!)&map_id=\((map?.id)!)")
+//    }
     
-    @IBAction func deleteButtonClicked(sender: AnyObject) {
+    @IBAction func deleteButtonClicked(_ sender: AnyObject) {
         if let spot = currentSpot {
             map?.spotList.removeObject(spot)
-            deleteSpot(spot)
-            navigationController?.popViewControllerAnimated(true)
+            //deleteSpot(spot)
+            navigationController?.popViewController(animated: true)
         }
     }
     
     var selectedEvent: Event?
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let controller = segue.destinationViewController as? EventViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? EventViewController {
             controller.spot = currentSpot
             controller.currentEvent = selectedEvent
         }
@@ -185,7 +208,7 @@ class SpotViewController: UIViewController {
 }
 
 extension SpotViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
@@ -193,7 +216,7 @@ extension SpotViewController: UITextFieldDelegate {
 
 extension SpotViewController: UITableViewDataSource {
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let count = currentSpot?.eventList.count {
             return count
         } else {
@@ -201,30 +224,30 @@ extension SpotViewController: UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = eventsTableView.dequeueReusableCellWithIdentifier("EventTableViewCell") as! EventTableViewCell
+        let cell = eventsTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell") as! EventTableViewCell
 
         cell.eventNameLabel.text = currentSpot?.eventList[indexPath.row].name
         
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = DateFormatter.Style.short
             
         let startTime = currentSpot?.eventList[indexPath.row].startTime
         let endTime = currentSpot?.eventList[indexPath.row].endTime
-        cell.periodLabel.text = dateFormatter.stringFromDate(startTime!) + " - " + dateFormatter.stringFromDate(endTime!)
+        cell.periodLabel.text = dateFormatter.string(from: startTime! as Date) + " - " + dateFormatter.string(from: endTime! as Date)
         
         return cell
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.Delete) {
-            currentSpot?.eventList.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            currentSpot?.eventList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
         }
     }
 }
@@ -232,16 +255,16 @@ extension SpotViewController: UITableViewDataSource {
 
 extension SpotViewController: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedEvent = currentSpot?.eventList[indexPath.row]
-        self.performSegueWithIdentifier("spotToAddEventSegue", sender: nil)
-        eventsTableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.performSegue(withIdentifier: "spotToAddEventSegue", sender: nil)
+        eventsTableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 extension SpotViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func changeImage(spot: Spot, image: UIImage) {
+    func changeImage(_ spot: Spot, image: UIImage) {
         if (spot.pictureList.isEmpty == true) {
             spot.pictureList.append(image)
         } else {
@@ -249,31 +272,31 @@ extension SpotViewController: UIImagePickerControllerDelegate, UINavigationContr
         }
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             image = pickedImage
             spotImageView.image = image
             if let spot = currentSpot {
-                changeImage(spot, image: image)
+                changeImage(spot, image: image!)
             }
         }
         
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
 extension SpotViewController: UICollectionViewDataSource {
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return types.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SpotTypeCell", forIndexPath: indexPath) as! SpotTypeCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SpotTypeCell", for: indexPath) as! SpotTypeCell
         let image = UIImage(named: types[indexPath.row])
         cell.layer.borderWidth = 0
         if (types[indexPath.row] == currentSpot?.type) {
@@ -286,21 +309,21 @@ extension SpotViewController: UICollectionViewDataSource {
 
 extension SpotViewController: UICollectionViewDelegate {
     
-    func highlightCell(cell: UICollectionViewCell) {
+    func highlightCell(_ cell: UICollectionViewCell) {
         cell.layer.borderWidth = 1
-        cell.layer.borderColor = UIColor.redColor().CGColor
+        cell.layer.borderColor = UIColor.red.cgColor
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
-        collectionView.visibleCells().forEach { $0.layer.borderWidth = 0 }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        collectionView.visibleCells.forEach { $0.layer.borderWidth = 0 }
         highlightCell(cell!)
         type = types[indexPath.row]
         //currentSpot?.type = type!
     }
     
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderWidth = 0
     }
 }
